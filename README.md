@@ -6,6 +6,29 @@ This project is just my playground project. It was created using this command:
 mix phx.new ex_app --no-ecto --no-webpack
 ```
 
+## Getting started
+
+A Linux OS is the recommended environment for running this application. 
+
+Install [Docker](https://www.docker.com/get-started) and [asdf](https://asdf-vm.com/) and execute the following plugins:
+
+```bash
+# Elixir/Erlang
+apt-get -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.0-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop
+asdf plugin-add erlang
+asdf plugin-add elixir
+
+# NodeJS
+apt-get install dirmngr gpg
+asdf plugin-add nodejs
+
+# Add the following to your ~/.bashrc to make global package installation work
+export PATH=$PATH:/usr/local/lib/npm/bin
+
+# While being the application main folder run this install the versions specified in the .tool-versions file:
+asdf install
+```
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
