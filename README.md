@@ -29,14 +29,25 @@ export PATH=$PATH:/usr/local/lib/npm/bin
 asdf install
 ```
 
-To start your Phoenix server:
+## Running
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server`
+You can setup the application by running the following make commands:
+
+```bash
+make setup
+make run
+```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Running in docker
+
+To build a docker image and run it you can use this commands:
+
+```
+make docker
+make run_docker
+```
 
 ## Learn more
 

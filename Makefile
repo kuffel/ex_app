@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 VERSION=`cat ./VERSION`
 DOCKER_BUILD_DIR=_build/prod/rel/ex_app
-ROOT_DIR=$(realpath $(shell pwd))
+WORK_DIR=$(realpath $(shell pwd))
 DOCKER_TAG ?= latest
 .DEFAULT_GOAL := help
 
@@ -24,3 +24,22 @@ run: ## Start the application
 
 release: ## Build a release package
 	MIX_ENV=prod mix release --overwrite
+
+docker_release: ## Build a release within docker
+	docker run --rm \
+	-v $(WORK_DIR):/opt/ex_app \
+	-w /opt/ex_app elixir:1.10.3 \
+	/bin/bash -c "\
+	mix local.hex --force && \
+	mix local.rebar --force && \
+  	mix deps.get && \
+  	MIX_ENV=prod mix do compile --force, release --overwrite && \
+	cp Dockerfile /opt/ex_app/_build/prod/rel/ex_app && \
+ 	chown $(shell id -u):$(shell id -g) /opt/ex_app/* -R"
+
+docker: ## Build a docker image
+	make docker_release
+	docker build $(DOCKER_BUILD_DIR) --build-arg version=$(VERSION) -t kuffel/ex_app:$(DOCKER_TAG)
+
+docker_run: ## Runs the latest image
+	docker run --name ex_app --net=host -d -t kuffel/ex_app:$(DOCKER_TAG)
