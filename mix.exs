@@ -10,7 +10,14 @@ defmodule ExApp.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -44,7 +51,8 @@ defmodule ExApp.MixProject do
       {:plug_cowboy, "~> 2.0"},
 
       # Custom dependencies
-      {:credo, "~> 1.1", runtime: false}
+      {:credo, "~> 1.1", runtime: false},
+      {:excoveralls, "~> 0.11.2", only: [:test]}
     ]
   end
 
