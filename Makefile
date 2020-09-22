@@ -21,3 +21,6 @@ review: ## Run formatting checks, static code analysis and tests
 
 run: ## Start the application
 	iex -S mix phx.server
+
+release: ## Build a release package
+	MIX_ENV=prod mix release --overwrite
