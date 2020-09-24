@@ -1,24 +1,184 @@
-# Elixir CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-elixir/ for more details
-version: 2
+version: 2.1
+# https://www.erlang-solutions.com/blog/using-circleci-for-continuous-integration-of-elixir-projects.html
+# https://circleci.com/docs/2.0/language-elixir/
 jobs:
   build:
     docker:
-      # specify the version here
       - image: circleci/elixir:1.10
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
+        environment:
+          MIX_ENV: test
     steps:
       - checkout
+      - run:
+          name: Print environment
+          command: printenv
+      - run:
+          name: Setup Rebar and Hex
+          command: mix local.hex --force && mix local.rebar --force
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+      - run:
+          name: Compile dependencies
+          command: mix do deps.get, deps.compile
+      - save_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - ~/.mix
+            - _build
+      - run:
+          name: Check formatting
+          command: mix format --check-formatted
+      - run:
+          name: Static code analysis
+          command: mix credo
+      - run:
+          name: Compile
+          command: mix compile --force --warnings-as-errors
+      - run:
+          name: Unit tests
+          command: mix coveralls.html --trace
+      - store_artifacts:
+          path: cover
+          destination: coverage_results
+      - store_test_results:
+          path: _build/test/lib/ex_app
+      - run:
+          name: Build documentation
+          command: mix docs
+      - run:
+          name: ZIP documentation
+          command: zip -r documentation.zip doc
+      - store_artifacts:
+          path: documentation.zip
+      - store_artifacts:
+          path: doc
 
-      # specify any bash command here prefixed with `run: `
-      - run: mix local.hex --force
-      - run: mix local.rebar --force
-      - run: mix deps.get
-      - run: mix test
+#  build_docker:
+#    machine:
+#      image: circleci/classic:201808-01
+#    steps:
+#      - checkout
+#      - run:
+#          name: Pulling Elixir image
+#          command: docker pull elixir:1.10.3
+#      - run:
+#          name: Build docker image
+#          command: make docker
+
+
+########################################################################################################################
+# Advanced format
+########################################################################################################################
+#
+#version: 2.1
+#commands:
+#  setup_elixir:
+#      steps:
+#        - run: mix local.hex --force
+#        - run: mix local.rebar --force
+#  get_dependencies:
+#      steps:
+#        - checkout
+#        - run: mix deps.get
+#  build_and_test:
+#      steps:
+#        - run: mix compile --force --warnings-as-errors
+#        - run: mix format --check-formatted
+#        - run: mix credo
+#        - run: mix coveralls.html --trace
+#  pull_elixir:
+#      steps:
+#        - run: docker pull elixir:1.10.3
+#  build_image:
+#      steps:
+#        - run: make docker
+#
+#
+#executors:
+#  docker-executor:
+#      docker:
+#        - image: circleci/elixir:1.10
+#  machine-executor:
+#      machine:
+#        image: circleci/classic:201808-01
+#
+#
+#jobs:
+#  build:
+#      executor: docker-executor
+#      steps:
+#        - setup_elixir
+#        - get_dependencies
+#        - build_and_test
+#  docker:
+#      executor: machine-executor
+#      steps:
+#        - pull_elixir
+#        - build_image
+#
+#workflows:
+#    verify_source:
+#        jobs:
+#          - build
+#    docker_image:
+#        jobs:
+#          - checkout
+#          - docker
+
+
+########################################################################################################################
+## SIMPLE FORMAT - WORKING ONE AFTER ANOTHER
+########################################################################################################################
+
+#version: 2.1
+#jobs:
+#  tests:
+#    docker:
+#      - image: circleci/elixir:1.10
+#    steps:
+#      - checkout
+#      - run: mix local.hex --force
+#      - run: mix local.rebar --force
+#      - run: mix deps.get
+#      - run: mix test
+#
+#  build:
+#    machine:
+#      image: circleci/classic:201808-01
+#    steps:
+#      - checkout
+#      - run:
+#          name: Pulling Elixir image
+#          command: docker pull elixir:1.10.3
+#      - run:
+#          name: Build docker image
+#          command: make docker
+
+########################################################################################################################
+## Elixir CircleCI 2.0 configuration file
+##
+## Check https://circleci.com/docs/2.0/language-elixir/ for more details
+#version: 2
+#jobs:
+#  build:
+#    docker:
+#      # specify the version here
+#      - image: circleci/elixir:1.10
+#
+#      # Specify service dependencies here if necessary
+#      # CircleCI maintains a library of pre-built images
+#      # documented at https://circleci.com/docs/2.0/circleci-images/
+#      # - image: circleci/postgres:9.4
+#
+#    working_directory: ~/repo
+#    steps:
+#      - checkout
+#      - setup_remote_docker
+#
+#      - run: printenv
+#      - run: mix local.hex --force
+#      - run: mix local.rebar --force
+#      - run: mix deps.get
+#      - run: mix test
+#      - run: docker pull elixir:1.10.3

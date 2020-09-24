@@ -17,6 +17,14 @@ defmodule ExApp.MixProject do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
+      ],
+      # Docs
+      name: "ExApp",
+      source_url: "https://github.com/kuffel/ex_app",
+      homepage_url: "https://github.com/kuffel/ex_app",
+      docs: [
+        main: "ExApp",
+        extras: ["README.md"]
       ]
     ]
   end
@@ -52,7 +60,9 @@ defmodule ExApp.MixProject do
 
       # Custom dependencies
       {:credo, "~> 1.1", runtime: false},
-      {:excoveralls, "~> 0.11.2", only: [:test]}
+      {:excoveralls, "~> 0.11.2", only: [:test]},
+      {:junit_formatter, "~> 3.1", only: [:test]},
+      {:ex_doc, "~> 0.22", only: [:dev, :test], runtime: false}
     ]
   end
 

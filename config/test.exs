@@ -8,3 +8,8 @@ config :ex_app, ExAppWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :junit_formatter,
+  print_report_file: true,
+  prepend_project_name?: false,
+  include_filename?: true
