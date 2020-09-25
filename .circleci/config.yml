@@ -1,17 +1,22 @@
 version: 2.1
-# https://www.erlang-solutions.com/blog/using-circleci-for-continuous-integration-of-elixir-projects.html
-# https://circleci.com/docs/2.0/language-elixir/
-jobs:
-  build:
-    docker:
-      - image: circleci/elixir:1.10
-        environment:
-          MIX_ENV: test
+
+orbs:
+  aws-cli: circleci/aws-cli@1.3.0
+  aws-ecr: circleci/aws-ecr@6.12.2
+
+executors:
+  docker-executor:
+      docker:
+        - image: circleci/elixir:1.10
+          environment:
+            MIX_ENV: test
+  machine-executor:
+      machine:
+        image: circleci/classic:201808-01
+
+commands:
+  setup_elixir:
     steps:
-      - checkout
-      - run:
-          name: Print environment
-          command: printenv
       - run:
           name: Setup Rebar and Hex
           command: mix local.hex --force && mix local.rebar --force
@@ -26,15 +31,33 @@ jobs:
             - deps
             - ~/.mix
             - _build
+jobs:
+  check_build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_elixir
       - run:
           name: Check formatting
           command: mix format --check-formatted
       - run:
           name: Static code analysis
           command: mix credo
+
+  build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_elixir
       - run:
-          name: Compile
+          name: Compile application
           command: mix compile --force --warnings-as-errors
+
+  test:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_elixir
       - run:
           name: Unit tests
           command: mix coveralls.html --trace
@@ -43,6 +66,12 @@ jobs:
           destination: coverage_results
       - store_test_results:
           path: _build/test/lib/ex_app
+
+  documentation:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_elixir
       - run:
           name: Build documentation
           command: mix docs
@@ -53,6 +82,196 @@ jobs:
           path: documentation.zip
       - store_artifacts:
           path: doc
+
+  docker:
+    executor: machine-executor
+    steps:
+      - checkout
+      - aws-cli/setup
+      - aws-ecr/ecr-login
+      - run:
+          name: Build docker image
+          command: make docker
+      - run:
+          name: Push docker image
+          command: |
+            docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:latest
+            docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:latest
+
+workflows:
+  version: 2
+  builds:
+      jobs:
+        - check_build
+        - build:
+            requires:
+              - check_build
+        - test:
+            requires:
+              - build
+        - documentation:
+            requires:
+              - check_build
+              - build
+        - docker:
+            requires:
+              - test
+
+
+
+########################################################################################################################
+# Advanced pipeline with Orbs and Workflows
+########################################################################################################################
+
+#orbs:
+#  aws-cli: circleci/aws-cli@1.3.0
+#  # https://circleci.com/orbs/registry/orb/circleci/aws-ecr
+#  # https://circleci.com/orbs/registry/orb/circleci/docker
+#  # https://circleci.com/orbs/registry/orb/circleci/node
+#  # https://circleci.com/orbs/registry/orb/circleci/python
+#  # https://circleci.com/orbs/registry/orb/circleci/shellcheck
+#  # https://circleci.com/orbs/registry/orb/circleci/terraform
+#
+#executors:
+#  docker-executor:
+#      docker:
+#        - image: circleci/elixir:1.10
+#          environment:
+#            MIX_ENV: test
+#  machine-executor:
+#      machine:
+#        image: circleci/classic:201808-01
+#
+#
+#jobs:
+#  build1:
+#    executor: docker-executor
+#    steps:
+#      - checkout
+#      - run:
+#          name: Step 1.1
+#          command: mix local.hex --force && mix local.rebar --force
+#
+#  build2:
+#    executor: docker-executor
+#    steps:
+#      - checkout
+#      - run:
+#          name: Step 2.1
+#          command: mix local.hex --force && mix local.rebar --force
+#
+#  build3:
+#    executor: docker-executor
+#    steps:
+#      - checkout
+#      - run:
+#          name: Step 3.1
+#          command: mix local.hex --force && mix local.rebar --force
+#
+#  build4:
+#    executor: docker-executor
+#    steps:
+#      - checkout
+#      - run:
+#          name: Step 4.1
+#          command: mix local.hex --force && mix local.rebar --force
+#
+#  build5:
+#    executor: machine-executor
+#    steps:
+#      - checkout
+#      - run:
+#          name: Pulling Elixir image
+#          command: docker pull elixir:1.10.3
+#
+#  build6:
+#    executor: machine-executor
+#    steps:
+#      - checkout
+#      - aws-cli/setup
+#      - run:
+#          name: List buckets
+#          command: aws s3 ls
+#
+#
+#workflows:
+#  version: 2
+#  builds:
+#      jobs:
+#        - build5:
+#            requires:
+#              - build1
+#              - build2
+#              - build3
+#              - build4
+#        - build4
+#        - build3
+#        - build2:
+#            requires:
+#              - build1
+#        - build1
+#        - build6
+
+
+########################################################################################################################
+# Simple Elixir pipeline
+########################################################################################################################
+
+#version: 2.1
+## https://www.erlang-solutions.com/blog/using-circleci-for-continuous-integration-of-elixir-projects.html
+## https://circleci.com/docs/2.0/language-elixir/
+#jobs:
+#  build:
+#    docker:
+#      - image: circleci/elixir:1.10
+#        environment:
+#          MIX_ENV: test
+#    steps:
+#      - checkout
+#      - run:
+#          name: Print environment
+#          command: printenv
+#      - run:
+#          name: Setup Rebar and Hex
+#          command: mix local.hex --force && mix local.rebar --force
+#      - restore_cache:
+#          key: deps-cache-{{ checksum "mix.lock" }}
+#      - run:
+#          name: Compile dependencies
+#          command: mix do deps.get, deps.compile
+#      - save_cache:
+#          key: deps-cache-{{ checksum "mix.lock" }}
+#          paths:
+#            - deps
+#            - ~/.mix
+#            - _build
+#      - run:
+#          name: Check formatting
+#          command: mix format --check-formatted
+#      - run:
+#          name: Static code analysis
+#          command: mix credo
+#      - run:
+#          name: Compile
+#          command: mix compile --force --warnings-as-errors
+#      - run:
+#          name: Unit tests
+#          command: mix coveralls.html --trace
+#      - store_artifacts:
+#          path: cover
+#          destination: coverage_results
+#      - store_test_results:
+#          path: _build/test/lib/ex_app
+#      - run:
+#          name: Build documentation
+#          command: mix docs
+#      - run:
+#          name: ZIP documentation
+#          command: zip -r documentation.zip doc
+#      - store_artifacts:
+#          path: documentation.zip
+#      - store_artifacts:
+#          path: doc
 
 #  build_docker:
 #    machine:
