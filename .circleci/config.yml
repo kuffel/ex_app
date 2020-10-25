@@ -95,8 +95,8 @@ jobs:
       - run:
           name: Push docker image
           command: |
-            docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:latest
-            docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:latest
+            docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
+            docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
 
 workflows:
   version: 2
