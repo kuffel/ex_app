@@ -23,8 +23,8 @@ erl_crash.dump
 ex_app-*.tar
 
 
-# Created by https://www.toptal.com/developers/gitignore/api/elixir,node,intellij+all,windows,linux,macos,erlang
-# Edit at https://www.toptal.com/developers/gitignore?templates=elixir,node,intellij+all,windows,linux,macos,erlang
+# Created by https://www.toptal.com/developers/gitignore/api/node,macos,linux,elixir,erlang,windows,intellij+all,terraform
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,linux,elixir,erlang,windows,intellij+all,terraform
 
 ### Elixir ###
 /_build
@@ -263,9 +263,11 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env*.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.parcel-cache
 
 # Next.js build output
 .next
@@ -298,6 +300,36 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+### Terraform ###
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Ignore any .tfvars files that are generated automatically for each Terraform run. Most
+# .tfvars files are managed as part of configuration and so should be included in
+# version control.
+#
+# example.tfvars
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control using negated pattern
+# !example_override.tf
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -324,4 +356,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/elixir,node,intellij+all,windows,linux,macos,erlang
+# End of https://www.toptal.com/developers/gitignore/api/node,macos,linux,elixir,erlang,windows,intellij+all,terraform
