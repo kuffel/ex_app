@@ -1,9 +1,9 @@
 [
   {
     "name": "app",
-    "image": "418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:master",
-    "cpu": 512,
-    "memory": 1024,
+    "image": "418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${docker_tag}",
+    "cpu": 256,
+    "memory": 512,
     "networkMode": "awsvpc",
     "requiresCompatibilities": [
       "FARGATE"

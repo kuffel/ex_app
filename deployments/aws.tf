@@ -14,9 +14,19 @@ terraform {
   }
 }
 
+variable "deployment_name" {
+  description = "Name for this deployment, will be used as part of resource names and for the DNS entry."
+  default = "ex-app"
+}
+
+variable "docker_tag" {
+  description = "Tag for the image that will be deployed."
+  default = "master"
+}
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group
 resource "aws_cloudwatch_log_group" "app_log_group" {
-  name = "ex-app-logs"
+  name = "${var.deployment_name}-logs"
   retention_in_days = 30
 }
 
@@ -27,7 +37,7 @@ resource "aws_vpc" "app_vpc" {
   enable_dns_hostnames = true
   enable_dns_support = true
   tags = {
-    Name = "ex-app-vpc"
+    Name = "${var.deployment_name}-vpc"
   }
 }
 
@@ -35,7 +45,7 @@ resource "aws_vpc" "app_vpc" {
 resource "aws_internet_gateway" "app_ig" {
   vpc_id = aws_vpc.app_vpc.id
   tags = {
-    Name = "ex-app-ig"
+    Name = "${var.deployment_name}-ig"
   }
 }
 
@@ -47,7 +57,7 @@ resource "aws_route_table" "app_route_table" {
     gateway_id = aws_internet_gateway.app_ig.id
   }
   tags = {
-    Name = "ex-app-rt"
+    Name = "${var.deployment_name}-rt"
   }
 }
 
@@ -63,7 +73,7 @@ resource "aws_subnet" "app_subnet_a" {
   ipv6_cidr_block = cidrsubnet(aws_vpc.app_vpc.ipv6_cidr_block, 8, 1)
   availability_zone = "eu-central-1a"
   tags = {
-    Name = "ex-app-subnet-a"
+    Name = "${var.deployment_name}-subnet-a"
   }
 }
 
@@ -75,7 +85,7 @@ resource "aws_subnet" "app_subnet_b" {
   ipv6_cidr_block = cidrsubnet(aws_vpc.app_vpc.ipv6_cidr_block, 8, 2)
   availability_zone = "eu-central-1b"
   tags = {
-    Name = "ex-app-subnet-b"
+    Name = "${var.deployment_name}-subnet-b"
   }
 }
 
@@ -87,7 +97,7 @@ resource "aws_subnet" "app_subnet_c" {
   ipv6_cidr_block = cidrsubnet(aws_vpc.app_vpc.ipv6_cidr_block, 8, 3)
   availability_zone = "eu-central-1c"
   tags = {
-    Name = "ex-app-subnet-c"
+    Name = "${var.deployment_name}-subnet-c"
   }
 }
 
@@ -108,8 +118,8 @@ resource "aws_route_table_association" "platform_route_table_subnet_c" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 resource "aws_security_group" "app_sg" {
-  name = "ex-app-sg"
-  description = "Rules for ex_app"
+  name = "${var.deployment_name}-sg"
+  description = "Security rules for ${var.deployment_name}"
   vpc_id = aws_vpc.app_vpc.id
 
   ingress {
@@ -154,16 +164,16 @@ resource "aws_security_group" "app_sg" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster
 resource "aws_ecs_cluster" "app_ecs" {
-  name = "ex-app-ecs"
+  name = "${var.deployment_name}-ecs"
 }
 
 resource "aws_iam_role" "app_fargate_role" {
-  name = "ex-app-fargate-role"
+  name = "${var.deployment_name}-fargate-role"
   assume_role_policy = file("aws/fargate-role.json")
 }
 
 resource "aws_iam_role_policy" "app_fargate_role_policy" {
-  name = "ex-app-fargate-role-policy"
+  name = "${var.deployment_name}-fargate-role-policy"
   policy = file("aws/fargate-role-policy.json")
   role = aws_iam_role.app_fargate_role.id
 }
@@ -171,15 +181,18 @@ resource "aws_iam_role_policy" "app_fargate_role_policy" {
 # https://registry.terraform.io/providers/hashicorp/template/latest
 data "template_file" "app_task_json" {
   template = file("aws/app_task.json")
+  vars = {
+    docker_tag = var.docker_tag
+  }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition
 resource "aws_ecs_task_definition" "app_ecs_task" {
-  family = "app-task"
+  family = "${var.deployment_name}-task"
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu = 512
-  memory = 1024
+  cpu = 256
+  memory = 512
   container_definitions = data.template_file.app_task_json.rendered
   execution_role_arn = aws_iam_role.app_fargate_role.arn
   task_role_arn = aws_iam_role.app_fargate_role.arn
@@ -187,7 +200,7 @@ resource "aws_ecs_task_definition" "app_ecs_task" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service
 resource "aws_ecs_service" "app_ecs_service" {
-  name = "app-service"
+  name = "${var.deployment_name}-service"
   cluster = aws_ecs_cluster.app_ecs.id
   task_definition = aws_ecs_task_definition.app_ecs_task.arn
   desired_count = "1"
@@ -215,7 +228,7 @@ resource "aws_ecs_service" "app_ecs_service" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb
 resource "aws_lb" "app_lb" {
-  name = "ex-app-alb"
+  name = "${var.deployment_name}-alb"
   enable_cross_zone_load_balancing = true
   load_balancer_type = "application"
   ip_address_type = "dualstack"
@@ -232,7 +245,7 @@ resource "aws_lb" "app_lb" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group
 resource "aws_lb_target_group" "lb_target_group_app_http" {
-  name = "ex-app-http"
+  name = "${var.deployment_name}-http"
   port = 4000
   protocol = "HTTP"
   vpc_id = aws_vpc.app_vpc.id
@@ -279,7 +292,7 @@ resource "aws_alb_listener" "lb_listener_app_https" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record
 resource "aws_route53_record" "app_dns_record" {
   zone_id = "Z3VH23M26EBR3N"
-  name = "ex-app"
+  name = var.deployment_name
   type = "A"
   alias {
     evaluate_target_health = true
@@ -288,9 +301,6 @@ resource "aws_route53_record" "app_dns_record" {
   }
 }
 
-
-
-
 output "app_load_balancer_fqdn" {
   value = aws_lb.app_lb.dns_name
 }
@@ -298,7 +308,3 @@ output "app_load_balancer_fqdn" {
 output "installation_fqdn" {
   value = aws_route53_record.app_dns_record.fqdn
 }
-
-
-
-
