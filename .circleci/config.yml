@@ -117,10 +117,10 @@ jobs:
             terraform init -input=false
             terraform validate
       - run:
-          name: terraform plan
+          name: terraform deploy
           command: |
             cd deployments
-            terraform plan
+            terraform apply -auto-approve
 
 
 workflows:
