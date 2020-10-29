@@ -4,7 +4,8 @@ defmodule ExApp.MixProject do
   def project do
     [
       app: :ex_app,
-      version: "0.1.0",
+      # Also change the version in the VERSION file, CI will update it here during build
+      version: "0.2.0-cecbdb0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
