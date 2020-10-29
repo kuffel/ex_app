@@ -98,6 +98,31 @@ jobs:
             docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
             docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
 
+  deploy:
+    executor: machine-executor
+    steps:
+      - checkout
+      - aws-cli/setup
+      - run:
+          name: install terraform
+          command: |
+            wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
+            sudo unzip terraform_0.13.5_linux_amd64.zip -d /opt/
+            sudo chmod +x /opt/terraform
+            sudo ln /opt/terraform /usr/bin/terraform
+      - run:
+          name: terraform init and validate
+          command: |
+            cd deployments
+            terraform init -input=false
+            terraform validate
+      - run:
+          name: terraform plan
+          command: |
+            cd deployments
+            terraform plan
+
+
 workflows:
   version: 2
   builds:
@@ -116,6 +141,9 @@ workflows:
         - docker:
             requires:
               - test
+        - deploy:
+            requires:
+              - docker
 
 
 
@@ -130,7 +158,7 @@ workflows:
 #  # https://circleci.com/orbs/registry/orb/circleci/node
 #  # https://circleci.com/orbs/registry/orb/circleci/python
 #  # https://circleci.com/orbs/registry/orb/circleci/shellcheck
-#  # https://circleci.com/orbs/registry/orb/circleci/terraform
+#  # https://circleci.com/orbs/registry/orb/circleci/terraform  # Bad support for managing workspaces
 #
 #executors:
 #  docker-executor:

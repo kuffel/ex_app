@@ -1,5 +1,7 @@
 # ExApp
 
+[![ExApp](https://circleci.com/gh/kuffel/ex_app.svg?style=svg)](https://github.com/kuffel/ex_app)
+
 This project is just my playground project. It was created using this command:
 
 ```bash
