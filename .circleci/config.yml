@@ -98,7 +98,7 @@ jobs:
             docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
             docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
 
-  deploy:
+  deploy_production:
     executor: machine-executor
     steps:
       - checkout
@@ -141,9 +141,13 @@ workflows:
         - docker:
             requires:
               - test
-        - deploy:
+        - deploy_production:
             requires:
               - docker
+            filters:
+                branches:
+                  only:
+                    - master
 
 
 
