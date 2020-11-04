@@ -22,7 +22,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "ex-app-logs",
+        "awslogs-group": "${deployment_name}-logs",
         "awslogs-region": "eu-central-1",
         "awslogs-stream-prefix": "app"
       }

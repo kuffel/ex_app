@@ -185,6 +185,7 @@ data "template_file" "app_task_json" {
   template = file("aws/app_task.json")
   vars = {
     docker_tag = var.docker_tag
+    deployment_name = var.deployment_name
   }
 }
 

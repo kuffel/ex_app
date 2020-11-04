@@ -31,6 +31,18 @@ commands:
             - deps
             - ~/.mix
             - _build
+
+  setup_terraform:
+    steps:
+      - run:
+          name: Install terraform
+          command: |
+            wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
+            sudo unzip terraform_0.13.5_linux_amd64.zip -d /opt/
+            sudo chmod +x /opt/terraform
+            sudo ln /opt/terraform /usr/bin/terraform
+
+
 jobs:
   check_build:
     executor: docker-executor
@@ -109,25 +121,22 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup
-      - run:
-          name: install terraform
-          command: |
-            wget https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip
-            sudo unzip terraform_0.13.5_linux_amd64.zip -d /opt/
-            sudo chmod +x /opt/terraform
-            sudo ln /opt/terraform /usr/bin/terraform
+      - setup_terraform
       - run:
           name: terraform init and validate
           command: |
             cd deployments
             terraform init -input=false
+            terraform workspace select production
             terraform validate
       - run:
           name: terraform deploy
           command: |
             cd deployments
-            terraform apply -auto-approve
-
+            VERSION=`cat ../VERSION`
+            GIT_HASH=`git log --pretty=format:'%h' -n 1`
+            DOCKER_TAG=${VERSION}-${GIT_HASH}
+            terraform apply -auto-approve -var="docker_tag=${DOCKER_TAG}"
 
 workflows:
   version: 2
@@ -147,13 +156,13 @@ workflows:
         - docker:
             requires:
               - test
-#        - deploy_production:
-#            requires:
-#              - docker
-#            filters:
-#                branches:
-#                  only:
-#                    - master
+        - deploy_production:
+            requires:
+              - docker
+            filters:
+                branches:
+                  only:
+                    - master
 
 
 
