@@ -116,6 +116,35 @@ jobs:
             docker tag kuffel/ex_app:${DOCKER_TAG} 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${DOCKER_TAG}
             docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${DOCKER_TAG}
 
+  deploy_preview:
+    executor: machine-executor
+    steps:
+      - checkout
+      - aws-cli/setup
+      - setup_terraform
+      - run:
+          name: terraform init and validate
+          command: |
+            cd deployments
+            terraform init -input=false
+            terraform workspace new ${CIRCLE_BRANCH} || true
+            terraform workspace select ${CIRCLE_BRANCH}
+            terraform validate
+      - run:
+          name: terraform deploy
+          command: |
+            cd deployments
+            VERSION=`cat ../VERSION`
+            GIT_HASH=`git log --pretty=format:'%h' -n 1`
+            DOCKER_TAG=${VERSION}-${GIT_HASH}
+            terraform apply -auto-approve -var="deployment_name=ex-app-${CIRCLE_BRANCH}" -var="docker_tag=${DOCKER_TAG}"
+      - run:
+          name: wait for deployment
+          command: |
+            cd deployments/scripts
+            GIT_HASH=`git log --pretty=format:'%h' -n 1`
+            ./wait_for_deployment.sh https://ex-app-${CIRCLE_BRANCH}.kuffel.me ${GIT_HASH}
+
   deploy_production:
     executor: machine-executor
     steps:
@@ -137,7 +166,6 @@ jobs:
             GIT_HASH=`git log --pretty=format:'%h' -n 1`
             DOCKER_TAG=${VERSION}-${GIT_HASH}
             terraform apply -auto-approve -var="docker_tag=${DOCKER_TAG}"
-
       - run:
           name: wait for deployment
           command: |
@@ -163,6 +191,13 @@ workflows:
         - docker:
             requires:
               - test
+        - deploy_preview:
+            requires:
+              - docker
+            filters:
+              branches:
+                ignore:
+                  - master
         - deploy_production:
             requires:
               - docker
