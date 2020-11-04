@@ -44,7 +44,7 @@ commands:
 
 
 jobs:
-  check_build:
+  check_code:
     executor: docker-executor
     steps:
       - checkout
@@ -142,16 +142,16 @@ workflows:
   version: 2
   builds:
       jobs:
-        - check_build
+        - check_code
         - build:
             requires:
-              - check_build
+              - check_code
         - test:
             requires:
               - build
         - documentation:
             requires:
-              - check_build
+              - check_code
               - build
         - docker:
             requires:
