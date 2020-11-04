@@ -29,5 +29,17 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= @inner_content %>
     </main>
+
+    <div style="text-align:center" >
+        <% version = ExApp.version() %>
+        <p><%= version.major %>.<%= version.minor %>.<%= version.patch %></p>
+        <%= if version.build != nil do %>
+            <p>(Build: <%= version.build %>)</p>
+        <% end %>
+
+
+
+    </div>
+
   </body>
 </html>
