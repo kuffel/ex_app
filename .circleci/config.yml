@@ -23,9 +23,6 @@ commands:
       - restore_cache:
           key: deps-cache-{{ checksum "mix.lock" }}
       - run:
-          name: Print environment
-          command: printenv
-      - run:
           name: Compile dependencies
           command: mix do deps.get, deps.compile
       - save_cache:
@@ -93,13 +90,19 @@ jobs:
       - aws-cli/setup
       - aws-ecr/ecr-login
       - run:
+          name: Update version
+          command: ./version.sh
+      - run:
           name: Build docker image
           command: make docker
       - run:
           name: Push docker image
           command: |
-            docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
-            docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${CIRCLE_BRANCH}
+            VERSION=`cat ./VERSION`
+            GIT_HASH=`git log --pretty=format:'%h' -n 1`
+            DOCKER_TAG=${VERSION}-${GIT_HASH}
+            docker tag kuffel/ex_app:${DOCKER_TAG} 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${DOCKER_TAG}
+            docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:${DOCKER_TAG}
 
   deploy_production:
     executor: machine-executor
@@ -144,13 +147,13 @@ workflows:
         - docker:
             requires:
               - test
-        - deploy_production:
-            requires:
-              - docker
-            filters:
-                branches:
-                  only:
-                    - master
+#        - deploy_production:
+#            requires:
+#              - docker
+#            filters:
+#                branches:
+#                  only:
+#                    - master
 
 
 

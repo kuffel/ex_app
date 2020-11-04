@@ -1,5 +1,6 @@
 SHELL := /bin/bash
 VERSION=`cat ./VERSION`
+GIT_HASH=`git log --pretty=format:'%h' -n 1`
 DOCKER_BUILD_DIR=_build/prod/rel/ex_app
 WORK_DIR=$(realpath $(shell pwd))
 DOCKER_TAG ?= latest
@@ -39,7 +40,7 @@ docker_release: ## Build a release within docker
 
 docker: ## Build a docker image
 	make docker_release
-	docker build $(DOCKER_BUILD_DIR) --build-arg version=$(VERSION) -t kuffel/ex_app:$(DOCKER_TAG)
+	docker build $(DOCKER_BUILD_DIR) --build-arg version=$(VERSION) -t kuffel/ex_app:$(VERSION)-$(GIT_HASH)
 
 docker_run: ## Runs the latest image
-	docker run --name ex_app --net=host -d -t kuffel/ex_app:$(DOCKER_TAG)
+	docker run --name ex_app --net=host -d -t kuffel/ex_app:$(VERSION)-$(GIT_HASH)
