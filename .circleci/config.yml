@@ -138,6 +138,13 @@ jobs:
             DOCKER_TAG=${VERSION}-${GIT_HASH}
             terraform apply -auto-approve -var="docker_tag=${DOCKER_TAG}"
 
+      - run:
+          name: wait for deployment
+          command: |
+            cd deployments/scripts
+            GIT_HASH=`git log --pretty=format:'%h' -n 1`
+            ./wait_for_deployment.sh https://ex-app.kuffel.me ${GIT_HASH}
+
 workflows:
   version: 2
   builds:

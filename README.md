@@ -1,6 +1,6 @@
 # ExApp
 
-[![ExApp](https://circleci.com/gh/kuffel/ex_app.svg?style=svg)](https://github.com/kuffel/ex_app)
+[![ExApp](https://circleci.com/gh/kuffel/ex_app.svg?style=svg)](https://ex-app.kuffel.me)
 
 This project is just my playground project. It was created using this command:
 
