@@ -2,7 +2,7 @@
 
 [![ExApp](https://circleci.com/gh/kuffel/ex_app.svg?style=svg)](https://ex-app.kuffel.me)
 
-This project is just my playground project. 
+This project is just my playground project for my currently ongoing master thesis at the FOM.
 It was created using this command:
 
 ```bash
