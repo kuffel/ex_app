@@ -127,8 +127,8 @@ jobs:
           command: |
             cd deployments
             terraform init -input=false
-            terraform workspace new ${CIRCLE_BRANCH} || true
-            terraform workspace select ${CIRCLE_BRANCH}
+            terraform workspace new preview_${CIRCLE_PULL_REQUEST##*/} || true
+            terraform workspace select preview_${CIRCLE_PULL_REQUEST##*/}
             terraform validate
       - run:
           name: terraform deploy
@@ -137,13 +137,13 @@ jobs:
             VERSION=`cat ../VERSION`
             GIT_HASH=`git log --pretty=format:'%h' -n 1`
             DOCKER_TAG=${VERSION}-${GIT_HASH}
-            terraform apply -auto-approve -var="deployment_name=ex-app-${CIRCLE_BRANCH}" -var="docker_tag=${DOCKER_TAG}"
+            terraform apply -auto-approve -var="deployment_name=ex-app-preview-${CIRCLE_PULL_REQUEST##*/}" -var="docker_tag=${DOCKER_TAG}"
       - run:
           name: wait for deployment
           command: |
             cd deployments/scripts
             GIT_HASH=`git log --pretty=format:'%h' -n 1`
-            ./wait_for_deployment.sh https://ex-app-${CIRCLE_BRANCH}.kuffel.me ${GIT_HASH}
+            ./wait_for_deployment.sh https://ex-app-preview-${CIRCLE_PULL_REQUEST##*/}.kuffel.me ${GIT_HASH}
 
   deploy_production:
     executor: machine-executor
