@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Request an ExApp URL until the GIT_HASH is sent in the x-app-build response header.
+# This means AWS has deployed/updated the application and its fully available.
 
 URL=$1
 BUILD=$2
