@@ -2,12 +2,21 @@
 
 [![ExApp](https://circleci.com/gh/kuffel/ex_app.svg?style=svg)](https://ex-app.kuffel.me)
 
-This project is just my playground project. 
-It was created using this command:
+This project is for my currently ongoing master thesis about `Implemetation of CI/CD for container based applications` at the FOM Dortmund.
 
-```bash
-mix phx.new ex_app --no-ecto --no-webpack
-```
+It contains a [Phoenix Framework](https://www.phoenixframework.org/) based project that is build by [Circle CI](https://circleci.com/) 
+and automatically deployed to AWS, with the following features:
+
+- Static code analysis, formatting checks and test for every commit using GitHub actions
+- Cirlce CI pipeline with various tests for every pull request
+- Automatic serverless deployment using AWS Fargate and [terraform](https://www.terraform.io/)
+- Automatic preview environments for pull requests
+- Automatic cleanup of preview environments when pull requests are closed or merged
+- Automatic deployment into production for merged pull requests
+
+The workflow for the CI/CD pipeline is:
+
+![Workflow](thesis/diagrams/workflow.png)
 
 ## Getting started
 
@@ -28,13 +37,16 @@ asdf plugin-add nodejs
 # Add the following to your ~/.bashrc to make global package installation work
 export PATH=$PATH:/usr/local/lib/npm/bin
 
+# Terrform
+asdf plugin-add terraform
+
 # While being the application main folder run this install the versions specified in the .tool-versions file:
 asdf install
 ```
 
-## Running
+## Running locally
 
-You can setup the application by running the following make commands:
+You can set up the application by running the following make commands:
 
 ```bash
 make setup
@@ -52,10 +64,3 @@ make docker
 make run_docker
 ```
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix

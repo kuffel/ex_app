@@ -44,3 +44,6 @@ docker: ## Build a docker image
 
 docker_run: ## Runs the latest image
 	docker run --name ex_app --net=host -d -t kuffel/ex_app:$(VERSION)-$(GIT_HASH)
+
+diagrams: ## Creates PNG files from the .puml file in thesis
+	plantuml -tpng -o diagrams ./thesis/*.puml

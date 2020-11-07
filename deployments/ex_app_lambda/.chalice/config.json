@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "app_name": "ex_app_lambda",
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api",
+      "autogen_policy": false,
+      "iam_policy_file": "policy.json",
+      "environment_variables": {
+        "GITHUB_PROJECT": "kuffel/ex_app",
+        "APP_NAME": "ex-app",
+        "APP_DOMAIN": "kuffel.me",
+        "APP_PREVIEW_PREFIX": "preview",
+        "TF_STATE_BUCKET": "kuffel-terraform-states",
+        "AWS_ACCOUNT_ID": "418124467834",
+        "AWS_ECR_NAME": "kuffel/ex_app"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@startuml
+
+actor "Developer"
+entity "Github"
+
+entity "CircleCI"
+actor "Reviewer"
+entity "AWS ECS"
+entity "AWS ECR"
+entity "ExApp Lambda"
+
+
+"Developer" <-- "Github": Create branch from master
+"Developer" <- "Developer": Make changes to the code
+"Developer" --> "Github": Push branch
+"Github" -> "Github": Run tests with Github Actions
+"Developer" --> "Github": Create pull request
+"Github" --> "CircleCI": Start build
+"CircleCI" -> "CircleCI": Build, test and create docker images
+"CircleCI" -> "AWS ECR": Push image
+"CircleCI" -> "AWS ECS": Deploy preview
+"CircleCI" -> "Application": Wait for deployed preview
+"CircleCI" -> "ExApp Lambda": Create comment with preview URL
+"ExApp Lambda" -> "Github": Create comment
+"Github" -> "Reviewer": Pull request ready for review
+"Reviewer" -> "Reviewer": Review code
+"Reviewer" -> "Github" : Merge pull request
+"Github" --> "CircleCI": Start master build
+"CircleCI" -> "CircleCI": Build, test and create docker images
+"CircleCI" -> "AWS ECR": Push image
+"CircleCI" -> "AWS ECS": Deploy to production
+@enduml

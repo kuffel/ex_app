@@ -144,6 +144,37 @@ jobs:
             cd deployments/scripts
             GIT_HASH=`git log --pretty=format:'%h' -n 1`
             ./wait_for_deployment.sh https://ex-app-preview-${CIRCLE_PULL_REQUEST##*/}.kuffel.me ${GIT_HASH}
+            COMMENT="Preview environment deployed at: https://ex-app-preview-${CIRCLE_PULL_REQUEST##*/}.kuffel.me"
+            ./add_pr_comment.sh ${CIRCLE_PULL_REQUEST##*/} "${COMMENT}" ${GITHUB_ACCESS_TOKEN}
+
+  remove_preview_deployments:
+    executor: machine-executor
+    steps:
+      - checkout
+      - aws-cli/setup
+      - setup_terraform
+      - run:
+          name: terraform init and validate
+          command: |
+            cd deployments
+            terraform init -input=false
+            terraform validate
+      - run:
+          name: Remove preview environments
+          command: |
+            cd deployments/scripts
+            UNUSED_WORKSPACES=($(./get_unused_workspaces.sh ${GITHUB_ACCESS_TOKEN} | jq -r ".[]"))
+
+            cd ..
+            for w in "${UNUSED_WORKSPACES[@]}"
+            do
+              echo "Clearing workspace ${w}:"
+              terraform workspace select ${w}
+              terraform destroy -auto-approve
+              terraform workspace select default
+              terraform workspace delete ${w}
+            done
+
 
   deploy_production:
     executor: machine-executor
@@ -198,6 +229,11 @@ workflows:
               branches:
                 ignore:
                   - master
+        - remove_preview_deployments:
+            filters:
+               branches:
+                 only:
+                   - master
         - deploy_production:
             requires:
               - docker
