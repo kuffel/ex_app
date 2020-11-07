@@ -145,6 +145,10 @@ jobs:
             GIT_HASH=`git log --pretty=format:'%h' -n 1`
             ./wait_for_deployment.sh https://ex-app-preview-${CIRCLE_PULL_REQUEST##*/}.kuffel.me ${GIT_HASH}
 
+            COMMENT="Preview environment deployed at: https://ex-app-preview-${CIRCLE_PULL_REQUEST##*/}.kuffel.me"
+            ./add_pr_comment.sh ${CIRCLE_PULL_REQUEST##*/} ${COMMENT} ${GITHUB_ACCESS_TOKEN}
+
+
   deploy_production:
     executor: machine-executor
     steps:

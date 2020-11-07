@@ -4,9 +4,8 @@
 
 This project is for my currently ongoing master thesis about `Implemetation of CI/CD for container based applications` at the FOM Dortmund.
 
-It contains a [Phoenix Framework](https://www.phoenixframework.org/) based project that is build by [Circle CI](https://circleci.com/) and automatically deployed to AWS.
-
-It has the following features:
+It contains a [Phoenix Framework](https://www.phoenixframework.org/) based project that is build by [Circle CI](https://circleci.com/) 
+and automatically deployed to AWS, with the following features:
 
 - Static code analysis, formatting checks and test for every commit using GitHub actions
 - Cirlce CI pipeline with various tests for every pull request
@@ -14,6 +13,10 @@ It has the following features:
 - Automatic preview environments for pull requests
 - Automatic cleanup of preview environments when pull requests are closed or merged
 - Automatic deployment into production for merged pull requests
+
+The workflow for the CI/CD pipeline is:
+
+![Workflow](thesis/diagrams/workflow.png)
 
 ## Getting started
 
