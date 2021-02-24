@@ -1,4 +1,3 @@
 # Contributing
 
-This project is just an evaluation project for a university paper. 
-At this point no contributions are allowed. 
+This project is just an evaluation project for a university thesis. 

@@ -5,7 +5,7 @@ defmodule ExApp.MixProject do
     [
       app: :ex_app,
       # Also change the version in the VERSION file, CI will update it here during build
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
