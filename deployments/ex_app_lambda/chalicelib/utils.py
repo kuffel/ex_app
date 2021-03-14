@@ -7,20 +7,26 @@ from chalice import Response
 from github import Github
 from pprint import pprint
 
-# TODO: Make comments
 from github.GithubException import UnknownObjectException
 
 
 def check_api_key(current_request):
+    """
+    Check if an API Key for GitHub was provided and
+    return a 403 if no x-api-key header was sent by the client.
+    """
     x_api_key = current_request.headers.get('x-api-key', False)
     if not x_api_key:
         return Response(
-            body='hello world!',
+            body='Missing x-api-key header',
             status_code=403,
         )
 
 
 def is_deployment_ready(url):
+    """
+    Make an HTTP request to the given URL and return true if the response status is less than 500.
+    """
     try:
         r = requests.get(
             url,
@@ -33,6 +39,9 @@ def is_deployment_ready(url):
 
 
 def ecr_used_images():
+    """
+    Check currently running ECS tasks for their used image and return images from ECR that are not in use.
+    """
     used_images = []
     ecs = boto3.client('ecs')
     response = ecs.list_clusters()
@@ -51,6 +60,9 @@ def ecr_used_images():
 
 
 def ecr_images():
+    """
+    Returns a list of all available images in ECR
+    """
     used_images = ecr_used_images()
     images = []
     ecr = boto3.client('ecr')
@@ -66,6 +78,10 @@ def ecr_images():
 
 
 def terraform_workspaces():
+    """
+    Terraform creates a workspace in a S3 bucket.
+    This function returns all workspaces that are currently available in S3.
+    """
     workspaces = []
     s3 = boto3.client('s3')
     response = s3.list_objects_v2(
@@ -82,6 +98,9 @@ def terraform_workspaces():
 
 
 def cleanup_images():
+    """
+    Delete all docker images from ECR that are currently not used by an active ECS task.
+    """
     ecr = boto3.client('ecr')
     to_remove = []
     removed_count = 0
@@ -101,6 +120,9 @@ def cleanup_images():
 
 
 def pull_requests(github_access_token):
+    """
+    Return a list of all pull requests in the ex_app github repository.
+    """
     pull_request_list = []
     gh = Github(github_access_token)
     repo = gh.get_repo(os.environ.get('GITHUB_PROJECT'))
@@ -131,13 +153,15 @@ def pull_requests(github_access_token):
             'created_at': str(pr.created_at),
             'updated_at': str(pr.updated_at)
         })
-        # print(pr.create_issue_comment("WORKS"))
         # pprint(vars(pr))
         # return gh.get_user().get_repos()
     return pull_request_list
 
 
 def add_comment(github_access_token, pull_request_id, comment):
+    """
+    Add a new comment to the given GitHub pull request.
+    """
     gh = Github(github_access_token)
     repo = gh.get_repo(os.environ.get('GITHUB_PROJECT'))
     try:

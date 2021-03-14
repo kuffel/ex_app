@@ -1,0 +1,118 @@
+\subsubsection{Arten von IaC}\label{iac_arten}
+
+IaC ist ein Sammelbegriff für Tools, die es erlauben Konfiguration und Provisionierung von Infrastruktur in Dateien zu erfassen und auszuführen.
+Die Ansätze der verschiedenen Ausprägungen von Tools sind jedoch unterschiedlich.
+Dieser Abschnitt beschreibt die gängigen Ansätze.
+\footnote{Guerriero et al., vgl.~\cite{Guerriero2019}~[S.581]}
+
+\paragraph{Ad-Hoc Skripte}
+
+Ad-Hoc Skripte stellen  den ersten Schritt zur Einführung von IaC dar.
+Hierbei handelt es sich um das Skripting von Schritten, die sonst manuell ausgeführt werden würden.
+Wenn der Administrator z.B. eine bestimmte Auswahl von Kommandos zur Installation bzw. Konfiguration in einem Skript erfasst, ist das bereits der erste Schritt zu IaC.
+Diese Skripte können dann ausgeführt werden, um bestimmte Aufgaben zu automatisieren.
+Die schnellere Erledigung von Aufgaben kann somit Zeit sparen.
+% `(Johann, 118)`
+
+\paragraph{Configuration Management Tools}
+
+Bei Configuration Management Tools (CM) handelt es sich um Software, die es ermöglicht bereits vorhandene Infrastruktur zu verwalten.
+\footnote{Siebra et al., vgl.~\cite{Siebra2019}~[S.428]}
+
+Auch die Installation neuer Systeme kann mit CM Software durchgeführt werden.
+Der Fokus liegt jedoch meistens auf der Verwaltung bestehender Systeme.
+Bekannte Tools sind hier Chef, Ansible und Puppet.
+
+Die Abgrenzung zwischen CM und Provisionierung ist nicht immer ganz klar.
+Diese Tools fokussieren sich aber eher darauf, mehrere Server gleichzeitig verwalten zu können.
+Tools wie Ansible können z.B. Konfigurationsänderungen und neue Software auf vielen Systemen gleichzeitig ausrollen.
+
+\paragraph{Server Templating Tools}
+
+Diese Tools zielen darauf ab, beim Aufsetzen neuer Server auf Images oder Templates zurückgreifen zu können.
+Ein bekanntes Tool ist Packer, womit sich Server konfigurieren lassen.
+Per Skript kann dann die Software darauf installiert sowie konfiguriert werden und anschließend wird daraus ein Image erstellt.
+\footnote{Packer - Build automated machine images, vgl.~\cite{PACKER}}
+
+Packer unterstützt beispielsweise die Maschinen Image Formate von Azure, AWS, VmWare und Google Cloud.
+Sobald ein Image einmal erstellt wurde, kann es von anderen Arten von IaC Tools ebenfalls verwendet werden.
+
+\paragraph{Server Provisioning Tools}
+
+Diese Art von IaC rückt die Erstellung und Konfiguration von Cloud Infrastruktur in den Vordergrund.
+Solche Tools sind durch den Trend zu Cloud Computing beliebt geworden.
+Sie vermeiden, dass man sich durch die Dialoge und Menüs der einzelnen Cloud-Provider durchklicken muss. \\
+
+Mit Server Provisioning Tools geht man eher dazu über, die \textsl{Server wie Vieh und nicht wie Haustiere zu behandeln}.
+% `(Johann, 117)`
+Dieser Ansatz meint, dass Server eher neuaufgesetzt werden, als bestehende Server zu pflegen.
+Durch hohe Automatisierung und theoretisch unbegrenzte Kapazitäten in der Cloud können Server so kontinuierlich ersetzt werden.
+Ein Server, der sich nicht mehr korrekt verhält, wird einfach durch einen neuen ersetzt.
+
+%    [RESTE]
+%    - IaC essential to CI/CD,  IaC helps software teams with automation and deploying changes rapidly, IaC is Growing in popularity `(Rahaman, Partho, Morrison, 1)`
+%    - The DevOps methodology is radically changing the way software is designed and managed nowadays. `(Guerriero, 581)`
+%    - IT organizations that have adopted DevOps have strong collabora- tion between software development and operations teams to deliver software rapidly [8]. Automation of development and deployment steps is key to DevOps adoption, and DevOps organizations use technologies to automate repetitive work [8]. `(Rahman, 476)`
+%    - The current IT market is increasingly dominated by the “need for speed” `(Artac, 497)`
+%    - “need for speed": speed in deployment, faster release-cycles, speed in recovery, and more `(Guerriero, 580)`
+%    - Infrastructure as Code (IaC) is a DevOps principle used to address problems regarding the manual process of configuration management by means of automatic provision and configuration of infrastructural resources `(Siebra, 428)`
+%    - The goal is, essentially, to be able to survive as an organization in the modern digital ecosystem and digital market, which demands for fast and early releases, continuous software updates, constant evolution of market needs, and adoption of scalable technologies such as Cloud computing `(Guerriero, 581)`
+%    - Kief Morris: "Treat your servers as cattle, not as pets" `(Johann, 117)`
+%    - IaC ist das A in CAMS - Automatisierung `(Johann, 117)`
+%    - IaC scripts help to provision and manage cloud-based infrastructure [8] `(Rahman, 476)`
+%    - IaC is the technology of automatically defining and managing computing and network configurations, and infrastructure through source code `(Rahman, 477)`
+%    - entail re-using standard tools from software development (e.g., code-versioning, code- revision management, etc.) to manage what is known as infrastructure-as-code (IasC) [2]. `(Artac, 497)`
+%    - IasC is a key enabler of several DevOps tenets that heavily depend on automation. `(Artac, 497)`
+%    - The philosophy behind this is that infrastructure has become like data `(Johann, 117)`
+%    - bring in best prac- tices from software development, such as continuous integration [CI], test-driven development, and continuous delivery [CD] version control systems, and apply them to managing our infrastructure `(Johann, 117)`
+%    - Cloud platforms have API to manage cloud ressources `(Johann, 117)`
+%    - With CFEngine, you defined what you wanted your infrastructure to be [with code] in fi les, and then the tool applied [the code] to make it so on your infrastructure, and to make it continuously so `(Johann, 118)`
+%    - "Iron Age" vs "Cloud Age": Physical infrastructure vs virtual infrustructure `(Johann, 118)`
+%    - Benefits: Testings, Versioning, mass updates, tracing/auditing, catch mistakes early, reproducible infrastructure `(Johann, 118-120)`
+%    - practitioners identify testability, readability, consistency, and portability as major technical challenges which still need much attention from the state of the art and practice `(Guerriero, 580)`
+%    - Currently, the landscape of IaC languages and tools is jeopardized by the technology heterogeneity and by the huge number of available solutions, it complicates the understanding and adoption of this new technology `(Guerriero, 581)`
+%    - Difference between standard code and IaC code by number of mentions in the answers:  `(Guerriero, 583)`
+%    - Impossible Testing (8) - The lack of standard practices for testing and proper (maybe local) testing environments makes testing painful
+%    - Declarative (7) - Standard programming is in terms of class, functions, flow. With IaC the reasoning is declarative, i.e., express what is needed, not how to do it.
+%    - Graph vs. Tree model (7) - Production code is shaped as a graph of modules whereas IaC code resembles a tree of nodes
+%    - Impossible Debugging (6) - Similar to testing, the lack of standard practices and the distributed nature makes debugging painful.
+%    - IaC error-prone (5) - The tools for code checking are more shallow for IaC (e.g., lack of type-checking).
+%    - Longer feedback loop (3) - The developer has to wait for the whole infrastructure to be deployed in order to understand the correctness of the IaC code.
+%    - Unmaintainable (2) - As the infrastructure evolves and the computer resources changes, IaC code cannot cope with those on a seamless way.
+%    - Bad practices when developing IaC Code `(Guerriero, 584)`
+%    - Hardcoding (5) - Hardcoding values on the script such as credential or constants.
+%    - Too Polyglot (4) - Using many languages in interrelated node definitions
+%    - Blob blueprints (3) - Generating too large scripts.
+%    - Non idempotent code (3) - Writing scripts with side effects can lead to undesired states.
+%    - Poor documenting (3) - Hinders understandability and maintainability
+%    - Manual infrastructure (2) - Some parts of the configuration are made manually, outside of IaC scripts.
+%    - Nodes too deep (2) - The tree of nodes generated from a single script is too deep.
+%    - Best practices when developing IaC Code `(Guerriero, 584)`
+%    - Secret-Injection (12) - Keep all contents of the blueprint or IaC scripts parametric so that the orchestrator or users can inject the desired results at will
+%    - Break-fast (8) - program the infrastructure to be buildable as fast as possible and hopefully as fast-breaking as possible furthermore, infrastructure circuit-breakers are needed to minimize waste
+%    - Reuse by Abstraction (6) - Making templates and scripts also recall each-other to allow for interdependency but also interchangeability and possibly reuse, e.g., object orientation
+%    - Low-Nesting (5) - Keep nodes nesting to at most one level of recall (i.e., tree of height 2)
+%    - There does not exist one full-fledged and bullet-proof solution for IaC, rather the tools used by practitioners are very varied and also very common
+%    - Defects in infrastructure as code (IaC) scripts can have serious consequences for organizations who adopt DevOps. `(Rahman, 476)`
+%    - January 2017, execution of a defective IaC script erased home directories of 270 users in cloud instances maintained by Wikimedia `(Rahman, 476)`
+%    - IaC scripts can also contain defects, metrics and static code analysis can help to prevent outages (like Github had DNS outage due to a wrong IaC) `(Rahaman, Stallings, Williams, 2)`
+%    - Benefits from IaC `(Siebra, 428)`
+%    - Code can be thoroughly tested to reproduce infrastructure consistently at scale
+%    - Developers could be provided with a simulated production environment, which increases testability and reliability
+%    - Infrastructure code can be versioned
+%    - Infrastructure can be provisioned and configured on demand
+%    - Proactive recovering from failures can be carried out by continuous monitoring of the environment for violations, which can trigger automatic execution of scripts for rollback or recovery.
+%    - Patterns to use the infrastructure as code were proposed in (Duvall, 2011) and they can be summarized as: `(Siebra, 428-429)`
+%    - Automate Provisioning
+%    - Behavior-Driven Monitoring: automate tests to verify the behavior of the infrastructure
+%    - Immune System: deploy software one instance at a time while conducting behavior-driven monitoring
+%    - Lockdown Environments: lock down shared environments from unauthorized external and internal usage
+%    - Production-Like Environments: development and production environments must be as similar as possible
+%    - Shell scripts are potentially complex to maintain and evolve, since they are neither modular nor reusable `(Siebra, 430)`
+%    - “Build incrementally with fast integrated learning cycles”.  `(Siebra, 430)`
+%    - Patterns to use the infrastructure as code were proposed in (Duvall, 2011) and they can be summarized as: `(Siebra, 428-429)`
+%    - Automate Provisioning
+%    - Behavior-Driven Monitoring: automate tests to verify the behavior of the infrastructure
+%    - Immune System: deploy software one instance at a time while conducting behavior-driven monitoring
+%    - Lockdown Environments: lock down shared environments from unauthorized external and internal usage
+%    - Production-Like Environments: development and production environments must be as similar as possible

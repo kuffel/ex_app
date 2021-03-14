@@ -1,0 +1,21 @@
+\subsection{Zusammenfassung}\label{zusammenfassung}
+
+Von den zuvor vorgestellten \nameref{devops_massnahmen} für eine DevOps Migration erfüllt die Implementierung vorallem die technischen Aspekte.
+
+Durch einen hohen Grad an Automatisierung können die Teams einfach zusammenarbeiten.
+Die Implementierungen können ohne großen Aufwand für ein Reviewprozess abgegeben werden, der Reviewer kann anhand der Vorschau-Umgebung
+sowie des GitHub Pull-Requests Feedback geben und die Änderungen überprüfen.
+Das automatisierte Testing und die regelmäßige automatische Integration sorgt dafür,
+dass Änderungen schnell und sicher durchgeführt werden können. \\
+
+Per Knopfdruck lassen sich die Änderungen anschließend ohne Ausfall, ins Produktivsystem überführen.
+Im Fehlerfall kann der Merge wieder rückgängig gemacht werden und die vorherige Version wird wiederhergestellt.
+Jederzeit können Entwickler dabei auch die Infrastruktur durch Anpassungen an den Terraform Skripten verändern.
+Dabei ist mit der Verwendung von ECS zwar nicht alles veränderbar, es kann jedoch ohne großen Aufwand neue Infrastruktur hinzugefügt werden.
+Da jede Vorschau-Umgebung vollständig vom Produktivsystem isoliert ist, besteht auch nicht die Gefahr, dass Entwicklungsarbeit das Produktivsystem gefährdet. \\
+
+Die Implementierung erlaubt die Entwicklung von sogenannten Cloud Native Applikationen, der Betrieb eigener Infrastruktur ist nicht erforderlich.
+Es kann immer auf SaaS und PaaS Dienste der AWS Cloud Infrastruktur zugegriffen werden. \\
+
+Auf den Stufen der \nameref{devops_reifegraden} befindet sich die Lösung damit auf Stufe 4, für Stufe 5 fehlt hier lediglich die Einbindung von Sicherheitsteams.
+

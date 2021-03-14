@@ -1,0 +1,37 @@
+\subsubsection{Herausforderungen}\label{iac_probleme}
+
+Bezüglich der Herausforderungen, die der Einsatz von IaC mit sich bringen kann, werden die folgenden Aspekte hervorgehoben.
+Die Schwierigkeiten wurden teilweise in einer Studie ermittelt, die verschiedene technische Mitarbeitern von einigen Unternehmen befragt hat:
+\footnote{Guerriero et al., vgl.~\cite{Guerriero2019}~[S.580]}
+
+\begin{itemize}
+    \item \textbf{Verwaltung von Geheimnissen:}
+    Dadurch dass IaC Skripte neben Passwörtern auch andere Geheimnisse enthalten können, hat jeder der Zugriff auf Git Repositories hat, ebenfalls Zugriff auf diese vertraulichen Daten.
+    \footnote{Guerriero et al., vgl.~\cite{Guerriero2019}~[S.584]}
+
+    \item \textbf{Testing:}
+    Es gibt keine standardisierten Ansätze für das Testen von IaC Änderungen.
+    Manchmal können Skripte nicht getestet werden, da diese unmittelbar, Änderungen im Produktivsystem durchführen.
+    \footnote{Guerriero et al., vgl.~\cite{Guerriero2019}~[S.584]}
+
+    \item \textbf{Modularisierung:}
+    IaC ist keine Programmierung.
+    Ansätze wie Modularisierung und Vererbung sind nicht immer verfügbar und führen zu vielen Wiederholungen in den Skripten.
+    \footnote{Guerriero et al., vgl.~\cite{Guerriero2019}~[S.584]}
+
+    \item \textbf{Unterschiedliche IaC Ansätze:}
+    Es existiert eine Vielzahl von Tools, die unterschiedliche Ansätze verfolgen.
+    Dies macht es manchmal notwendig, mehrere IaC Lösungen parallel zu nutzen.
+
+    \item \textbf{Konsequenzen von Fehlern:}
+    Ein unentdeckter Fehler in einem IaC Skript kann fatale Konsequenzen haben.
+    So wurde 2017 auf über 270 Servern von Wikimedia das Home Verzeichnis gelöscht, was zu einem Ausfall führte.
+    GitHub hatte einen Ausfall, weil ein DNS-Eintrag entfernt wurde. \footnote{Rahaman, vgl.~\cite{Rahman2018b}~[S.476]}
+    \footnote{Rahaman et al., vgl.~\cite{Rahman2018}~[S.2]}
+
+    \item \textbf{Lange Feedback Loops:}
+    Das Erstellen von Infrastruktur ist zeitaufwändiger als das bloße Kompilieren von Quellcode.
+    Ein Entwickler muss also länger warten bevor dieser Feedback zu einer IaC Änderung erhält.
+    \footnote{Guerriero et al., vgl.~\cite{Guerriero2019}~[S.583]}
+
+\end{itemize}

@@ -1,0 +1,82 @@
+\paragraph{AWS}\label{caas_tools_aws}
+
+AWS ist eine Tochterfirma von Amazon, die im Jahre 2003 gestartet wurde um den immer größer werdenden Bedarf an Infrastruktur für den Amazon Online Store bereitzustellen.
+\footnote{{EC2 Origins, vgl.~\cite{AWS_EC2_ORIGINS}}}
+
+Nachdem dieses Vorhaben erfolgreich umgesetzt wurde, erkannte Amazon, dass dieses Angebot auch für anderen Unternehmen interessant sein könnte.
+\footnote{{Informationen zu AWS, vgl.~\cite{AWS_ABOUT}}}
+
+Zu den beliebtesten Amazon Diensten gehören EC2 für virtuelle Maschinen, S3 für Storage und Lambda
+\footnote{{Top 10 AWS Services according to popularity, vgl.~\cite{AWS_MEDIUM_TOP10_SERVICES}}}
+
+AWS ist im Cloud Computing Bereich mit Angeboten von IaaS, PaaS bis hin zu SaaS vertreten.
+AWS ist der Marktführer im Bereich Public Cloud und weist mit einem Marktanteil von 33\% in Q4 2019 einen größeren Marktanteil als Azure (18\%) und Google Cloud (8\%) zusammen auf.
+\footnote{{Amazon ist die Nummer 1 in der Cloud, vgl.~\cite{AWS_STATISTA}}}
+
+Der jährliche Umsatz von AWS hat sich seit 2013 mit 3 Milliarden Dollar auf 35 Milliarden Dollar im Jahre 2019 mehr als verzehnfacht.
+\footnote{{Annual revenue of Amazon Web Services from 2013 to 2019, vgl.~\cite{AWS_STATISTA_REVNUE}}} \\
+
+AWS hat den größten Umfang aller Cloud Anbieter.
+Dieser Abschnitt erläutert die wichtigsten Begriffe, die für die Einführung in AWS notwendig sind:
+% `(https://www.datamation.com/cloud-computing/aws-vs-azure-vs-google-cloud-comparison.html)`
+
+\begin{itemize}
+    \item \textbf{Region und Availability Zone:}
+    AWS betreibt weltweit zur Zeit 24 Regionen.
+    Diese Regionen werden von mehreren geografisch getrennten Rechenzentren (Availability Zone (AZ)) zur Verfügung gestellt.
+    Jede AZ hat eine eigene Stromversorgung, Vernetzung und Konnektivität in einer AWS Region.
+    Die Kommunikation innerhalb der AZs einer Region erfolgt per Glasfaser und hat eine niedrige Latenz.
+    AZs werden so getrennt (> 100 km), dass Naturereignisse nur eine AZ in einer einzelnen Region betreffen sollten.
+    \footnote{{Regionen und Availability Zones, vgl.~\cite{AWS_REGIONS_AND_AZS}}}
+
+    \item \textbf{Elastic Compute Cloud (EC2):}
+    Dieser Dienst stellt virtuelle Maschinen zur Verfügung, die über eine API oder eine Management-Konsole gestartet werden können.
+    Dabei stehen über 350 verschiedene Größen zur Verfügung.
+    Diese unterscheiden sich bei der Wahl der CPU, RAM, IO und Netzwerkperformance.
+    % - Ondemand Instances: Können einfach gestartet werden und werden je angefangener Stunde abgerechnet
+    % - Reserved Instances: Reservierungen für 1,2, oder 3 Jahre für einen bestimmten Typ oder kleiner.
+    % - Spot Instances: Börse mit übriggebliebener Rechenzeit von Instanzen, die vor Ablauf einer vollen Stunde beendet werden, bis zu 90\% Kostenersparnis.
+    \footnote{{Amazon EC2, vgl.~\cite{AWS_EC2}}}
+
+    \item \textbf{Identity and Access Management:}
+    Authentifizierung und Autorisierung von Benutzern und Services auf AWS. Alle AWS Ressourcen können über IAM abgesichert werden.
+    \footnote{{AWS Identity and Access Management (IAM), vgl.~\cite{AWS_IAM}}}
+
+    \item \textbf{Elastic Container Registry (ECR):}
+    Von AWS verwaltete Container Registry, Zugriffsregeln lassen sich per IAM einstellen.
+    \footnote{{Amazon Elastic Container Registry, vgl.~\cite{AWS_ECR}}}
+
+    \item \textbf{Elastic Load Balancing (ELB):}
+    Von AWS verwalteter Load-Balancer in unterschiedlichen Ausprägungen.
+    Der \textbf{Application Load-Balancer (ALB)} ist für HTTP Dienste und unterstützt Weiterleitungen und HTTP Healthchecks.
+    Mit dem \textbf{Network Load-Balancer (NLB/Classic)} können alle anderen TCP/UDP Dienste verwendet werden.
+    \footnote{{Elastic Load Balancing, vgl.~\cite{AWS_ELB}}}
+
+    \item \textbf{Virtual Private Cloud (VPC):}
+    Erlaubt die Erstellung von isolierten Netzwerken in der AWS Cloud.
+    Dabei können auch VPNs für die Einbindung von Unternehmensnetzwerken und Security Groups zur Verwaltung von Firewallregeln verwendet werden.
+    \footnote{{Amazon Virtual Private Cloud, vgl.~\cite{AWS_VPC}}}
+
+\end{itemize}
+
+% \textbf{Container as a Service Angebote} \\
+% ###### 3.4.2.1.2. Container as a Service Angebote
+% `(https://www.dragonspears.com/blog/aws-container-orchestration-101-ecs-vs-fargate-vs-eks)`
+
+AWS bietet grundsätzlich zwei verschiedene Varianten für den Betrieb von Containern as a Service (CaaS): \\
+
+Der eigene Dienst ist dabei der \textbf{Elastic Container Service (ECS)}.
+Hier besteht eine gute Integration in die anderen AWS Dienste wie EC2, IAM und Cloudwatch.
+Im \textit{ECS Traditional} Modus läuft der ECS Client auf vom Kunden verwalteten EC2 Instanzen.
+Über ECS können dort dann Tasks und Services gestartet werden.
+Zusätzlich erlaubt ECS auch die Nutzung von Fargate.
+Dabei handelt es sich um einen Container as a Service Dienst bei dem die Verwaltung eigener Infrastruktur entfällt.
+\footnote{{Amazon Elastic Container Service, vgl.~\cite{AWS_ECS}}} \\
+
+Zusätzlich bietet AWS auch noch den \textbf{Elastic Kubernetes Service (EKS)} an.
+Dabei handelt es sich um einen von AWS verwalteten Kubernetes Dienst.
+Dieser ist vollständig mit Kubernetes kompatibel und kann über ein Amazon EKS Dashboard verwaltet werden.
+Auch EKS erlaubt die Verwendung von Fargate zur serverlosen Ausführung von Kubernetes Pods.
+\footnote{{Amazon Elastic Kubernetes Service, vgl.~\cite{AWS_EKS}}} \\
+
+Beide Dienste stehen in allen Regionen zur Verfügung und erlauben die Nutzung von EC2 Reserved und Spot Instances.

@@ -2,7 +2,9 @@
 
 [![ExApp](https://circleci.com/gh/kuffel/ex_app.svg?style=svg)](https://ex-app.kuffel.me)
 
-This project is for my master thesis about `Implemetation of CI/CD for container based applications` at the FOM Dortmund.
+This project is for my master thesis about `DevOps: Implemetation of CI/CD for container based applications` at the FOM Dortmund.
+
+The complete thesis can be downloaded [here](https://www.kuffel.eu/thesis/thesis.pdf).
 
 It contains a [Phoenix Framework](https://www.phoenixframework.org/) based project that is build by [Circle CI](https://circleci.com/) 
 and automatically deployed to AWS, with the following features:

@@ -1,0 +1,37 @@
+\paragraph{Circle CI}\label{ci_services_tools_circle}
+
+Circle CI wurde 2011 in San Francisco gegründet und steht wie Travis CI als SaaS zur Verfügung.
+Für den Code können bei Circle CI nur GitHub und Bitbucket als Quelle verwendet werden. \footnote{Crunchbase Circle CI , vgl.~\cite{CRUNCHBASE_CIRCLE_CI}}
+
+Bei einem Build kann zwischen einem machine-executor und einem docker-executor ausgewählt werden.
+Dabei werden die Docker Images  von Circle CI zur Verfügung gestellt.
+Es lassen sich aber andere Docker Images verwenden.
+Circle CI unterstützt die Ausführung von Builds auf Windows, Linux und MacOS.
+Es kann ebenfalls die Größe der Instanzen bestimmt werden. \footnote{Choosing an Executor Type , vgl.~\cite{CIRCLE_EXECUTORS}} \\
+
+Auch bei Circle CI lassen sich Builds einfach mit einem Assistenen einrichten.
+Die Definition erfolgt hier ebenfalls über eine YAML Datei und einer DSL. \footnote{Configuration Introduction , vgl.~\cite{CIRCLE_CONFIG}} \\
+
+Eine der Besonderheiten von Circle CI sind die sogenannten Orbs.
+Hierbei handelt es sich um vorgefertigte Build Schritte, die über eine Repository von Circle CI und der Community zur Verfügung gestellt werden.
+Mit Orbs lassen sich die Installation von CLI Tools mit einem Befehl in dem jeweiligen Executor einrichten.
+Zusätzlich bietet Circle auch ein Cache im Dateisystem an.
+Es können die Artefakte eines Build Schritts gespeichert und wiederverwendet werden. \footnote{Orbs Introduction , vgl.~\cite{CIRCLE_ORBS}} \\
+
+In der kostenlosen Variante stehen nur Linux und Windows mit zusammen 2.500 Credits pro Woche zur Verfügung.
+Die Kosten für 3 Benuzuer und 25.000 Credits pro Woche belaufen sich auf \$30 pro Monat.
+Für \$15 zusätzlich pro Monat können weitere 25.000 Credits erworben werden.
+Jeder weitere Benutzer kostet zusätzlich \$15 pro Monat.
+
+Die Credits werden bei Circle CI nach Größe und Betriebssystem der Build Runners abgerechnet.
+Die Spanne variiert dabei von 5 Credits/Minute für Builds auf einer kleinen Linux Instanz
+bis hin zu 500 Credits/Minute auf einer NVIDIA Tesla GPU Instanz.
+
+In der kostenpflichtigen Variante steht darüberhinaus Docker Layer Caching zur Verfügung.
+Hierbei werden bei den Builds nur noch die Änderungen in den jeweiligen Images gebaut, das führt zu einer deutlichen Senkung der Build Zeiten.
+Wird Docker Layer Caching verwendet, so werden pauschal 200 Credits für jeden Build abgezogen.
+
+In der Scale Variante besteht zusätzlich die Möglichkeit, die Build Infrastruktur auf eigenen Servern zu betreiben, 24/7 Support,
+GPU und größere Instanztypen zu verwenden.
+Der Preis hierfür ist jedoch nur auf Anfrage erhältlich. \footnote{Circle CI Pricing , vgl.~\cite{CIRCLE_PRICING}} \\
+

@@ -1,0 +1,30 @@
+\paragraph{Ansible}\label{iac_tools_tools_ansible}
+
+Ansible gehört zu RedHat und soll IT-Administrationsaufgaben automatisieren.
+Mit Ansible lassen sich Befehle auf einer Vielzahl von Servern parallel ausführen, um sich wiederholende Tätigkeiten zu vermeiden.
+\footnote{{Why Ansible, vgl.~\cite{ANSIBLE_OVERVIEW}}} \\
+
+Das Tool arbeitet dabei \textsl{agentenlos}, d.h. auf den zu verwaltenden Servern muss nur SSH oder WinRM unterstützt werden.
+
+Die \textsl{Ansible Automation Platform} besteht dabei aus folgenden Produkten:
+\footnote{{Ansible Products, vgl.~\cite{ANSIBLE_PRODUCTS}}}
+
+\begin{itemize}
+    \item \textbf{Ansible Engine:}
+    Das Kommandozeilen Tool mit dem YAML basierende Skripte auf den zu verwaltenden Servern ausgeführt werden.
+
+    \item \textbf{Ansible Tower:}
+    Dashboards, Job Scheduling und grafisches Tool für die Ausführung von Ansible Engine basierenden Tasks.
+
+    \item \textbf{Ansible Analytics:}
+    Analyse, Aggregation und Reporting von automatisierten Prozessen.
+
+    \item \textbf{Content Collections:}
+    Vorgefertigte Module, um Aufgaben mit Ansible zu lösen.
+
+    \item \textbf{Automation Hub:}
+    Suche nach vorgefertigten Modulen aus der Content Collection.
+
+    \item \textbf{Automation services catalog:}
+    Katalog, um eigene self service Lösungen auf Basis von Ansible im Unternehmen anzubieten.
+\end{itemize}

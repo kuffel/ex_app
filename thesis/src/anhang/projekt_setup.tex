@@ -1,0 +1,20 @@
+\lstset{language=bash}
+\begin{lstlisting}[frame=htrbl, caption={Projekt Setup}, label={lst:projekt_setup}]
+
+# Projekt klonen und Master Branch auschecken
+git clone git@github.com:kuffel/ex_app.git
+
+# Temporaeres Verzeichnis fuer die Erstellung der Beispielanwendung
+mkdir tmp
+cd tmp
+mix phx.new ex_app --no-ecto --no-webpack
+cd ex_app
+
+# Kopieren der Beispielanwendung in das versionierte Verzeichnis
+cp -R * ../../ex_app
+
+# Erster Commit und Push
+cd ../../ex_app
+git commit -m "Initial commit"
+git push
+\end{lstlisting}

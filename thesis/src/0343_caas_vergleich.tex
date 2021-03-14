@@ -1,0 +1,75 @@
+\subsubsection{Vergleich}\label{caas_vergleich}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|r|c|c|c|c|}
+\hline
+\multicolumn{1}{|l|}{} & \textbf{\begin{tabular}[c]{@{}c@{}}AWS Elastic \\ Kubernetes \\ Serivce\\ (EKS)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}AWS Elastic \\ Container \\ Service\\ (ECS)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Azure \\ Kubernetes \\ Service\\ (AKS)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Google \\ Kubernetes \\ Engine\\ (GKE)\end{tabular}} \\ \hline
+\textbf{Orchestration} & Kubernetes & AWS ECS & Kubernetes & Kubernetes \\ \hline
+\textbf{Serverless} & \begin{tabular}[c]{@{}c@{}}Ja\\ Fargate\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ja\\ Fargate\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ja \\ Azure Serverless\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ja\\ Cloud Run\end{tabular} \\ \hline
+\textbf{Container Registry} & \begin{tabular}[c]{@{}c@{}}Ja\\ ECR\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ja\\ ECR\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ja\\ Container Registry\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ja\\ Container Registry\end{tabular} \\ \hline
+\textbf{Load Balancing} & AWS ELB/ALB & AWS ELB/ALB & Load-Balancer & Load Balancing \\ \hline
+\textbf{Nodes} & \begin{tabular}[c]{@{}c@{}}Selbstverwaltet\\ AWS EKS AMI\\ AWS Fargate\end{tabular} & \begin{tabular}[c]{@{}c@{}}Selbstverwaltet\\ AWS EKS AMI\\ AWS Fargate\end{tabular} & \begin{tabular}[c]{@{}c@{}}Selbstverwaltet\\ Azure Serverless\end{tabular} & \begin{tabular}[c]{@{}c@{}}Selbstverwaltet\\ Cloud Run\end{tabular} \\ \hline
+\textbf{Beliebtheit} & Platz 1. (29\%) & \begin{tabular}[c]{@{}c@{}}Nicht in der \\ CNCF Auflistung\end{tabular} & Platz 5. (21\%) & Platz 2. (28\%) \\ \hline
+\textbf{\begin{tabular}[c]{@{}r@{}}Preise\\ (ohne Instanzen und\\ Load Balancer)\end{tabular}} & \begin{tabular}[c]{@{}c@{}}\$0,10 / Stunde\\ \$73/Monat\end{tabular} & \$0 & \$0 & \begin{tabular}[c]{@{}c@{}}\$0,10 / Stunde\\ \$73/Monat\end{tabular} \\ \hline
+\textbf{Besonderheiten} & - & \begin{tabular}[c]{@{}c@{}}Integration in AWS\\ Einfacher als Kubernetes\end{tabular} & \begin{tabular}[c]{@{}c@{}}Kubernetes Cluster\\ ohne Nodes\\ kostenlos\end{tabular} & - \\ \hline
+\end{tabular}%
+}
+\caption{Vergleich CaaS Tools}
+\label{tab:caas_tools_vergleich}
+\end{table}
+
+
+%
+%`(https://opsani.com/blog/amazon-ecs-vs-eks-which-one-is-best-for-your-application/)`
+%`(https://blog.alcide.io/kubernetes-as-a-service-eks-vs.-aks-vs.-gke)`
+%`(https://medium.com/swlh/state-of-managed-kubernetes-2020-4be006643360)`
+%`(https://logz.io/blog/kubernetes-as-a-service-gke-aks-eks/)`
+%
+%- Art des CaaS Angebots/Orchestration
+%    - AWS Elastic Kubernetes Serivce (EKS): Kubernetes 1.18.9 `(https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html)`
+%    - AWS Elastic Container Service (ECS): AWS own Orchestration. `(https://aws.amazon.com/de/ecs)`
+%    - Azure Kubernetes Service (AKS): Kubernetes
+%    - Google Kubernetes Engine (GKE): Kubernetes
+%- Serverless (ja/nein)
+%    - EKS: Ja, über Fargate `(https://docs.aws.amazon.com/eks/latest/userguide/fargate.html)`
+%    - ECS: Ja, über Fargate `(https://docs.aws.amazon.com/eks/latest/userguide/fargate.html)`
+%    - AKS: Ja, über Azure Serverless `(https://azure.microsoft.com/en-us/solutions/serverless/)`
+%    - GKE:
+%- Container Registry vorhanden
+%    - EKS: Ja, über ECR `(https://aws.amazon.com/de/ecr/)`
+%    - ECS: Ja, über ECR `(https://aws.amazon.com/de/ecr/)`
+%    - AKS: Ja, über Container Registry `(https://azure.microsoft.com/de-de/services/container-registry/)`
+%    - GKE: Ja, über Container Registry `(https://cloud.google.com/container-registry)`
+%- Load Balancing
+%    - EKS: Über AWS ELB und AWS ALB `(https://docs.aws.amazon.com/eks/latest/userguide/load-balancing.html)`
+%    - ECS: Über AWS ELB und AWS ALB `(https://docs.aws.amazon.com/eks/latest/userguide/load-balancing.html)`
+%    - AKS: Über Load Balancer `(https://azure.microsoft.com/de-de/services/application-gateway/) / (https://azure.microsoft.com/de-de/services/load-balancer/)`
+%    - GKE: Über Load Balancing `(https://cloud.google.com/load-balancing)`
+%- Unterstützte Nodes
+%    - EKS: Self managed nodes, AWS Fargate, Amazon EKS Optimized AMIs
+%    - ECS: Self managed nodes, AWS Fargate, Amazon ECS Optimized AMIs, Spot Instances
+%    - AKS: Self managed nodes, Azure Serverless
+%    - GKE: Self managed nodes, Cloud Run `(https://cloud.google.com/serverless-options)`
+%- Beliebtheit `(https://www.cncf.io/wp-content/uploads/2020/08/CNCF\_Survey\_Report.pdf)`
+%    - EKS: Platz 1. (29\%)
+%    - ECS: Nicht in der CNCF Auflistung `(https://thenewstack.io/fargate-grows-faster-than-kubernetes-among-aws-customers/)`
+%    - AKS: Platz 5. (21\%)
+%    - GKE: Platz 2. (28\%)
+%- Besonderheiten:
+%    - EKS:
+%    - ECS: Spot Instances, bessere Integration in AWS als EKS, Simpler than Kubernetes
+%    - AKS: Kostenloser Kubernetes Cluster ohne Nodes
+%    - GKE:
+%- Preise:
+%    - EKS: 0,10 USD pro Stunde (\$73 / Monat) für den Cluster, extra Kosten für die Nodes `(https://aws.amazon.com/de/eks/pricing/)`
+%    - ECS: Keine Kosten nur die Kosten für Nodes, Load Balancer usw. `(https://aws.amazon.com/de/ecs/pricing/)`
+%    - AKS: Keine Kosten für den Cluster, Kosten für Instanzen `(https://azure.microsoft.com/de-de/pricing/details/kubernetes-service/)`
+%    - GKE: 0,10 USD pro Stunde (\$73 / Monat) für den Cluster, extra Kosten für die Nodes `(https://cloud.google.com/kubernetes-engine/pricing)`
+%
+%
+
+

@@ -1,0 +1,13 @@
+\paragraph{GitLab Actions}\label{ci_services_tools_gitlab_actions}
+
+GitLab Actions wurde 2013 als Teil von GitLab 3.0 eingeführt und ist seitdem Bestandteil von GitLab. \footnote{GitLab 3.0 Release Announcement, vgl.~\cite{GITLAB_ACTIONS}}
+
+Die Preisgestaltung folgt hier ebenfalls den Preisen von GitLab.
+Wenn GitLab auf eigenen Servern betrieben wird, können sogenannte GitLab Runner verwendet werden.
+Diese laufen dann entweder auf dem gleichen System wie GitLab selbst oder auf anderen Servern (ähnlich wie bei Jenkins).
+
+Die Runner sind Docker Container, d.h. es kann jedes Betriebssystem auf dem Docker Container ausgeführt werden können verwendet werden.
+
+Wie üblich verwendet auch GitLab eine YAML DSL zur Definition der Build Skripte.
+
+Passwörter und andere Geheimnisse werden bei GitLab über Umgebungsvariablen in den jeweiligen Build injiziert.

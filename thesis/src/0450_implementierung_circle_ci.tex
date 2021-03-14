@@ -1,0 +1,272 @@
+\newpage
+\subsection{Circle CI}\label{implementierung_circle_ci}
+
+Dieser Abschnitt beschreibt die Einrichtung und Konfiguration der Circle CI-Pipeline.
+Die Pipeline wird bei jedem Pull Request auf GitHub gestartet.
+Bei jedem akzeptierten Pull Request für den Master wird die gleiche Pipeline durchgeführt.
+
+\subsubsection{Grundlagen}
+
+Circle CI verwendet für die Beispiele vereinfachte Konfigurationen.
+Für komplexere Abläufe lassen sich Konfigurationen für die Version 2.1. erstellen.
+Diese haben folgende Unterteilung und erlauben die Wiederverwendung von einzelnen Schritten.
+\footnote{{Orbs, Jobs, Steps, and Workflows, vgl.~\cite{CIRCLE_ORBS_JOBS_STEPS_WORKFLOWS}}}
+
+\begin{itemize}
+  \item \textbf{Executors:}
+  Durch Executors lässt sich die Ausführungsumgebung in Circle CI bestimmen.
+  Dabei können verschiedene Executors für unterschiedliche Schritte verwenden werden.
+  Der Docker Executor startet das gewünschte Docker Image und führt alle Schritte innerhalb dieses Containers durch.
+  Ein Machine Executor kann Linux, Windows oder MacOS verwenden und führt die Schritte direkt auf einer VM durch.
+  \footnote{{Executors and Images, vgl.~\cite{CIRCLE_EXECUTORS_INTRO}}}
+
+  \item \textbf{Commands:}
+  Mit Commands lassen sich Abfolgen von Schritten für die Wiederverwendung gruppieren.
+  Ein Command wird benannt und lässt sich in den Jobs immer wieder aufrufen.
+
+  \item \textbf{Jobs:}
+  Jobs sind benannte Abfolgen von eingebauten Commands und selbst definierten Commands.
+  Hierbei wird auch der Executor festgelegt, d.h. die Umgebung in der ein Job ausgeführt werden soll.
+
+  \item \textbf{Workflows:}
+  Definiert eine Abfolge von Jobs.
+  Hierbei können Bedingungen, wie der aktuelle Branch, definiert werden.
+
+  \item \textbf{Orbs:}
+  Bei Orbs handelt es sich um wiederverwendbare Konfiguration für Commands, Jobs und Workflows.
+  In einer CI-Pipeline muss immer wieder Software auf den Executors installiert und konfiguriert werden.
+  Die AWS CLI erfordert z.B. die Installation von Python und die Konfiguration von AWS Credentials.
+  Wenn mehrere Schritte mit unterschiedlichen Executors die CLI brauchen entsteht Redundanz.
+  Orbs verwenden Environment Variablen und erlauben so eine einfache Konfiguration von Jobs, die Abhängigkeiten zu Software wie z.B. AWS CLI und Terraform haben.
+\end{itemize}
+
+\subsubsection{Einrichtung}
+
+Um Circle CI zu verwenden muss zunächst ein kostenloser Account angelegt werden.
+Dafür kann man sich direkt mit seinem GitHub Account registrieren.
+Nachdem man Circle CI die entsprechenden Berechtigungen im Github Account eingeräumt hat, erscheint eine Liste aller Projekte, die im eigenen GitHub Account verfügbar sind.
+
+Wenn man ein Projekt mit \textbf{Set Up Project} auswählt, kann direkt ein neuer Commit mit der Circle CI Konfiguration erstellt werden.
+Über ein Dropdown kann hier eine vorgefertigte Konfiguration für die verwendete Programmiersprache ausgewählt werden.
+
+Nachdem man die Änderungen mit \textbf{Commit and Run} bestätigt, erzeugt Circle CI einen Commit und eine erste Pipeline wird gestartet.
+
+\paragraph{Executors und Orbs}
+
+Die Pipeline für die Beispielanwendung verwendet zwei Arten von Executors:
+
+\begin{itemize}
+  \item \textbf{Docker Executor:}
+  Verwendet ein Elixir Docker Image für die Schritte, die eine Elixir Umgebung benötigen.
+
+  \item \textbf{Machine Executor:}
+  CircleCI Linux Maschine für Terraform, Docker und AWS CLI Operationen.
+\end{itemize}
+
+Die Beispielanwendung benötigt die AWS CLI, um Images in AWS ECR veröffentlichen zu können.
+Dafür gibt es zwei offizielle Orbs von CircleCI:
+
+\begin{itemize}
+  \item \textbf{AWS CLI}
+  Dieser Orb installiert und konfiguriert die AWS CLI in einem Machine Executor.
+  Die Konfiguration der AWS Access Keys erfolgt dabei über die Umgebungsvariablen, die über die CircleCI Benutzeroberfläche konfiguriert werden.
+  Dieser Orb kann einfach mit \texttt{aws-cli/setup} in den Steps verwendet werden.
+  In den darauffolgenden Schritten steht dann die AWS CLI zur Verfügung.
+  \footnote{{Orbs AWS CLI, vgl.~\cite{CIRCLE_ORBS_AWS_CLI}}}
+
+  \item \textbf{AWS ECR}
+  Um Images in AWS ECR publizieren zu können, muss der Docker Client sich an der Registry anmelden.
+  Dieser Orb ermöglicht den Docker Login an ECR mit dem Schritt \texttt{aws-ecr/ecr-login}
+  \footnote{{Orbs AWS ECR, vgl.~\cite{CIRCLE_ORBS_AWS_ECR}}}
+\end{itemize}
+
+Die Circle CI Konfiguration wird unter \hyperref[lst:circle_orbs_and_executors]{.circleci/config.yml} abgelegt.
+
+\subsubsection{Commands}
+
+Für die Pipeline wurden sich ständig wiederholende Schritte als Commands definiert.
+Diese werden dann in den jeweiligen Jobs wiederverwendet.
+
+\begin{itemize}
+  \item \textbf{setup\_elixir:}
+  Dieses Kommando richtet zunächst die Elixir und Erlang Paketmanager Hex und Rebar ein.
+  Die Abhängigkeiten werden kompiliert und zusammen mit einer Prüfsumme über die Datei mix.lock im Cache abgelegt.
+  Falls die Abhängigkeiten bereits kompiliert wurden, können sie bei einer Wiederholung dieses Kommandos aus dem Cache geladen werden.
+  Das vollständige Kommando findet sich im Anhang unter \hyperref[lst:circle_command_setup_elixir]{Circle CI - Command - setup\_elixir}.
+
+  \item \textbf{setup\_terraform:}
+  Terraform wird für das Deployment verwendet.
+  Die CLI wird verwendet, um Terraform Dateien zu validieren, Umgebungen zu löschen und zu erstellen.
+  Dieses Kommando lädt die CLI herunter und kopiert diese in das entsprechende Linux Verzeichnis.
+  Das vollständige Kommando befindet sich im Anhang unter \hyperref[lst:circle_command_setup_terraform]{Circle CI - Command - setup\_terraform}.
+
+\end{itemize}
+
+\subsubsection{Jobs}
+
+Jobs sind eine Abfolge von Kommandos, die später in einem Workflow eingesetzt werden.
+Jeder Job definiert somit die Schritte und den Executor auf dem dieser ausgeführt werden soll.
+Dabei ist zu beachten, dass Jobs immer mit einem neuen Executor gestartet werden.
+Das erlaubt die Parallelisierung.
+Es erfordert jedoch auch immer die Initialisierung der Umgebung.
+
+\paragraph{Statische Codeanalyse}
+
+Dieser \hyperref[lst:circle_job_check_code]{Schritt} überprüft die Formatierung mit \texttt{mix format} und den Code statisch nach den Regeln von Credo mit der Ausführung von \texttt{mix credo}.
+Schlägt einer dieser beiden Schritte fehl, wird die gesamte CI/CD Pipeline als fehlgeschlagen markiert.
+Der Ersteller des Pull Requests erhält ein frühes Feedback darüber, dass der Code nicht korrekt formatiert ist oder nicht den festgelegten Regeln enspricht.
+
+\paragraph{Kompilierung}
+
+In diesem \hyperref[lst:circle_job_build]{Schritt} werden die Quellen des Projekts kompiliert.
+Dabei wird das Kommando \texttt{mix compile --force --warnings-as-errors} verwendet.
+Wenn Warnungen bei der Kompilierung auftreten, wird die CI/CD Pipeline als fehlgeschlagen markiert.
+Der Parameter \texttt{--warnings-as-errors} soll dazu dienen, nicht verwendete Variablen früh im Buildprozess zu erkennen und den Entwickler darauf hinzuweisen.
+
+\paragraph{Tests}
+
+Bei diesem \hyperref[lst:circle_job_test]{Schritt} werden die Unit Tests der Anwendung mit \texttt{mix test} ausgeführt.
+Wenn Tests fehlschlagen wird die gesamte Pipeline als fehlgeschlagen markiert und beendet.
+Die Tests verwenden coverall, um zu ermitteln welche Testabdeckung erreicht wurde.
+Wird die gewünschte Abdeckung nicht erreicht, so wird die Pipeline als Fehlschlag beendet.
+
+\paragraph{Dokumentation}
+
+Bei diesem \hyperref[lst:circle_job_documentation]{Schritt} wird die Dokumentation mit \texttt{mix test} erstellt.
+Die erstellte ZIP-Datei wird im Anschluss unter den Build Artefakten in Circle CI abgelegt.
+Die Dokumentation kann nach einem Build über die Oberfläche von Circle CI heruntergeladen werden.
+
+\paragraph{Docker}
+
+Zur Erstellung der Docker Container wird zunächst die Versionsnummer in der Anwendung aktualisiert.
+Dazu wird ein \hyperref[lst:projekt_version_sh]{Skript} aufgerufen, das die aktuelle Semantic Version mit dem Git Commit Hash ergänzt.
+Anschließend wird das Docker Image durch Aufruf von \texttt{make docker} erstellt.
+
+Dieses Image muss getaggt und in AWS ECR veröffentlicht werden.
+Dazu wird der AWS CLI und AWS ECR Orb verwendet.
+Als Docker Tag wird hier ebenfalls die Version und der Git Commit Hash verwendet.
+Da Docker Tags kein Pluszeichen zur Trennung von Version und Hash unterstützen, muss mit einem Bindestrich getrennt werden. \\
+
+Abschließend wird das Image in das AWS ECR Repository gepusht und steht somit für ein Deployment zur Verfügung.
+Die YAML Definition des \hyperref[lst:circle_job_docker]{Schritts} befindet sich im Anhang.
+
+\paragraph{AWS Lambda Funktion}
+
+Nicht alle Teile der CI-Pipeline lassen sich einfach in Orbs oder Shell Skripten implementieren.
+Gerade Schritte die REST-APIs von AWS und GitHub verwenden ist der Einsatz von Python empfehlenswert. \\
+
+Es wurde AWS Chalice verwendet.
+Es handelt sich dabei um ein Python Framework mit dem serverlose AWS Lambda Funktionen erstellt werden können. \footnote{{AWS Chalice, vgl.~\cite{AWS_CHALICE}}}
+Diese Funktionen lassen sich über eine REST API verwenden.
+Somit wird vermieden in der CI-Pipeline Python Skript auszuführen. \\
+
+Diese \hyperref[lst:lambda_app_py]{REST Endpunkte} wurden dafür implementiert:
+
+\begin{itemize}
+  \item \texttt{POST /cleanup\_images:}
+  Verwendet die Python AWS-Library, um zu ermitteln welche ECR Images gerade noch in einem ECS-Cluster verwendet werden.
+  Nicht verwendete Images werden automatisch gelöscht.
+  Dieses Vorgehen spart Kosten für die Speicherung von nicht verwendeten Images in ECR.
+
+  \item \texttt{GET /pull-requests:}
+  Gibt eine Liste aller Pull Requests in dem ex\_app Github Projekt zurück.
+
+  \item \texttt{GET /unused-workspaces:}
+  Ermittelt anhand bereits geschlossener Pull Requests und der Terraform Statefiles im S3 Bucket welche Deployments nicht mehr benötigt werden.
+  Diese Deployments und Workspaces können im Rahmen eines Master Build Workflows entfernt werden.
+
+  \item \texttt{POST /add-comment/{PULL\_REQUEST\_ID}:}
+  Erzeugt einen neuen Kommentar in dem GitHub Pull Request.
+  Dieser Endpunkt wird dazu verwendet, den Kommentar mit der URL zu der Vorschauumgebung zu erzeugen.
+\end{itemize}
+
+Die jeweiligen Endpunkte werden mit Bash Skripten aus der CI/CD Pipeline heraus aufgerufen.
+Diese Bash Skripte können einfach mit dem in Linux integrierten Kommando \texttt{wget} implementiert werden.
+
+\paragraph{Vorschauumgebung installieren}
+
+Damit der Reviewer des Pull Requests neben den Code-Änderungen die Änderungen auch direkt in der Anwendung anschauen kann, wird eine \hyperref[lst:circle_job_deploy_preview]{Vorschauumgebung installiert}.
+Dadurch werden die Terraform Skripte verifiziert und ein Reviewer muss kein eigenes Deployment durchführen. \\
+
+In dem Job wird zunächst die AWS CLI konfiguriert, Terraform installiert und die Terraform Dateien validiert.
+Um die Vorschauumgebung zu installieren, wird ein eigener Terraform Workspace erstellt.
+Dieser Workspace bekommt die ID des Pull Requests mit dem Prefix \texttt{preview\_}. \\
+
+Danach wird die Infrastruktur mit \texttt{terraform apply} und unter Verwendung der entsprechenden Variablen installiert.
+Nachdem \texttt{terraform apply} durchgeführt wurde, kann es einige Minuten dauern bis das Deployment tatsächlich bereitsteht. \\
+
+Um zu erkennen ob die gewünschte Version der Anwendung installiert ist wurden zwei zusätzliche HTTP Response Header eingefügt.
+Diese enthalten in einem \texttt{x-app-version} Header die Versionsnummer und in einem \texttt{x-app-build} Header den Git Commit Hash in jeder HTTP-Antwort. \\
+
+Das Skript \hyperref[lst:scripts_wait_for_deployment]{\texttt{wait\_for\_deployment.sh}} bekommt die geplante URL zur Vorschauanwendung und den erwartetet Git Commit Hash als Parameter.
+Damit ruft das Skript periodisch die URL auf und prüft, ob eine Antwort mit dem erwarteten Header zurückkommt.
+Zwischen den Versuchen wartet das Skript 10 Sekunden und nach maximal 10 Minuten wird das Deployment als fehlgeschlagen markiert.
+
+Wenn der Header erfolgreich erkannt wurde, wird über die AWS Lambda Funktion und das Skript \hyperref[lst:scripts_add_pr_comment]{\texttt{add\_pr\_comment.sh}}
+ein GitHub Kommentar mit der Vorschau URL in dem Pull Request erstellt.
+
+\paragraph{Vorschauumgebungen entfernen}
+
+Nachdem eine Vorschauumgebung installiert worden ist, unterscheidet sich diese für AWS nicht von einem regulären Deployment.
+Diese Umgebung würde also dauerhaft bestehen bleiben und so Kosten erzeugen.
+Nachdem der Pull Request akzeptiert oder geschlossen wurde, kann die Umgebung entfernt werden. \\
+
+Dieser \hyperref[lst:circle_job_remove_preview_deployments]{Schritt} in der Circle CI-Pipeline soll das sicherstellen
+und verwendet dafür die Lambda Funktion.
+Es soll ermittelt werden welche Workspaces gelöscht werden können.
+Dazu werden die Terraform Workspaces ermittelt bei denen kein offener Pull Request mehr vorliegt.
+Diese Workspaces werden folglich nicht mehr benötigt und werden in diesem Schritt automatisch entfernt.
+
+\paragraph{Installation in Produktivumgebung}
+
+In diesem \hyperref[lst:circle_job_deploy_production]{Schritt} wird die Anwendung in der Produktivumgebung ausgerollt.
+Nach jedem angenommenen Pull Request oder einer Änderung auf dem Master Branch wird die Produktivumgebung aktualisiert.
+Dafür wird der \texttt{production} Workspace in Terraform verwendet um die Images die im Rahmen der Pipeline für den Master Branch entstehen zu installieren. \\
+
+Das Installieren der Anwendung im Produktivsystem unterscheidet sich nur geringfügig von der Installation einer Vorschauumgebung.
+Der Circle CI Job verwendet die gleichen Schritte mit abgeänderten Parametern für das Deployment. \\
+
+Nachdem der Master erfolgreich deployed wurde, werden durch einen Aufruf an die AWS Lambda Funktion nicht mehr verwendete ECR Images gelöscht.
+
+\subsubsection{Workflow}
+
+Die zuvor implementierten Schritte werden in einem Workflow in Circle CI abgebildet.
+Mit Workflows lässt sich festlegen, welche Jobs in welcher Reihenfolge und unter welchen Bedingungen ausgeführt werden sollen. \\
+
+Grundsätzlich würde Circle CI die Jobs parallel ausführen.
+Durch die Angabe der Abhängigkeiten mit dem Schlüsselwort \texttt{requires} kann eine Reihenfolge definiert werden.
+Jeder Job unterstützt zusätzlich die Angabe eines Filters.
+Damit kann gesteuert werden, ob ein Job nur auf einem bestimmten Branch durchgeführt werden soll.
+
+\begin{itemize}
+  \item \textbf{Statische Codeanalyse:}
+  Dieser Schritt wird immer als erstes und auf allen Branches ausgeführt.
+
+  \item \textbf{Kompilierung:}
+  Dieser Schritt wird immer nach der statischen Codeanalyse ausgeführt.
+
+  \item \textbf{Tests:}
+  Nachdem die Kompilierung erfolgreich war, werden die Tests gestartet.
+
+  \item \textbf{Dokumentation:}
+  Die Erstellung der Dokumentation startet parallel, nachdem die Kompilierung und die Tests erfolgreich waren.
+
+  \item \textbf{Docker:}
+  Nach erfolgreichen Tests wird eine Docker Image generiert und in ECR veröffentlicht.
+
+  \item \textbf{Vorschauumgebung installieren:}
+  Dieser Schritt wird nur durchgeführt, wenn der Workflow nicht auf dem Master Branch durchgeführt wird.
+
+  \item \textbf{Vorschauumgebungen entfernen:}
+  Entfernt die Vorschauumgebungen, wenn der Master-Branch im aktuellen Workflow gebaut wird.
+
+  \item \textbf{Installation in Produktivumgebung:}
+  Wird nur auf dem Master Branch durchgeführt und nimmt das Deployment in die Produktivumgebung vor.
+\end{itemize}
+
+Auch nach einem akzeptierten Pull Request werden die Schritte, die für einen Pull Request bereits durchgeführt wurden erneut durchgeführt.
+Das soll sicherstellen, dass der Master-Branch die gleichen Tests durchläuft und sich ein Deployment für die Vorschauumbgebung kaum von einem Produktivdeployment unterscheidet.
+Bei einem nicht akzeptierten Pull Request wird die Vorschauumgebung spätestens beim nächsten Master-Branch Build entfernt. \\
+
+Der komplette Ablauf ist im Anhang unter \hyperref[lst:circle_workflows]{Circle CI - Workflows} definiert.
+

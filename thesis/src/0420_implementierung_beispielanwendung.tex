@@ -1,0 +1,270 @@
+\subsection{Vorbereitung Beispielanwendung}\label{implementierung_beispielanwendung}
+
+\subsubsection{Erstellung}
+
+Zunächst wird über die GitHub Webanwendung ein neues öffentliches Repository mit einer leeren Readme-Datei und MIT-Lizenz auf GitHub eingerichtet.
+Anschließend wird das Repository auf dem Entwicklerrechner geklont, um die Beispielanwendung darin zu erstellen. \\
+
+Nachdem die Anwendung erzeugt wurde, wird ein erster Commit und Push auf den Masterbranch durchgeführt.
+Damit ist das Projekt eingerichtet und versioniert auf GitHub verfügbar.
+
+Die benötigten Befehle finden sich im Anhang unter \hyperref[lst:projekt_setup]{Projekt Setup}. \\
+
+Um zu vermeiden, dass bestimmte Dateien versioniert werden, ist es sinnvoll eine sogenannte \textbf{.gitignore} Datei anzulegen.
+Diese Datei wird von Git ausgewertet, um zu bestimmen welche Dateien und Ordner bei Änderungen ignoriert werden sollen.
+\\
+
+Zur Erzeugung von gitignore Dateien kann die Website gitignore.io verwendet werden.
+Die für dieses Projekt passende \textbf{.gitignore} Datei kann dort einfach mit dem Linux Kommando wget \hyperref[lst:projekt_setup_gitignore]{heruntergeladen} werden.
+
+\newpage
+\subsubsection{Aufbau der Anwendung}
+
+Für die Beispielanwendung wird das Elixir Phoenix Framework verwendet.
+\footnote{{https://phoenixframework.org/, vgl.~\cite{PHOENIX}}}
+Die wichtigsten Bestandteile eines Phoenix Projektes sind:
+
+\begin{itemize}
+    \item \textbf{config:} Konfigurationsdateien für die verschiedenen Umgebungen
+    \item \textbf{lib}
+    \begin{itemize}
+        \item \textbf{ex\_app:} Enthält die Hauptdatei mit der die Anwendung gestartet wird.
+        \item \textbf{ex\_app\_web}
+        \begin{itemize}
+            \item \textbf{channels:}
+            Websockets und Channels werden hier implementiert.
+            \footnote{{Phoenix Channels, vgl.~\cite{PHOENIX_CHANNELS}}}
+
+            \item \textbf{controllers:}
+            Controller für die Behandlung von HTTP Anfragen.
+
+            \item \textbf{templates:}
+            EEX Templates für die HTML Seiten.
+
+            \item \textbf{views:}
+            JSON Templates für REST API Rückgaben.
+
+            \item \textbf{endpoint.ex:}
+            Hier sind die Plugs definiert durch die alle Requests zur Applikation verarbeitet werden.
+
+            \item \textbf{gettext.ex:}
+            Modul für die Umsetzung von Mehrsprachigkeit.
+
+            \item \textbf{router.ex:}
+            Mapping von URLs, HTTP Verben auf die entsprechenden Funktionen in den Controllern finden hier statt.
+            \footnote{{Phoenix Router, vgl.~\cite{PHOENIX_ROUTER}}}
+
+            \item \textbf{telemetry.ex:}
+            Metriken und Statistiken für das Live Dashboard können hier definiert werden.
+            \footnote{{Telemetry, vgl.~\cite{PHOENIX_TELEMETRY}}}
+
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{priv/static}
+    \begin{itemize}
+        \item \textbf{css:} Stylesheets für die Applikation.
+        \item \textbf{images:} Bilder wie Logos und Icons.
+        \item \textbf{js:} JavaScript Dateien.
+    \end{itemize}
+    \item \textbf{test:} Hier werden die Unit Tests für die Anwendung abgelegt. Test Dateien sollten in der gleichen Ordner Struktur wie die zu testende Dateien sein und die Endung \_test.exs besitzen.
+    \item \textbf{mix.exs:} Enthält das \hyperref[lst:projekt_mixfile]{Projektsetup} und die Abhängigkeiten.
+    \item \textbf{mix.lock:} Wenn externe Abhängigkeiten heruntergeladen wurden, werden die genauen Versionen hier vermerkt, um sicherzustellen, dass immer die gleichen Versionen benutzt werden.
+\end{itemize}
+
+Die Anwendung kann innerhalb des Hauptordners mit \texttt{iex -S mix phx.server} gestartet werden und läuft dann auf http://localhost:4000. \\
+
+Die Tests können mit \texttt{mix test} ausgeführt werden.
+Elixir verwendet das Framework ExUnit, welches Teil der Programmiersprache ist.
+\footnote{{Elixir Unit Testing Framework, vgl.~\cite{ELIXIR_UNIT_TESTING}}}
+
+
+\subsubsection{Statische Codeanalyse}
+
+Statische Codeanalyse soll sicherstellen, dass der Code eine bestimmte Formatierung und Qualität hat.
+Da unterschiedliche Codequalität oft Meinungsverschiedenheiten auslösen kann, ist es hilfreich ein automatisiertes Tool dafür zu verwenden.
+\footnote{{Enforcing code quality in Elixir, vgl.~\cite{ELIXIR_CODE_QUALITY}}} \\
+
+In Elixir kommt dafür Credo zum Einsatz.
+Darin sind bereits Regeln hinterlegt, die von der Elixir Community akzeptiert sind.
+\footnote{{Credo, vgl.~\cite{ELIXIR_CREDO}}} \\
+
+Die Regeln sind unterteilt in: Konsistenz, Design, Lesbarkeit, Refactoring und Warnungen.
+Zusätzlich gibt es ein \texttt{--strict} Argument mit dem noch strengere Regeln umgesetzt werden können:
+
+\begin{itemize}
+    \item \textbf{Konsistenz:}
+    Einhaltung von Leerzeichen und Kommata, nicht benutzte Variablen Namen, fehlerhafte Zeilenenden, nicht benutze Import/Alias Statements.
+
+    \item \textbf{Design:}
+    Zeilenlängen, zu lange Funktionen, zu tiefe Verschachtelung von z.B. if-Statements, Schreibweisen von Variablen, Modulen und Funktionen, vergessene Klammern oder unnötige Klammern.
+
+    \item \textbf{Lesbarkeit:}
+    Doppelter Code und Kommentare mit \textsl{TODO} oder \textsl{FIXME}
+
+    \item \textbf{Refactoring:}
+    Wiederverwendung von einmal definierten Variablennamen, doppelte Negationen, Case Statements die auch ein if statement sein könnten.
+
+    \item \textbf{Warnungen:}
+    Unerwartete Ausgaben und nicht verwendetet Ergebnisse von bestimmten Operationen.
+
+\end{itemize}
+
+Der Einsatz von Credo soll dafür sorgen, dass die Regeln per Tool automatisiert überprüft werden.
+So lassen sich Diskussionen vermeiden.
+
+Die Installation findet über das Hinzufügen einer Zeile in der \texttt{deps} Funktion der \texttt{mix.exs} statt.
+Anschließend kann Credo per \texttt{mix deps.get} heruntergeladen und mit \texttt{mix credo} ausgeführt werden.
+Werden keine Probleme gefunden, wird das Kommando mit dem Linux Exit Code 0 beendet.
+Andernfalls wird je nach Art des Problems ein entsprechend anderer Code zurückgegeben.
+\footnote{{Credo Exit Status, vgl.~\cite{ELIXIR_CREDO_EXIT_STATUS}}} \\
+
+% TODO: (https://github.com/nccgroup/sobelow)
+
+\subsubsection{Code Formatierung}
+
+Die Formatierung von Code mit Einrückungen und Leerzeichen soll die Lesbarkeit verbessern.
+Verschiedene Schreibweisen können zu Diskussionen und Inkonsistenzen führen.
+Um diese Probleme zu vermindern, gibt es in Elixir einen integrierten Code Formatter.
+\footnote{{mix format, vgl.~\cite{ELIXIR_FORMATTER}}}
+
+Wird der Formatter ausgeführt, so formatiert er den gesamten Quellcode gemäß den Richtlinien der Elixir Community.
+Für die Ausführung des Formatters wird das Kommando \texttt{mix format} verwendet.
+
+Zur Überprüfung, ob der Code korrekt formatiert wurde, kann man das Kommando \texttt{mix format --check-formatted} verwenden.
+Dieses beendet mit einem Exit Code > 0, wenn der Code nicht formatiert wurde.
+
+
+\subsubsection{Tests mit Abdeckung}
+
+Um zu ermitteln, wie umfangreich die Unit Tests für eine Software sind und ob genug Tests vorhanden sind kommen \textsl{Test Coverage Tools} zum Einsatz.
+Diese Tools zeichnen die getroffenen Code-Zeilen während der Unit Tests auf und ermitteln einen Prozentwert für die Abdeckung der Tests. \\
+
+Für Elixir gibt es verschiedene Tools.
+Das am häufigsten heruntergeladene Paket ist zur Zeit \textbf{excoveralls}.
+\footnote{{Code Coverage Packages, vgl.~\cite{ELIXIR_HEX_COVERAGE_TOOLS}}}
+
+Nach der Installation lassen sich die Tests mit \texttt{mix coveralls.html} ausführen, um einen HTML Bericht über die abgedeckten Zeilen zu erhalten. \\
+
+Um eine bestimmte Testabdeckung zu erzwingen, kann eine \hyperref[lst:projekt_coveralls_json]{coveralls.json} angelegt werden.
+In dieser Datei wird definiert, welche Abdeckung erforderlich ist.
+Damit würde \textbf{mix coveralls.html} mit einem Exit Code > 0 beenden, wenn Tests fehlgeschlagen oder die gewünschte Zeilenabdeckung nicht erreicht wurde.
+
+
+\newpage
+\subsubsection{Makefile}
+
+Makefiles sind ein beliebtes und einfaches Mittel, um wiederkehrende Aufgaben oder komplexe Kommandozeilen Argumente leicht verfügbar zu machen.
+Das Projekt verwendet ein Makefile, um z.B. bestimmte mix Aufrufe mit festgelegten Parametern zu machen und um eine Dokumentation über die wichtigsten mix Kommandos zu haben.
+
+Ein Makefile hat grundsätzlich folgenden Aufbau:
+
+\lstset{language=bash}
+\begin{lstlisting}[frame=htrbl, caption={Makefile Aufbau}, label={lst:makefile_aufbau}]
+[TASK_NAME]: ## [BESCHREIBUNG DES TASKS]
+    [KOMANNDO]
+\end{lstlisting}
+
+Als erstes wird ein \texttt{help} Task implementiert.
+Dieser gibt alle verfügbaren Tasks mit ihrer Beschreibung aus, wenn der Benutzer \texttt{make help} eingibt.
+\footnote{{Self-Documented Makefile, vgl.~\cite{MAKEFILE_HELP}}}
+
+\hyperref[lst:makefile]{Das vollständige Makefile befindet sich im Anhang dieser Arbeit}.
+
+%\subsubsection{Release Konfiguration}
+%
+%Elixir Anwendungen verwenden sogenannte `Releases` hier wird die Applikation zu Erlang Bytecode kompiliert und anschliessend in einem bestimmten Projektverzeichnis abgelegt. `(https://hexdocs.pm/mix/Mix.Tasks.Release.html)`
+%Die Anwendung kann anschliessend auf einem anderen System ausgeführt werden, die Erlang VM kann zusammen mit dem Release Paket ausgeliefert werden.
+%
+%Um ein Release zu erstellen wird folgender Task in dem Makefile hinzugefügt:
+%
+%\lstset{language=bash}
+%\begin{lstlisting}[frame=htrbl, caption={Release Make Task}, label={lst:makefile_release_task}]
+%release: ## Build a release package
+%	MIX_ENV=prod mix release --overwrite
+%\end{lstlisting}
+%
+%Mit den Standardeinstellungen wird die Erlang VM mit in dem Release hinzugefügt. Das führt dazu das Releases nicht immer Platformunabhängig sind da die Erlang VM für verschiedene Betriebssystem unterschiedlich kompiliert wird.
+%Um diese Probleme zu vermeiden wird das Release innerhalb eines Docker Containers gebaut, das Basisimage des Dockercontainers ist dann auch das Zielsystem in dem das Release ausgeführt werden soll.
+%
+%Dazu wird folgender Task in dem Makefile hinzugefügt:
+%
+%\lstset{language=bash}
+%\begin{lstlisting}[frame=htrbl, caption={Docker Release Make Task}, label={lst:makefile_docker_release_task}]
+%docker_release: ## Build a release within docker
+%	docker run --rm \
+%	-v =$(realpath $(shell pwd)):/opt/ex_app \
+%	-w /opt/ex_app elixir:1.10.3 \
+%	/bin/bash -c "\
+%	mix local.hex --force && \
+%	mix local.rebar --force && \
+%  	mix deps.get && \
+%  	MIX_ENV=prod mix do compile --force, release --overwrite && \
+%	cp Dockerfile /opt/ex_app/_build/prod/rel/ex_app && \
+% 	chown $(shell id -u):$(shell id -g) /opt/ex_app/* -R"
+%\end{lstlisting}
+%
+%
+%Die einzelnen Parameter haben folgende Bedeutung:
+%
+%- -v mountet das aktuelle Verzeichnis in dem Container auf das Verzeichnig /opt/ex\_app.
+%- -w Setzt das Arbeitsverzeichnis auf /opt/ex\_app.
+%- Es wird das offizielle Elixir Image in Version 1.10.3 verwendet.
+%- c führt ein mehrzeiliges Kommando innerhalb des Containers aus:
+%- Hex (Elixir Paketmanager) und Rebar (Erlang Paketmanager) werden initialiisert
+%- mix deps.get lädt die Abhängigkeiten herunter
+%- MIX\_ENV=prod mix do compile --force, release --overwrite erstellt das Release in dem Ordner `\_build/prod/rel/ex\_app`
+%- Das Dockerfile wird in den Release Ordner kopiert
+%- Da Docker der Docker Container als Root läuft würden so Dateien erzeugt die sich auf dem Host System nur noch mit Root Rechten löschen lassen, diese werden daher an den aktuellen Benutzer zurückgegeben.
+
+
+\subsubsection{Versionierung}
+
+Die Versionierung soll sicherstellen, dass alle Beteiligten erkennen können mit welcher Version der Anwendung sie gerade arbeiten.
+Zusätzlich dient Versionierung dazu erkennen zu können, ob es Änderungen gab, die eventuell die Kompatibilität mit anderen Anwendungen gefährdet.
+Alle Veröffentlichungen der Anwendung müssen also versioniert werden.
+Für Docker Images wird ein Tag verwendet, um zu markieren welche Version der Anwendung in dem Image ist. \\
+
+Eine gängige Methode zur Versionierung ist das Semantic Versioning.
+Hier ist je nach Stelle der Versionsnummer eine Bedeutung vorgesehen.
+Die Versionsnummer wird dabei in diesem Format geschrieben: \textbf{MAJOR.MINOR.PATCH} und nach folgenden Regeln erhöht.
+\footnote{{Semantic Versioning 2.0.0, vgl.~\cite{SEMVER}}}
+
+\begin{itemize}
+    \item \textbf{MAJOR:} Wird inkrementiert, wenn Änderungen gemacht werden, die mit einer vorherigen Version nicht mehr kompatibel sind.
+    \item \textbf{MINOR:} Wird inkrementiert, wenn abwärtskompatible Änderungen oder neue Features hinzugefügt werden.
+    \item \textbf{PATCH:} Für abwärtskompatible Bugfixes.
+\end{itemize}
+
+Darüber hinaus lassen sich noch Informationen wie Build Nummer, Git Hashes oder andere Informationen hinter die Patch Version hängen.
+
+Für die Verwaltung der Versionsnummer werden in dem Projekt zwei neue Dateien angelegt.
+Eine \textbf{VERSION} genannte Datei mit der aktuellen Versionsnummer und ein \hyperref[lst:projekt_version_sh]{version.sh} Bash Skript, dass die Aktualisierung der Versionsnummer übernimmt.
+Dieses Skript nimmt die Versionsnummer sowie den Git Commit Hash und aktualisiert die Version der Anwendung entsprechend.
+
+
+\subsubsection{Dockerfile}
+
+Um die Anwendung in ein Dockerimage zu verpacken, wird ein Dockerfile benötigt.
+Mit dieser Datei lassen sich Images mit dem Docker Kommando \texttt{docker build} erstellen.
+% `(https://docs.docker.com/engine/reference/builder/)`
+
+Ein Dockerfile hat grundsätzlich folgenden Aufbau:
+
+\lstset{language=bash}
+\begin{lstlisting}[frame=htrbl, caption={Aufbau Dockerfile}, label={lst:dockerfile_aufbau}]
+FROM [--platform=<platform>] <image> [AS <name>]
+# z.B. fuer ein Ubuntu Image
+FROM ubuntu:18.04
+\end{lstlisting}
+
+In dem Dockerfile werden die einzelnen Schritte mit dem Schlüsselwort RUN ausgeführt.
+Jeder Schritt führt zu einem neuen Layer in dem Dockerimage.
+Dieser baut auf dem vorherigen Schritt auf.
+Das Dockerimage befindet sich nach der Erzeugung mit dem Kommando \texttt{docker build . -t kuffel/ex\_app} im lokalen Image Repository des Systems. \\
+
+Das vollständige \hyperref[lst:dockerfile]{Dockerfile} und das erweiterte \hyperref[lst:makefile]{Makefile} befinden sich im Anhang der Arbeit. \\
+
+Mit dem Kommando \texttt{make docker} lässt sich ein Dockerimage mit der aktuellen Anwendung erstellen.
+Dieses Image kann mit \texttt{make docker\_run} gestartet werden, die Anwendung läuft dann unter http://localhost:4000. \\
+
+Der Container kann mit \texttt{docker stop ex\_app} gestoppt und \texttt{docker rm ex\_app} entfernt werden.
