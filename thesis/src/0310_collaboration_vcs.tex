@@ -1,0 +1,212 @@
+\subsection{Kollaboration und Versionskontrolle}\label{collaboration_vcs}
+
+Tools für die Versionskontrolle benötigen immer auch eine serverseitige Lösung, um die Zusammenarbeit zwischen Entwicklern zu ermöglichen.
+Neben Git gibt es für die Versionskontrolle einige Alternative.
+Aufgrund des weitaus geringeren Marktanteils dieser Alternativen fällt deren Betrachtung in dieser Arbeit weg.
+\footnote{What are the best Version Control System Tools?, vgl.~\cite{STACKSHARE_VCS}}
+
+Bei Stackshare werden in dieser Kategorie folgende Tools aufgeführt:
+\footnote{What are the best Code Collaboration and Version Control Tools?, vgl.~\cite{STACKSHARE_CODE_COLLABORATION}}
+
+\begin{itemize}
+    \item \textbf{GitHub:} \href{https://github.com/}{https://github.com/}
+    \item \textbf{GitLab:} \href{https://about.gitlab.com/}{https://about.gitlab.com/}
+    \item \textbf{Atlassian Bitbucket:} \href{https://bitbucket.org/}{https://bitbucket.org/}
+    \item \textbf{AWS CodeCommit:} \href{https://aws.amazon.com/codecommit}{https://aws.amazon.com/codecommit}
+\end{itemize}
+
+
+%\footnote{GitHub Pricing, vgl.~\cite{GITHUB_PRICING}}
+%\footnote{GitHub free for all teams, vgl.~\cite{TECHCRUNCH_GITHUB_FREE}}
+%
+%\footnote{GitLab - Feature Comparison, vgl.~\cite{GITLAB_FEATURES}}
+%\footnote{Bitbucket - Pricing, vgl.~\cite{BITBUCKET_PRICING}}
+%\footnote{AWS CodeCommit Pricing, vgl.~\cite{AWS_CODECOMMIT_PRICING}}
+
+%    - Pricing:
+%    - Github `(https://github.com/pricing)`:
+%    - Free `(https://techcrunch.com/2020/04/14/github-is-now-free-for-all-teams/)`:
+%    - Unlimited public/private, collaborators
+%    - 2000 Actions minutes/month
+%    - 500 MB Package storage space
+%    - Community support
+%    - Team ($4 user/month):
+%    - Unlimited public/private, collaborators
+%    - Setup required reviewers
+%    - 3000 Actions minutes/month
+%    - 2 GB Package storage space
+%    - Code owners
+%    - Enterprise ($21 user/month):
+%    - SAML - Single sign on
+%    - 50.000 Actions minutes/month
+%    - 50 GB Package storage space
+%    - Advanced auditing
+%    - GitHub One (Contact sales, unknown price):
+%    Container vs. VMs      - 24/7 support
+%    - Actionable metrics
+%    - Gitlab `(https://about.gitlab.com/pricing/) and (https://about.gitlab.com/pricing/gitlab-com/feature-comparison/)`:
+%    - Free:
+%    - Unlimited public/private, collaborators (10 GB Limit total)
+%    - 400 CI/CD minutes/month
+%    - Own production environment/CI runners
+%    - Bronze ($4 user/month):
+%    - Single Team Project Management
+%    - NBD support
+%    - 2000 CI/CD minutes/month
+%    - Sort issues, Scrum Charts, Multiple approvers, Push rules
+%    - Silver ($19 user/month):
+%    - Cross team project management, multiple approval roles, bulk edit issues, epics, roadmaps, approval rules for code review, audit events, deploy boards
+%    - 10000 CI/CD minutes/month
+%    - Priority support
+%    - Gold ($99 user/month):
+%    - Compliance automation, Advanced application security, Executive level insights, Create Test Cases, Secret Detection, Dependency scanning, Security Dashboards/Approvals, License Comliance
+%    - 50000 CI/CD minutes/month
+%    - Bitbucket `(https://www.atlassian.com/software/bitbucket/pricing)`:
+%    - Free ($0 Up to 5 Users)
+%    - 50 CI/CD minutes/month
+%    - Jira/Trello integration
+%    - 1 GB Git LFS Storage
+%    - Standard ($3 user/month)
+%    - 2500 CI/CD minutes/month
+%    - 5 GB Git LFS Storage
+%    - Premium ($6 user/month)
+%    - 3500 CI/CD minutes/month
+%    - 10 GB Git LFS Storage
+%    - AWS Code Commit `(https://aws.amazon.com/de/codecommit/pricing/)`:
+%    - Free ($0 Up to 5 Users)
+%    - Unlimited Repos
+%    - 50 GB Storage
+%    - 10.000 Git Request/Month
+%    - After 5 Users ($1 per additional user/month)
+%    - 10 GB per User
+%    - 2.000 Git Request/Month per User
+%    - "Pay-as-you-go" General pricing after limits are reached
+%    - 0,06 USD pro GB und Monat
+%    - 0,001 USD pro Git-Anfrage
+%    - Commercial support:
+%    - Github `(https://github.com/premium-support)`:
+%    - Yes, starting with Enterprise Level
+%    - GitLab: `(https://about.gitlab.com/support/)`
+%    - Starting with Bronze, Priority Support for higher plans included.
+%    - BitBucket: `(https://confluence.atlassian.com/support/atlassian-support-offerings-193299636.html)`
+%    - Starting with Standard Plan (9/5), Premium (24/7)
+%    - AWS Code Commit: `(https://aws.amazon.com/de/premiumsupport/pricing/)`
+%    - Through AWS support $ 29 or 3% of monthly bill
+%
+%    - Private Repos:
+%    - Github: Unlimited
+%    - GitLab: Unlimited
+%    - BitBucket: Unlimited
+%    - AWS Code Commit: Unlimited
+%
+%    - Self Hosting possible:
+%    - Github: Yes, no pricing without contacting sales `(https://github.com/enterprise)`
+%    - GitLab: Yes, even for free `(https://about.gitlab.com/install/)`
+%    - BitBucket: Yes, but no new licenses starting Feb 2021, EOL Feb. 2024 `(https://bitbucket.org/product/enterprise)`
+%    - AWS Code Commit: No
+%
+%    - Issue Tracker:
+%    - Github: Yes
+%    - GitLab: Yes
+%    - BitBucket: Through Jira Connection
+%    - AWS Code Commit: No
+%
+%    - Ticket System:
+%    - Github: Only issues
+%    - GitLab: Yes
+%    - BitBucket: Jira
+%    - AWS Code Commit: No
+%
+%    - Authentication Methods:
+%    - Github: Email/Password, LDAP only for Enterprise
+%    - GitLab: Email/Password, LDAP (Self Hosted, Bronze), Google, Github, Twitter, Bitbucket, Salesforce
+%    - BitBucket: Email/Password
+%    - AWS Code Commit: IAM
+%
+%    - MFA
+%    - Github: Yes
+%    - GitLab: Yes
+%    - BitBucket: Yes
+%    - AWS Code Commit: Through IAM
+%
+%    - Permissions:
+%    - Github: On repository level: Collaborators can be defined
+%    - GitLab: On repository and group level: Users with differnet roles from Maintainer, Developer, Reporter to Guest
+%    - BitBucket: On account, repository and even branch level, groups (Read/Write/Admin), Guest users and invitations
+%    - AWS Code Commit: Through IAM
+%
+%    - Protected branches:
+%    - Github: Yes with wildcards
+%    - GitLab: Yes with wildcards
+%    - BitBucket: Yes, with wildcards and through permissions
+%    - AWS Code Commit: Yes with wildcards
+%
+%    - Web based code editor:
+%    - Github: Yes
+%    - GitLab: Yes
+%    - BitBucket: Yes
+%    - AWS Code Commit: Yes (but ugly) => Cloud 9 Part of AWS but extra pricing
+%
+%    - Web based code review:
+%    - Github: Yes
+%    - GitLab: Yes
+%    - BitBucket: Yes
+%    - AWS Code Commit: Yes
+%
+%    - Web based code approval:
+%    - Github: Yes, with rules
+%    - GitLab: Yes (starting with Bronze plan)
+%    - BitBucket:
+%    - AWS Code Commit
+%
+%    - LFS Support:
+%    - Github: Yes
+%    - GitLab: Yes
+%    - BitBucket: Yes
+%    - AWS Code Commit: Yes
+%
+%    - Support für Wikis/Dokumentation:
+%    - Github: Yes
+%    - GitLab: Yes
+%    - BitBucket: No
+%    - AWS Code Commit: No
+%
+%    - Statistiken:
+%    - Github: Yes, through Insights
+%    - GitLab: Yes, through Analytics
+%    - BitBucket: No, but available when Jira is connected
+%    - AWS Code Commit: Yes, through CloudWatch, CloudTrail and EventBridge, manual setup needed
+%
+%    - CI/CD integrated:
+%    - Github: Yes, GitHub Actions
+%    - GitLab: Yes, GitLab Runner
+%    - BitBucket: Yes, Pipelines
+%    - AWS Code Commit: Yes, AWS CodeBuild
+%
+%    - Vulnerability Scans:
+%    - Github: Yes
+%    - GitLab: Yes, staring with
+%    - BitBucket: No
+%    - AWS Code Commit: No
+%
+%    - Platform specials:
+%    - Github: GitHub Desktop: https://desktop.github.com/
+%    - GitLab: Jira Like
+%    - BitBucket: SourceTree Git Client for Windows/MacOS
+%    - AWS Code Commit: Pay as you go pricing, Part of CodeStar (Code Guru for Java/Python)
+%
+%    - Rank on stackshare:
+%    - Github: 1. 132.000 Stacks / 4. 465 Stacks
+%    - GitLab: 2. 30.500 Stacks
+%    - BitBucket: 3. 25.800 Stacks
+%    - AWS Code Commit: 4. 243 Stacks
+%
+%
+%    ​
+
+
+
+
+
+
+

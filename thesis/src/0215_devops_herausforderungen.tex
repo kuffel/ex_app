@@ -1,0 +1,68 @@
+\subsubsection{Herausforderungen}\label{devops_herausforderungen}
+
+Bei der Einführung von DevOps müssen sowohl technische als auch organisatorische Herausforderungen bewältigt werden.
+Häufig wird Software jedoch unter Zeitdruck entwickelt und für die Verbesserung von Organisatorischen sowie technischen Problemen wird keine Zeit vorgesehen.
+\footnote{Lichtenberger, vgl.~\cite{Lichtenberger2017}~[S.244]} \\
+
+Bei zahlreichen Musterunternehmen für die DevOps Bewegung wie Netflix und Spotify wurden auf der \textsl{Grünen Wiese} gestartet und diese konnten die Themen von Anfang an angehen.
+\footnote{Lichtenberger, vgl.~\cite{Lichtenberger2017}~[S.247 - S2.248]}
+
+\paragraph{Organisatorisch}
+
+Wenn DevOps Transformationen gestartet werden, ohne dass die Stakeholder und die Geschäftsleitung eine Notwendigkeit dafür sieht,
+so scheitern ca. 50\% aller Transformationen bereits zu Beginn. \footnote{Lichtenberger, vgl.~\cite{Lichtenberger2017}~[S.246]} % `(Kotter 2012)`
+Es ist notwendig einen sogenannten \textsl{Sense of Urgency} bei der Geschäftsführung und den Entscheidern zu wecken und diese
+davon zu überzeugen das diese Transformation notwendig ist. \footnote{Wiedemann, vgl.~\cite{Wiedemann2019}~[S.165]}
+Es darf nicht vernachlässigt werden, dass eine solche Veränderung viele Ressourcen kostet und der Wert nicht sofort ersichtlich ist. \\
+
+Wenn das Unternehmen trotz fehlender DevOps Strategie erfolgreich ist, kann es schwierig sein diese Veränderungen zu erklären.
+Unter Zeitdruck, können Konflikte alleine dadurch entstehen, dass bestimmte Aufgaben zwecks
+Organisationalem Lernen auf Personen verteilt werden, welche auf den ersten Blick nicht die erfahrensten für diese Aufgaben sind.\footnote{Samulat, vgl.~\cite{Samulat2017}~[S.206]}
+Diese zunächst unvermeidliche Verlangsamung muss vom Management unterstützt werden.
+Eine der Grundannahmen von DevOps ist auch, dass Fehler gemacht werden dürfen, wenn auch die Konsequenzen dieser Fehler minimiert werden müssen.
+Eine Kultur in der Fehler gemacht werden dürfen, hängt ganz entscheidend von der Reaktion des Managements auf diese Fehler ab. \footnote{Kim et al, vgl.~\cite{Kim2018}~[S.38]} \\
+
+Darüber hinaus ist eine DevOps Transformation ebenfalls eine große Veränderung der bisherigen Arbeitsweisen. \footnote{Wiedemann, vgl.~\cite{Wiedemann2019}~[S.163]}
+Die Angst vor Veränderung, die Kosten für Schulungen bzw. Weiterbildungen und die Verlangsamung von Prozessen zu Beginn ihrer Umstellung
+ist ebenfalls zu berücksichtigen. \footnote{Kasteleiner/Schwartz, vgl.~\cite{Kasteleiner2019}~[S.211-214]}
+
+\paragraph{Technisch}
+
+Der technische Aspekt einer DevOps Strategie erfordert häufig eine ganze Reihe von neuen Technologien. \footnote{Puppet State of DevOps Report 2020, vgl.~\cite{PUPPET}~[S.3]}
+Dafür müssen neue Technologien erlernt und eingeführt werden, Systeme umgestellt werden und vor allem Automatisierung eingeführt werden. \footnote{Samulat, vgl.~\cite{Samulat2017}~[S.205]}
+Gerade die Automatisierung kann viele Unternehmen überfordern. \footnote{Samulat, vgl.~\cite{Samulat2017}~[S.211]}
+
+Um höhere DevOps Reifegrade zu erreichen, muss eine Self Service Plattform geschaffen werden, diese lässt sich ohne
+den Einsatz von SaaS Lösungen von Cloud Anbietern nicht umsetzen. \footnote{Kasteleiner/Schwartz, vgl.~\cite{Kasteleiner2019}~[S.211-214]}
+
+Das DevOps Mantra welches von Netflix praktiziert wird lautet:
+
+\begin{quotation}
+    \textsl{You build it, you run it.}
+    \footnote{König/Kugel, vgl.~\cite{Konig2019}~[S.296 - S.297]}
+\end{quotation}
+
+Um Systeme zu betreiben, müssen die Entwickler Wissen aus dem Bereich des Betriebs haben und umgekehrt.
+Selbst wenn die Teams durchmischt sind mit Entwicklern und Administratoren, so kann es doch einige Zeit dauern
+bis durch Knowledge Sharing das Wissen ausreichend verteilt wurde. \footnote{Puppet State of DevOps Report 2020, vgl.~\cite{PUPPET}~[S.3]}
+
+
+%    \paragraph{Zusammenfassung}
+%
+%    - Funktionale Trennung aus Dev und Ops auflösen, interdisziplinäre Teams mit gemeinsamen Zielen und Anreizen. \footnote{Lichtenberger, vgl.~\cite{Lichtenberger2017}~[S.244]}
+%    - "Culture eats Strategy for Breakfast" \footnote{Lichtenberger, vgl.~\cite{Lichtenberger2017}~[S.246]}
+%    - No process definition will magi-cally deliver results without a committed, disciplined team, and organization behind it  \footnote{Ozkaya, vgl.~\cite{Ozkaya2019}~[S.4]}
+%    [RESTE]
+%    - "Unicorns" hatten einfache Vorraussetzungen, das die Projekte auf der Grünen Wiese gestartet sind. (IaC, Pipelines konnten von Anfang an integriert werden) `(Lichtenberger, 247-248)`
+%    - DevOps ist nie das Ziel, sondern Mittel zum Zweck `(Lichtenberger, 246)`
+%    - Organisation soll Lernen `(Schwarz/Kasteleiner)`
+%    - Lack of Time, Standardization, Technical skill within the team `(https://puppet.com/resources/report/2020-state-of-devops-report/, )`
+%    - Challenges in Adopting DevOps During `(Buhan, 8-9)`
+%    - Having staff with the right technical skills
+%    - Resistance to Change and Uncertainty
+%    - Changing the Technology Stack and Tools
+%    - Uncertainty in Responsibilities
+%    - Dev will Veränderung, Ops will Stabilität: SW aus Zeitdruck häufig nicht unter Berücksichtung von Ops Problemen entwickelt \footnote{König/Kugel, vgl.~\cite{Konig2019}~[S.291]}
+%    - Kosten/Risiken: Angst vor Veränderung, Schulungen und Weiterbildungen, Prozesse können während der Umstellung mehr Zeit benötigen
+%    - Sharing knowledge is a key factor in the DevOps movement [BC13]. These knowledge-sharing activities are helpful because the teams learn from e
+%    - Metriken sammeln um Ideen zu verifizieren \footnote{Kasteleiner/Schwartz, vgl.~\cite{Kasteleiner2019}~[S.211-214]}

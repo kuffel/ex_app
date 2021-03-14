@@ -1,0 +1,45 @@
+\section{Fazit}\label{fazit}
+
+Eine Umsetzung einer DevOps Strategie ist bei Neuentwicklungen einfacher, da es nicht notwendig ist eingefahrene Abläufe zu ändern.
+Die technischen Voraussetzungen lassen sich bei neuen Projekten ebenfalls von Anfang an berücksichtigen.
+Eine nachträgliche DevOps Migration lässt sich mit den beschriebenen Wegen jedoch schrittweise ebenfalls durchführen. \\
+
+Die Verwendung von agilen Methoden und DevOps erlaubt es, dass Unternehmen kleine Iterationen durchzuführen, kontinuierliches Feedback und eine schnelle Reaktion auf geänderte Anforderungen.
+Ein Einsatz von agilen Methoden ohne kontinuierliches Deployment der Änderungen macht kaum Sinn, da DevOps ein Enabler für agile Entwicklung ist.
+DevOps und agile Methoden sollten also immer gemeinsam verwendet werden. \\
+
+Bei der Betrachtung der Kollaborationstools fällt auf, dass sich Git als Versionskontrolle durchgesetzt hat.
+Andere Systeme werden kaum verwendet.
+Die Anbieter von Webbasierten Tools wie GitLab, GitHub und BitBucket bieten alle einen ähnlichen Funktionsumfang.
+GitLab tritt dabei als Lösung hervor, in der alles in einem Tool erledigt werden kann.
+Neben der Versionskontrolle ist dort ein Ticketsystem, CI/CD Pipelines und Tools fürs Projektmanagement sowie Sicherheit/Compliance vorhanden. \\
+
+Bei den CI/CD Serverlösungen wird oft Jenkins verwendet.
+Dafür ist es jedoch notwendig diesen auf eigenen Servern zu installieren.
+Mit über 1.500 Plugins kann jedes Szenario mit Jenkins abgebildet werden.
+Das macht die Verwaltung und insbesondere die Durchführung von Updates komplex.
+Bei den cloudbasierten CI/CD Systemen kommt in der Regel YAML mit einer DSL zum Einsatz.
+Die Skripte sind deutlich lesbarer als die Groovy basierten Jenkinsfiles. \\
+
+Mit Circle CI hat man eine gute Integration in GitHub.
+Es lässt sich allerdings auch nur mit BitBucket und GitHub verwenden.
+Besonders die Orbs und das Docker Layer Caching erlauben hier die einfache Erstellung schneller CI/CD Pipelines. \\
+
+Für die Provisionierung von Infrastruktur in einer Public Cloud erscheint Terraform die erste Wahl zu sein.
+Keines der betrachteten Tools stellt die Provisionierung von Infrastruktur an erste Stelle.
+Die anderen Tools sind eher zur Verwaltung bereits vorhandener Infrastruktur geeignet.
+Durch die Unterstützung von sogenannten Providern lassen sich mit Terraform auch bereits vorhandene Dienste verwalten.
+Die Abgrenzung zwischen Provisionierung und Konfigurationsmanagement ist somit auch bei Terraform nicht ganz deutlich. \\
+
+Die Dienste von AWS sind im Vergleich zu Google Cloud und Azure wesentlich umfangreicher.
+Gerade im Bereich CaaS bietet AWS mit ECS eine Alternative zu Kubernetes an.
+Die Einarbeitung in Kubernetes ist deutlich aufwendiger als in ECS und mit Fargate bietet Amazon die Möglichkeit Container serverlos zu betreiben.
+Bei der Verwendung von ECS zahlt man ausschließlich für die Ressourcen anders als bei den meisten Kubernetes Lösungen, bei denen bereits das Dashboard kostenpflichtig ist. \\
+
+Für die technische Umsetzung von CI/CD Pipelines gibt eine Vielzahl von Möglichkeiten.
+Die in dieser Arbeit implementierte Pipeline könnte in ähnlicher Form auch mit anderen Tools umgesetzt werden.
+Die vorgeschlagene Lösung lässt sich jedoch vollkommen kostenlos beginnen.
+Lediglich die Kosten für die Infrastruktur auf AWS sind zu entrichten.
+
+
+

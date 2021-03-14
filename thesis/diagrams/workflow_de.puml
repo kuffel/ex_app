@@ -1,0 +1,48 @@
+@startuml
+
+actor "Entwickler" as D
+entity "Github" as GH
+
+entity "CircleCI" as CI
+actor "Reviewer" as R
+entity "AWS ECS" as ECS
+entity "AWS ECR" as ECR
+entity "ExApp Lambda" as LMB
+entity "Vorschauumgebung" as PRV_APP
+entity "Produktiv Umgebung" as PROD_APP
+
+group Entwicklung
+    D <-- GH: Neuen Branch vom Master erzeugen
+    D <- D: Quellcode Veränderungen durchführen
+    D --> GH: Code Änderungen auf Branch pushen
+end
+
+group Review
+    D --> GH: Pull-Request erstellen
+    GH --> CI: CI/CD Pipeline starten
+    CI -> CI: Kompilierung, Tests und Docker Image
+    CI -> ECR: Docker Image veröffentlichen
+    CI -> ECS: Vorschauumgebung installieren
+    CI -> PRV_APP: Auf Vorschauumgebung warten
+    CI -> LMB: Kommentar mit der URL der Vorschauumgebung erstellen
+    LMB -> GH: Kommentar mit der URL der Vorschauumgebung erstellen
+    GH -> R: Pull-Request ist bereit für ein Review
+    R -> R: Review der Änderungen bzw.\nder Vorschauumgebung
+    R -> GH: Code kommentieren und/oder Änderungen vorschlagen
+    D -> GH: Kommentare diskutieren \nund/oder gewünschte Änderungen durchführen
+end
+
+alt Pull-Request akzeptiert und Merge durchgeführt
+    R -> GH : Pull-Request akzeptiert
+    GH -> D : Benachrichtigung
+    GH --> CI: CI/CD Pipeline für \nden Master Branch starten
+    CI -> CI: Kompilierung, Tests und Docker Image
+    CI -> ECR: Docker Image veröffentlichen
+    CI -> PROD_APP: Image in Produktiv Umgebung starten
+    CI -> LMB: Zu löschende Vorschauumgebungen bestimmen
+    CI -> ECS: Vorschauumgebungen löschen
+    ECS -> PRV_APP: Löschen der Vorschauumgebung
+    LMB -> ECS: Nicht verwendete Images bestimmen
+    LMB -> ECR: Nicht verwendete Images löschen
+end
+@enduml

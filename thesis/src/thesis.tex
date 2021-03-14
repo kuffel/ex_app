@@ -1,0 +1,408 @@
+% Festlegung des Allgemeinen Dokumentenformats
+\documentclass[a4paper,12pt,headsepline]{scrartcl}
+
+% Umlaute unter UTF8 nutzen
+\usepackage[utf8]{inputenc}
+
+% Variablen
+\input{latex_einstellungen/variablen}
+
+% PDF Dateien einbinden
+\usepackage[final]{pdfpages}
+
+% weitere Pakete
+% Grafiken aus PNG Dateien einbinden
+\usepackage{graphicx}
+
+% Deutsche Sonderzeichen und Silbentrennung nutzen
+\usepackage[ngerman]{babel}
+
+% Eurozeichen einbinden
+\usepackage[right]{eurosym}
+
+% Zeichenencoding
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern}
+
+% floatende Bilder ermöglichen
+%\usepackage{floatflt}
+
+% mehrseitige Tabellen ermöglichen
+\usepackage{longtable}
+
+% landscape tables
+\usepackage{lscape}
+
+% Multirow tables
+\usepackage{multirow}
+
+% 4. Ebene für Überschriften
+% https://tex.stackexchange.com/questions/60209/how-to-add-an-extra-level-of-sections-with-headings-below-subsubsection
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+% Unterstützung für Schriftarten
+%\newcommand{\changefont}[3]{ 
+%\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+% Packet für Seitenrandabständex und Einstellung für Seitenränder
+\usepackage{geometry}
+\geometry{left=3.5cm, right=2cm, top=2.5cm, bottom=2cm}
+
+% Paket für Boxen im Text
+\usepackage{fancybox}
+
+% bricht lange URLs "schön" um
+\usepackage[hyphens,obeyspaces,spaces]{url}
+
+% Paket für Textfarben
+% https://en.wikibooks.org/wiki/LaTeX/Colors
+\usepackage{color}
+
+% Mathematische Symbole importieren
+\usepackage{amssymb}
+
+\usepackage{float}
+
+% auf jeder Seite eine Überschrift (alt, zentriert)
+%\pagestyle{headings}
+
+% erzeugt Inhaltsverzeichnis mit Querverweisen zu den Abschnitten (PDF Version)
+\usepackage[
+bookmarksnumbered,
+pdftitle={\titleDocument},
+pdfsubject={\subjectDocument},
+pdfauthor={\authorDocument},
+pdfkeywords={\keywordsDocument},
+hyperfootnotes=false]{hyperref}
+%\hypersetup{colorlinks, citecolor=red, linkcolor=blue, urlcolor=black}
+%\hypersetup{colorlinks, citecolor=black, linkcolor= black, urlcolor=black}
+
+% neue Kopfzeilen mit fancypaket
+\usepackage{fancyhdr} %Paket laden
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[L]{\nouppercase{\leftmark}} %Kopfzeile links
+\fancyhead[C]{} %zentrierte Kopfzeile
+\fancyhead[R]{\thepage} %Kopfzeile rechts
+\renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
+%\fancyfoot[C]{\thepage} %Seitennummer
+%\renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
+
+% für Tabellen
+\usepackage{array}
+
+% Runde Klammern für Zitate
+%\usepackage[numbers,round]{natbib}
+
+% Festlegung Art der Zitierung - Havardmethode: Abkuerzung Autor + Jahr
+\bibliographystyle{alphadin}
+
+% Schaltet den zusätzlichen Zwischenraum ab, den LaTeX normalerweise nach einem Satzzeichen einfügt.
+%\frenchspacing
+
+% Paket für Zeilenabstand
+\usepackage{setspace}
+
+% für Bildbezeichner
+\usepackage{capt-of}
+
+% für Stichwortverzeichnis
+\usepackage{makeidx}
+
+\definecolor{code_background_color}{rgb}{0.99,0.99,0.99}
+\definecolor{code_border_color}{rgb}{0.7,0.7,0.7}
+\definecolor{code_comment_color}{RGB}{17,75,16}
+
+% für Listings
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+\usepackage{listings}
+\lstset{
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    backgroundcolor=\color{code_background_color},
+    commentstyle=\color{code_comment_color},
+    keywordstyle=\bfseries,
+    stringstyle=\ttfamily,
+    showstringspaces=false,
+    rulecolor=\color{code_border_color},
+    basicstyle=\tiny,
+    captionpos=b,
+    language=bash
+}
+
+% Indexerstellung
+\makeindex
+
+% Abkürzungsverzeichnis
+\usepackage[german]{nomencl}
+\usepackage{xcolor}
+\let\abbrev\nomenclature
+
+% Abkürzungsverzeichnis LiveTex Version
+% Titel des Abkürzungsverzeichnisses
+\renewcommand{\nomname}{Abkürzungsverzeichnis}
+% Abstand zwischen Abkürzung und Erläuterung
+\setlength{\nomlabelwidth}{.25\textwidth}
+% Zwischenraum zwischen Abkürzung und Erläuterung mit Punkten
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+% Variation des Abstandes der einzelnen Abkürzungen zu einander
+\setlength{\nomitemsep}{-\parsep}
+% Index mit Abkürzungen erzeugen
+\makenomenclature
+%\makeglossary
+
+% Abkürzungsverzeichnis TeTEX Version
+% \usepackage[german]{nomencl}
+% \makenomenclature
+% %\makeglossary
+% \renewcommand{\nomname}{Abkürzungsverzeichnis}
+% \AtBeginDocument{\setlength{\nomlabelwidth}{.25\columnwidth}}
+% \renewcommand{\nomlabel}[1]{#1 \dotfill}
+% \setlength{\nomitemsep}{-\parsep}
+
+% Optional: Einzelne Zeilen am Anfang einer Seite unterdrücken (Schusterjungen)
+% \clubpenalty = 10000
+% Optional: Einzelne Zeilen am Ende einer Seite unterdrücken (Hurenkinder)
+% \widowpenalty = 10000
+% \displaywidowpenalty = 10000
+
+\begin{document}
+
+% Deckblatt einbinden
+\includepdf[pages=-]{deckblatt.pdf}
+
+% hier werden die Trennvorschläge inkludiert
+\input{latex_einstellungen/trennung}
+
+% Schriftart Helvetica verwenden
+%\usepackage{helvet}
+%\renewcommand\familydefault{\sfdefault}
+
+% römische Numerierung
+\pagenumbering{roman}
+
+% 1.5 facher Zeilenabstand
+\onehalfspacing
+
+\newpage
+
+% Einleitung / Abstract
+\thispagestyle{empty}
+\input{0000_abstract}
+
+% einfacher Zeilenabstand
+\singlespacing
+
+\newpage
+% Seitenzählung bei Inhaltsverzeichnis beginnen
+\setcounter{page}{1}
+
+% Inhaltsverzeichnis anzeigen
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+\fancyhead[L]{\nouppercase{\leftmark}} %Kopfzeile links
+
+% 1,5 facher Zeilenabstand
+\onehalfspacing
+
+% arabische Seitennummerierung ab hier
+\pagenumbering{arabic}
+
+% Einleitung
+\fancyhead[L]{\nouppercase{Einleitung}}
+\input{0100_einleitung}
+\input{0110_problemstellung_ziel}
+\input{0120_beschreibung_anwendung}
+% \input{0130_vorgehen}
+\newpage
+
+% Grundlagen
+\fancyhead[L]{\nouppercase{Grundlagen}}
+\input{0200_grundlagen}
+
+% DevOps
+\input{0210_devops}
+\input{0211_devops_geschichte}
+\input{0212_devops_und_agile}
+\input{0213_devops_wege}
+\input{0214_devops_vorteile}
+% \input{0215_devops_herausforderungen}
+
+% CI/CD
+\input{0220_continuous_whatever}
+\input{0221_vcs}
+\input{0222_ci}
+\input{0223_cd_vs_cd}
+\input{0224_ci_cd_vorteile}
+\input{0225_ci_cd_herausforderungen}
+
+% Containers
+\input{0230_containers}
+\input{0231_containers_begriffe}
+% \input{0232_containers_vs_vm}
+
+% IaC
+\input{0240_iac}
+\input{0241_iac_vorteile}
+\input{0242_iac_probleme}
+\input{0243_iac_arten}
+\newpage
+
+% Evaluierung der Tools
+\fancyhead[L]{\nouppercase{Evaluierung}}
+\input{0300_evaluierung}
+\input{0310_collaboration_vcs}
+\input{0311_collaboration_vcs_kriterien}
+\input{0312_collaboration_vcs_tools}
+\input{0313_collaboration_vcs_vergleich}
+\input{0314_collaboration_vcs_zusammenfassung}
+
+\input{0320_ci_services}
+\input{0321_ci_services_kriterien}
+\input{0322_ci_services_tools}
+\input{0323_ci_services_vergleich}
+\input{0324_ci_services_zusammenfassung}
+
+\input{0330_iac_tools}
+\input{0331_iac_kriterien}
+\input{0332_iac_tools_tools}
+\input{0333_iac_tools_vergleich}
+\input{0334_iac_zusammenfassung}
+
+\input{0340_caas}
+\input{0341_caas_kriterien}
+\input{0342_caas_tools}
+\input{0343_caas_vergleich}
+\input{0344_caas_zusammenfassung}
+
+\newpage
+
+% Implementierung
+\fancyhead[L]{\nouppercase{Implementierung}}
+\input{0400_implementierung}
+% \input{0410_implementierung_entwicklungsumgebung}
+\input{0420_implementierung_beispielanwendung}
+\input{0440_implementierung_terraform}
+\input{0450_implementierung_circle_ci}
+\input{0460_implementierung_zusammenfassung}
+
+\newpage
+
+% Fazit
+\fancyhead[L]{\nouppercase{Fazit}}
+\input{0500_fazit}
+\input{0510_zusammenfassung}
+\input{0520_kritische_reflexion}
+\input{0530_ausblick}
+\newpage
+
+% \input{beispiel}
+
+% einfacher Zeilenabstand
+\singlespacing
+% Literaturliste soll im Inhaltsverzeichnis auftauchen
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Literaturverzeichnis}
+% Literaturverzeichnis anzeigen
+\renewcommand\refname{Literaturverzeichnis}
+\bibliography{thesis}
+
+\newpage
+% das Abbildungsverzeichnis
+% Verion 1: Abbildungsverzeichnis MIT führender Nummberierung endgueltig anzeigen
+\listoffigures
+% Abbildungsverzeichnis soll im Inhaltsverzeichnis auftauchen
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+
+% Verion 2: Abbildungsverzeichnis OHNE führende Nummberierung endgueltig anzeigen
+%\begingroup
+%\renewcommand\numberline[1]{}
+%\listoffigures
+%\endgroup
+
+
+% das Tabellenverzeichnis
+\newpage
+\fancyhead[L]{\nouppercase{Tabellenverzeichnis}}
+% \fancyhead[L]{Abbildungsverzeichnis / Abkürzungsverzeichnis} %Kopfzeile links
+% Tabellenverzeichnis endgültig anzeigen
+\listoftables
+% Tabellenverzeichnis soll im Inhaltsverzeichnis auftauchen
+\addcontentsline{toc}{section}{Tabellenverzeichnis}
+
+%% WORKAROUND für Listings
+%\makeatletter% --> De-TeX-FAQ
+%\renewcommand*{\lstlistoflistings}{%
+%  \begingroup
+%    \if@twocolumn
+%      \@restonecoltrue\onecolumn
+%    \else
+%      \@restonecolfalse
+%    \fi
+%    \lol@heading
+%    \setlength{\parskip}{\z@}%
+%    \setlength{\parindent}{\z@}%
+%    \setlength{\parfillskip}{\z@ \@plus 1fil}%
+%    \@starttoc{lol}%
+%    \if@restonecol\twocolumn\fi
+%  \endgroup
+%}
+%\makeatother% --> \makeatletter
+% das Listingverzeichnis
+\newpage
+\fancyhead[L]{Listingverzeichnis} %Kopfzeile links
+\renewcommand{\lstlistlistingname}{Listingverzeichnis}
+\lstlistoflistings
+% Listingverzeichnis soll im Inhaltsverzeichnis auftauchen
+\addcontentsline{toc}{section}{Listingverzeichnis}
+%%%%
+
+% das Abkürzungsverzeichnis
+\newpage
+% das Abkürzungsverzeichnis ausgeben
+\fancyhead[L]{Abkürzungsverzeichnis} %Kopfzeile links
+\input{latex_einstellungen/abkuezungen/abkuerzungen}
+\printnomenclature[3cm]
+% Abkürzungsverzeichnis soll im Inhaltsverzeichnis auftauchen
+\addcontentsline{toc}{section}{Abkürzungsverzeichnis}
+
+
+%% Index soll Stichwortverzeichnis heissen
+% \newpage
+% % Stichwortverzeichnis soll im Inhaltsverzeichnis auftauchen
+% \addcontentsline{toc}{section}{Stichwortverzeichnis}
+% \renewcommand{\indexname}{Stichwortverzeichnis}
+% % Stichwortverzeichnis endgültig anzeigen
+% \printindex
+
+\onehalfspacing
+% evtl. Anhang
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Anhang}
+\fancyhead[L]{Anhang} %Kopfzeile links
+\input{anhang/anhang}
+
+% Ehrenwörtliche Erklärung
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Ehrenwörtliche Erklärung}
+\input{erklaerung}
+
+% leere Abschlussseite
+%\newpage
+%\thispagestyle{empty} % erzeugt Seite ohne Kopf- / Fusszeile
+%\mbox{}
+
+\end{document}

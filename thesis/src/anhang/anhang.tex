@@ -1,0 +1,98 @@
+\subsection*{Anhang}\label{anhang}
+
+\subsubsection*{GitHub Repository}\label{anhang_github}
+
+Der gesamte ausführbare Quellcode steht auch auf Github zur Verfügung: \\
+
+\href{https://github.com/kuffel/ex\_app}{https://github.com/kuffel/ex\_app} \\
+
+Zur Abgabe wurde ein Git Tag (\textbf{abgabe}) mit folgendem Git Commit Hash erstellt: \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\texttt{HIER\_COMMIT\_HASH\_EINFÜGEN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+
+Ein Pull-Request in dem Projekt wird die in der Arbeit erstellte CI/CD Pipeline starten. \\
+
+Die LaTex Dateien zu der Thesis befinden sich im Verzeichnis \textbf{thesis}.
+
+\subsubsection*{Quellen}\label{anhang_quellen}
+
+Die flüchtigen Quellen der Arbeit wurden zusammen mit der Arbeit hochgeladen.
+Eine ZIP Datei mit den Quellen lässt sich zusätzlich auch hier herunterladen: \\
+
+\href{https://www.kuffel.eu/thesis/quellen.zip}{https://www.kuffel.eu/thesis/quellen.zip} \\
+
+Die Prüfsummen der Datei sind: \\
+
+MD5: \texttt{d6837710f7a09f86f13305dcfcbc47e3}
+
+SHA-256: \texttt{0508b9f0e52179dbbb1cda12af39cedbf97f7b150ae57cc60179f6b62fc459f9}
+
+\newpage
+\subsubsection*{Beispielanwendung}\label{anhang_beispielanwendung}
+\input{./anhang/projekt_setup}
+\input{./anhang/projekt_setup_gitignore}
+\input{./anhang/projekt_mixfile}
+\input{./anhang/projekt_coveralls_json}
+\lstinputlisting[frame=htrbl, caption={Makefile}, label={lst:makefile}]{../../Makefile}
+\lstinputlisting[frame=htrbl, caption={version.sh}, label={lst:projekt_version_sh}]{../../version.sh}
+\lstinputlisting[frame=htrbl, caption={Dockerfile}, label={lst:dockerfile}]{../../Dockerfile}
+
+\newpage
+\subsubsection*{Terraform}\label{anhang_terraform}
+\input{./anhang/terraform_setup}
+\input{./anhang/terraform_s3_backend}
+\input{./anhang/terraform_ecr_setup}
+\input{./anhang/terraform_docker_push}
+\lstinputlisting[frame=htrbl, caption={Terraform - main.tf}, label={lst:terraform_main}, firstline=4, lastline=17]{../../deployments/main.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - variables.tf}, label={lst:terraform_variables}]{../../deployments/variables.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - outputs.tf}, label={lst:terraform_output}]{../../deployments/outputs.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 01\_vpc.tf}, label={lst:terraform_vpc}]{../../deployments/01_vpc.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 02\_security\_group.tf}, label={lst:terraform_security_group}]{../../deployments/02_security_group.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 03\_ecs.tf}, label={lst:terraform_ecs}]{../../deployments/03_ecs.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - fargate-role.json}, label={lst:terraform_fargate_role}]{../../deployments/templates/fargate-role.json}
+\lstinputlisting[frame=htrbl, caption={Terraform - fargate-role-policy.json}, label={lst:terraform_fargate_role_policy}]{../../deployments/templates/fargate-role-policy.json}
+\lstinputlisting[frame=htrbl, caption={Terraform - app\_task.json}, label={lst:terraform_ecs_task_json}]{../../deployments/templates/app_task.json}
+\lstinputlisting[frame=htrbl, caption={Terraform - 04\_ecs\_task.tf}, label={lst:terraform_ecs_task}]{../../deployments/04_ecs_task.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 05\_autoscaling.tf}, label={lst:terraform_autoscaling}]{../../deployments/05_autoscaling.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 06\_alb.tf}, label={lst:terraform_alb}]{../../deployments/06_alb.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 07\_dns.tf}, label={lst:terraform_dns}]{../../deployments/07_dns.tf}
+\lstinputlisting[frame=htrbl, caption={Terraform - 08\_monitoring.tf}, label={lst:terraform_monitoring}]{../../deployments/08_monitoring.tf}
+
+\newpage
+\subsubsection*{AWS Lambda}\label{anhang_aws_lambda}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - app.py}, label={lst:lambda_app_py}]{../../deployments/ex_app_lambda/app.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.check\_api\_key}, label={lst:lambda_check_api_key}, firstline=13, lastline=24]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.is\_deployment\_ready}, label={lst:lambda_is_deployment_ready}, firstline=26, lastline=39]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.ecr\_used\_images}, label={lst:lambda_ecr_used_images}, firstline=41, lastline=60]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.ecr\_images}, label={lst:lambda_ecr_images}, firstline=62, lastline=78]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.terraform\_workspaces}, label={lst:lambda_terraform_workspaces}, firstline=80, lastline=98]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.cleanup\_images}, label={lst:lambda_cleanup_images}, firstline=100, lastline=120]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.pull\_requests}, label={lst:lambda_pull_requests}, firstline=122, lastline=159]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+\lstinputlisting[frame=htrbl, caption={AWS Lambda - Funktion - utils.add\_comment}, label={lst:lambda_add_comment}, firstline=161, lastline=174]{../../deployments/ex_app_lambda/chalicelib/utils.py}
+
+\newpage
+\subsubsection*{Skripte}\label{anhang_scripts}
+\lstinputlisting[frame=htrbl, caption={Skript - add\_pr\_comment.sh}, label={lst:scripts_add_pr_comment}]{../../deployments/scripts/add_pr_comment.sh}
+\lstinputlisting[frame=htrbl, caption={Skript - cleanup\_images.sh}, label={lst:scripts_cleanup_images}]{../../deployments/scripts/cleanup_images.sh}
+\lstinputlisting[frame=htrbl, caption={Skript - get\_pull\_requests.sh}, label={lst:scripts_get_pull_requests}]{../../deployments/scripts/get_pull_requests.sh}
+\lstinputlisting[frame=htrbl, caption={Skript - get\_unused\_workspaces.sh}, label={lst:scripts_get_unused_workspaces}]{../../deployments/scripts/get_unused_workspaces.sh}
+\lstinputlisting[frame=htrbl, caption={Skript - wait\_for\_deployment.sh}, label={lst:scripts_wait_for_deployment}]{../../deployments/scripts/wait_for_deployment.sh}
+
+\newpage
+\subsubsection*{Circle CI}\label{anhang_circle_ci}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Orbs und Executors}, label={lst:circle_orbs_and_executors}, firstline=1, lastline=15]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Command - setup\_elixir}, label={lst:circle_command_setup_elixir}, firstline=17, lastline=33]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Command - setup\_terraform}, label={lst:circle_command_setup_terraform}, firstline=35, lastline=43]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - check\_code}, label={lst:circle_job_check_code}, firstline=46, lastline=57]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - build}, label={lst:circle_job_build}, firstline=59, lastline=66]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - test}, label={lst:circle_job_test}, firstline=68, lastline=80]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - documentation}, label={lst:circle_job_documentation}, firstline=82, lastline=96]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - docker}, label={lst:circle_job_docker}, firstline=98, lastline=117]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - deploy\_preview}, label={lst:circle_job_deploy_preview}, firstline=119, lastline=148]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - remove\_preview\_deployments}, label={lst:circle_job_remove_preview_deployments}, firstline=150, lastline=176]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Job - deploy\_production}, label={lst:circle_job_deploy_production}, firstline=179, lastline=210]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - Workflows}, label={lst:circle_workflows}, firstline=212, lastline=248]{../../.circleci/config.yml}
+\lstinputlisting[frame=htrbl, caption={Circle CI - config.yml}, label={lst:circle_ci_complete}]{../../.circleci/config.yml}

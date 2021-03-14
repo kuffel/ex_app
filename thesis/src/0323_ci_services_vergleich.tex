@@ -1,0 +1,213 @@
+\newpage
+\subsubsection{Vergleich}\label{ci_services_vergleich}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% \usepackage{graphicx}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{r|c|c|c|c|c|}
+\cline{2-6}
+\multicolumn{1}{l|}{} & \textbf{Jenkins} & \textbf{Travis CI} & \textbf{Circle CI} & \textbf{GitHub Actions} & \textbf{GitLab CI} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Unterstützte Kollaborationstools}} & \begin{tabular}[c]{@{}c@{}}Alle \\ (Über Plugins)\end{tabular} & \begin{tabular}[c]{@{}c@{}}GitHub, GitLab, \\ Bitbucket, Assembla\end{tabular} & \begin{tabular}[c]{@{}c@{}}GitHub\\ Bitbucket\end{tabular} & GitHub & GitLab \\ \hline
+\multicolumn{1}{|r|}{\textbf{Authentifizierung}} & LDAP, Email & \begin{tabular}[c]{@{}c@{}}Github, Bitbucket, \\ Gitlab, Assembla\end{tabular} & \begin{tabular}[c]{@{}c@{}}Github, \\ Bitbucket\end{tabular} & siehe GitHub & LDAP, Email \\ \hline
+\multicolumn{1}{|r|}{\textbf{Pipelines as Code}} & Groovy Scripte & YAML & YAML & YAML & YAML \\ \hline
+\multicolumn{1}{|r|}{\textbf{Verwaltung von Secrets}} & Über Plugins & \begin{tabular}[c]{@{}c@{}}Über Environment\\ Variablen\end{tabular} & \begin{tabular}[c]{@{}c@{}}Über Environment\\ Variablen\end{tabular} & \begin{tabular}[c]{@{}c@{}}Über Environment\\ Variablen\end{tabular} & \begin{tabular}[c]{@{}c@{}}Über Environment\\ Variablen\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Unterstützte Programmiersprachen}} & \begin{tabular}[c]{@{}c@{}}Abhängig vom\\ Agent\end{tabular} & \begin{tabular}[c]{@{}c@{}}Alle die in \\ Docker ausgeführt\\ werden können\end{tabular} & \begin{tabular}[c]{@{}c@{}}Alle die in \\ Docker ausgeführt\\ werden können\end{tabular} & \begin{tabular}[c]{@{}c@{}}Alle die in \\ Docker ausgeführt\\ werden können\end{tabular} & \begin{tabular}[c]{@{}c@{}}Alle die in \\ Docker ausgeführt\\ werden können\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Unterstützte Betriebssysteme}} & \begin{tabular}[c]{@{}c@{}}Linux, \\ Windows, \\ MacOS\end{tabular} & \begin{tabular}[c]{@{}c@{}}Linux, \\ Windows, \\ MacOS\end{tabular} & \begin{tabular}[c]{@{}c@{}}Linux, \\ Windows, \\ MacOS\end{tabular} & \begin{tabular}[c]{@{}c@{}}Linux, \\ Windows, \\ MacOS\end{tabular} & \begin{tabular}[c]{@{}c@{}}Linux, \\ Windows, \\ MacOS\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Container support}} & \begin{tabular}[c]{@{}c@{}}Ja \\ (Über Plugins)\end{tabular} & Ja & Ja & Ja & Ja \\ \hline
+\multicolumn{1}{|r|}{\textbf{Usability}} & \begin{tabular}[c]{@{}c@{}}Komplexe\\ Einrichtung\end{tabular} & \begin{tabular}[c]{@{}c@{}}einfache Tutorials\\ und Templates\end{tabular} & \begin{tabular}[c]{@{}c@{}}einfache Tutorials\\ und Templates\end{tabular} & \begin{tabular}[c]{@{}c@{}}einfache Tutorials\\ und Templates\end{tabular} & \begin{tabular}[c]{@{}c@{}}einfache Tutorials\\ und Templates\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Self Hosting}} & Ja & \begin{tabular}[c]{@{}c@{}}Ja\\ (für viele Bulds\\ bevorzugt)\end{tabular} & Ja & Ja & Ja \\ \hline
+\multicolumn{1}{|r|}{\multirow{3}{*}{\textbf{Kosten}}} & \begin{tabular}[c]{@{}c@{}}On Premise\\ (Infrastruktur \\ und\\ Wartungskosten)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Free\\ 10.000 Credits\\ Private and OpenSource\\ Unlimited Users\end{tabular} & \begin{tabular}[c]{@{}c@{}}Free\\ Linux/Windows\\ 2.500 Credits/Woche\end{tabular} & siehe GitHub & siehe GitLab \\ \cline{2-6}
+\multicolumn{1}{|r|}{} & \multicolumn{1}{l|}{} & \begin{tabular}[c]{@{}c@{}}Concurrent Job Plans\\ 1 Job \$69/Monat\\ 2 Job \$129/Monat\\ 5 Job \$249/Monat\end{tabular} & \begin{tabular}[c]{@{}c@{}}Performance\\ \$30/Monat\\ MacOS\\ 25.000 Credits/Woche\\ 3 Benutzer\\ 80 Concurrent Jobs\\ Docker Layer Caching\end{tabular} &  &  \\ \cline{2-6}
+\multicolumn{1}{|r|}{} & \multicolumn{1}{l|}{} & \begin{tabular}[c]{@{}c@{}}Unlimited\\ On Premise\\ \$8000 pro 20 User/Jahr\end{tabular} & \begin{tabular}[c]{@{}c@{}}Scale\\ GPU Instances\end{tabular} &  &  \\ \hline
+\multicolumn{1}{|r|}{\textbf{Rang auf Stackshare}} & 1. (33.00 Stacks) & 2. (6.800 Stacks) & 3. (7350 Stacks) & - & 4. (1.590 Stacks) \\ \hline
+\multicolumn{1}{|r|}{\textbf{Besonderheiten}} & Viele Plugins & Einfache Einrichtung & \begin{tabular}[c]{@{}c@{}}Einfache Einrichtung\\ Integration in GitHub\\ Viele Templates\\ Orbs\end{tabular} & \begin{tabular}[c]{@{}c@{}}Einfache Einrichtung\\ Integration in GitHub\\ Viele Templates\end{tabular} & \begin{tabular}[c]{@{}c@{}}Einfache Einrichtung\\ Integration in GitLab\end{tabular} \\ \hline
+\end{tabular}%
+}
+\caption{Vergleich CI/CD Tools}
+\label{tab:ci_cd_tools_vergleich}
+\end{table}
+
+
+%- Preise
+%    - Jenkins
+%        - Kein gehosteter Dienst, Infrastruktur Kosten
+%    - Travis CI
+%        - Free Plan
+%            - 10.000 Credits (Credits per build minute depend on os: Linux 10, Windows 20, MacOS 50)
+%            - Unlimited unqique users
+%            - Private \& Open-Source Repos
+%            - Windows, Linux Mac OS
+%        - 1 concurrent job Plan (\$69/month)
+%        - 2 concurrent job Plan (\$129/month)
+%        - 5 concurrent job Plan (\$249/month)
+%        - Unlimited concurrent builds => Travis CI Enterprise (On Premise, \$8000, per 20 Users/Year)
+%    - Circle CI `(https://circleci.com/pricing/)`
+%        - Free (\$0, 2500 Free Credits/Week)
+%            - Docker Linux
+%            - Linux VM
+%            - Windows VM
+%            - 1 Concurrent Job
+%        - Performance (\$15/month for first 3 users (\$15/month for additional users))
+%            - Starts at 25,000 credits for \$15
+%            - Free + macOS VM
+%            - Docker Layer Caching
+%            - 80 Concurrent jobs
+%            - Ticket based Global Support (8x5)
+%        - Scale (Custom pricing)
+%            - GPU-Nvidia
+%            - Windows GPU-Nvidia
+%            - 24x5 and 24x7 available
+%        - About the credits:
+%            - 200 per Job with Docker Layer Caching
+%            - Depending on VM OS, CPU, RAM => 5 Credits/Min (Small) to 500 for Nvidia Tesla T4
+%    - GitHub Actions `(https://github.com/pricing)`
+%        - Included in GitHub Pricing Tiers
+%    - GitLab CI `(https://about.gitlab.com/pricing/)`
+%        - Included in GitLab Pricing Tiers
+%    - AWS CodePipeline `(https://aws.amazon.com/de/codepipeline/pricing/)`
+%        - 1\$ per Pipeline per Month + (Additional AWS Ressources)
+%    - CodeShip IO `(https://codeship.com/pricing)`
+%        - Free 100 Builds per Month, Unlimited Projects, Unlimited Team Members
+%        - Starter: 1 build at a time, 2 test pipelines  (\$49 / month)
+%        - Essential: 2 build at a time, 2 test pipelines  (\$99 / month)
+%        - Plus: 3 build at a time, 3 test pipelines  (\$199 / month)
+%        - Power: 4 build at a time, 4 test pipelines  (\$399 / month)
+%        - Premium: 6 build at a time, 6 test pipelines  (\$999 / month)
+%    - Azure DevOps `(https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/)`
+%        - Free:
+%            - 1 Free Microsoft hosted Repo and 1 Free Self Hosted CI/CD, 1800 Build Minutes per Month, 1 parallel job
+%            - First 5 Users free, then \$ 6 per Month per User
+%            - First 2 GB free
+%        - Pay-as-you-go:
+%            - \$15 for additional paralled jobs with unlimited minutes
+%            - \$6 User / Month
+%            - \$1 per Extra GB
+%- Commercial Support
+%    - Jenkins: Kein eigenes Unternehmen, Support nur über Dritte.
+%    - Travis CI: Verfügbar als Teil der regulären Pläne
+%    - Circle CI: Verfügbar als Teil der regulären Pläne
+%    - GitHub Actions: : Verfügbar als Teil der regulären Pläne
+%    - GitLab CI: Verfügbar als Teil der regulären Pläne
+%    - AWS CodePipeline: Through AWS support \$ 29 or 3% of monthly bill
+%    - CodeShip IO: Verfügbar als Teil der regulären Pläne
+%    - Azure DevOps: Through Azure Support, starting at \$29 `(https://azure.microsoft.com/en-us/support/plans/)`
+%- Unterstützte Kollaborationstools
+%    - Jenkins: Durch Plugins wirklich alle die es gibt, Code wird einfach per HTTPS/SSH geklont
+%    - Travis CI: GitHub, GitLab, Bitbucket, Assembla `(https://docs.travis-ci.com/user/tutorial/)`
+%    - Circle CI:  GitHub, Bitbucket
+%    - GitHub Actions: GitHub
+%    - GitLab CI: GitLab
+%    - AWS CodePipeline: AWS Code Commit, GitHub, Bitbucket, AWS S3, AWS ECR
+%    - CodeShip IO: Github, Bitbucket, GitLab or other self hosted versions of them
+%    - Azure DevOps: Azure Code, GitHub, Bitbucket
+%- Authentifizierung
+%    - Jenkins: LDAP, Username, Password
+%    - Travis CI: Github, Bitbucket, Gitlab, Assembla
+%    - Circle CI: Github, Bitbucket
+%    - GitHub Actions: Same as Github
+%    - GitLab CI: Same as Github
+%    - AWS CodePipeline: AWS IAM
+%    - CodeShip IO: E-Mail, GitHub, GitLab, BitBucket
+%    - Azure DevOps: Microsoft AD, Github
+%- Rollen und Rechtesystem
+%    - Jenkins: Auf Job Ebene über Gruppen.
+%    - Travis CI: No permissions on Job Level
+%    - Circle CI: No permissions on Job Level
+%    - GitHub Actions: No permissions on Job Level
+%    - GitLab CI: Same as for the project, but not more
+%    - AWS CodePipeline: Through IAM
+%    - CodeShip IO: No permissions on Job Level
+%    - Azure DevOps: Granular permissions with groups
+%- Pipelines as Code
+%    - Jenkins: Declarative Pipeline in Groovy Code
+%    - Travis CI: YAML Files
+%    - Circle CI: YAML Files
+%    - GitHub Actions: YAML Files
+%    - GitLab CI: YAML Files
+%    - AWS CodePipeline: YAML Files
+%    - CodeShip IO: No, setup via UI contains code snippets but no single file
+%    - Azure DevOps: YAML Files
+%- Verwaltung von Secrets
+%    - Jenkins: Über Plugins lassen sich Secrets in die Jobs inizieren.
+%    - Travis CI: https://docs.travis-ci.com/user/best-practices-security/
+%    - Circle CI: https://circleci.com/blog/keep-environment-variables-private-with-secret-masking/
+%    - GitHub Actions: https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets
+%    - GitLab CI: https://docs.gitlab.com/ee/ci/variables/
+%    - AWS CodePipeline: Secrets Manager https://aws.amazon.com/de/about-aws/whats-new/2019/11/aws-codebuild-adds-support-for-aws-secrets-manager/
+%    - CodeShip IO: https://docs.cloudbees.com/docs/cloudbees-codeship/latest/basic-builds-and-configuration/set-environment-variables
+%    - Azure DevOps: Azure Key Vault https://azuredevopslabs.com/labs/vstsextend/azurekeyvault/
+%- Unterstützte Programmiersprachen
+%    - Jenkins: Alles was der Agent ausführen kann, Bash Skripte die mit 0 Ende um einen Erfolg zu signalisieren.
+%    - Travis CI: `https://docs.travis-ci.com/user/languages/`
+%    - Circle CI: `https://circleci.com/docs/2.0/demo-apps/`
+%    - GitHub Actions: Every language that has a docker image available
+%    - GitLab CI: Every language that has a docker image available
+%    - AWS CodePipeline: Every language that has a docker image available
+%    - CodeShip IO: Ruby, Python, Java (Groovy, Scala, Clojure), Go, Javascript, PHP, Rust, Dart, Elixir or custom commands
+%    - Azure DevOps: Every language that has a docker image available
+%- Unterstützte Betriebssysteme
+%    - Jenkins: Alle auf denen der Jenkins Agent installiert oder die per SSH angesporchen werden können.
+%    - Travis CI: Linux, Windows, MacOS
+%    - Circle CI: Linux, Windows, MacOS
+%    - GitHub Actions: Linux, Windows, MacOS
+%    - GitLab CI: Linux, Windows, MacOS
+%    - AWS CodePipeline: All that EC2 can run Linux, Windows, MacOS
+%    - CodeShip IO: `(https://docs.cloudbees.com/docs/cloudbees-codeship/latest/pro-jet-cli/installation)`
+%    - Azure DevOps: `(https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-osx?view=azure-devops)`
+%- Container support
+%    - Jenkins: Yes, through plugins
+%    - Travis CI: Yes
+%    - Circle CI: Yes
+%    - GitHub Actions: Yes
+%    - GitLab CI: Yes
+%    - AWS CodePipeline: Yes
+%    - CodeShip IO: Only in Pro Version
+%    - Azure DevOps: Yes
+%- Dokumentation
+%    - Jenkins: Sehr umfangreich
+%    - Travis CI: Umfangreich, Tutorial beim anglegen des ersten Projekts reicht aus.
+%    - Circle CI: Umfangreich, Tutorial beim anglegen des ersten Projekts reicht aus.
+%    - GitHub Actions: Umfangreich,
+%    - GitLab CI: Umfangreich
+%    - AWS CodePipeline: Zu Umfangreich
+%    - CodeShip IO: Ja aber unterteil in Pro und Basic, das macht es verwirrend
+%    - Azure DevOps: Zu Umfangreich
+%- Usability
+%    - Jenkins: Ohne Erfahrung oder Dokumentation geht hier nix.
+%    - Travis CI: Tutorial beim anglegen des ersten Projekts reicht aus.
+%    - Circle CI: Tutorial beim anglegen des ersten Projekts reicht aus.
+%    - GitHub Actions: Tutorial beim anglegen des ersten Projekts reicht aus.
+%    - GitLab CI: Tutorial reicht nicht ganz
+%    - AWS CodePipeline: Kein Tutorial, sehr viele Einstellungen möglich
+%    - CodeShip IO: Tutorial, komplexe Einstellungen machen es aber nicht einfach.
+%    - Azure DevOps: Viel zu viele Möglichkeiten, ohne Dokumentation nicht einzurichten
+%- Self Hosting
+%    - Jenkins: Ja
+%    - Travis CI: Yes, for more build this seems to be the favourite Option
+%    - Circle CI: Yes
+%    - GitHub Actions: Yes via GitHub Enterprise
+%    - GitLab CI: Yes
+%    - AWS CodePipeline: Nein
+%    - CodeShip IO: Nein
+%    - Azure DevOps: Ja Azure DevOps Server
+%- Besondere Features
+%    - Jenkins: Viele Plugins erlauben sehr individuelle Konfiguration.
+%    - Travis CI: Sehr einfach einzurichten
+%    - Circle CI: Sehr einfach einzurichten, Orbs
+%    - GitHub Actions: Sehr einfach einzurichten
+%    - GitLab CI: Sehr einfach einzurichten
+%    - AWS CodePipeline: Volles AWS Ökosystem nutzbar
+%    - CodeShip IO: Einfache Einrichtung wenn die Programmiersprache unterstützt wird
+%    - Azure DevOps: Scrum, Agile usw einstellbar. Enthält Boards, Sprint Plannung, DevOps, CI/CD, VCS in einer Oberfläche
+%- Rang auf Stackshare
+%    - Jenkins: 1. 33.000 Stacks
+%    - Travis CI: 2. 6.800 Stacks
+%    - Circle CI: 3. 7.350 Stacks
+%    - GitHub Actions:
+%    - GitLab CI: 4. 1590 Stacks
+%    - AWS CodePipeline: 9. 228 Stacks
+%    - CodeShip IO: 5. 1030 Stacks
+%    - Azure DevOps: 201 Stacks

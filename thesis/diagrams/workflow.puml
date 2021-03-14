@@ -1,0 +1,52 @@
+@startuml
+
+title CI/CD Workflow
+
+actor "Developer" as D
+entity "Github" as GH
+
+entity "CircleCI" as CI
+actor "Reviewer" as R
+entity "AWS ECS" as ECS
+entity "AWS ECR" as ECR
+entity "ExApp Lambda" as LMB
+entity "Preview Application" as PRV_APP
+entity "Production Application" as PROD_APP
+
+group Development
+    D <-- GH: Create branch from master
+    D <- D: Make changes to the code
+    D --> GH: Push branch
+end
+
+group Review
+    D --> GH: Create pull request
+    GH --> CI: Start build
+    CI -> CI: Build, test and create docker images
+    CI -> ECR: Push image
+    CI -> ECS: Deploy preview
+    CI -> PRV_APP: Wait for deployed preview
+    CI -> LMB: Create comment with preview URL
+    LMB -> GH: Create comment with preview URL
+    GH -> R: Pull request ready for review
+    R -> R: Review code and preview application
+    R -> GH: Make comments, suggest changes
+    D -> GH: Discuss comments, push changes
+end
+
+alt Pull requests accepted and merged
+    R -> GH : Merge pull request
+    GH -> D : Inform about accepted pull request
+    CI -> LMB: Get merged preview environment
+    CI -> ECS: Delete preview environment
+    GH --> CI: Start master build
+    CI -> CI: Build, test and create docker images
+    CI -> ECR: Push image
+    CI -> PROD_APP: Deploy to production
+    CI -> LMB: Trigger delete of unused images
+    CI -> ECS: Trigger delete of preview application
+    ECS -> PRV_APP: Delete preview application
+    LMB -> ECS: Query for used images
+    LMB -> ECR: Delete unused images
+end
+@enduml

@@ -1,0 +1,24 @@
+\subsubsection{Continouous Integration}\label{ci}
+
+Die von Git und anderen VCS Systemen durchgeführte Prüfung auf Konflikte bezieht sich rein auf Konflikte der Datei- und Zeilenebene.
+Im Falle von Konflikten muss ein Entwickler entscheiden, welche Zeilen übernommen oder angepasst werden müssen.
+Ob die vorgenommenen Änderungen bei der Kompilierung oder im schlimmsten Falle erst zur Laufzeit zu Problemen führen, wird nicht betrachtet.
+
+Diese Prüfung kann nur durch Kompilierung und das Ausführen von Tests vorgenommen werden.
+Dabei soll CI dafür sorgen, dass diese Prüfungen regelmäßig automatisiert durchgeführt werden und nicht erst am Ende einer Entwicklung große Mengen von Änderungen zu Problemen führen.
+\footnote{Abbass et. al, vgl.~\cite{Abbass2019}~[S.1]} \\
+
+CI wird als eine der wichtigsten Praktiken in der Software Industrie angesehen und führt dazu, dass Probleme früher erkannt und behoben werden können.
+Je früher ein Problem erkannt wird, desto günstiger ist dessen Behebung.
+\footnote{Shweta, vgl.~\cite{Shweta2014}~[S.214]}
+\footnote{Fowler, vgl.~\cite{FOWLER_CI}}
+
+
+\footnote{Abbass et. al, vgl.~\cite{Abbass2019}~[S.2]}
+Darüber hinaus soll CI das Problem der sogenannten \textsl{Integration Hell} vermeiden, die entstehen kann, wenn viele Änderungen erst kurz vor einem Release zusammengeführt werden müssen.
+\footnote{Shweta, vgl.~\cite{Shweta2014}~[S.214]} \\
+
+Ein typischer CI-Workflow sollte mindestens eine Kompilierung und die Ausführung von Unit Tests enthalten.
+Da CI-Workflows mit Skripten definiert werden, sind die möglichen Arten von Jobs vielfältig.
+Der Einsatz von CI ist die Voraussetzung für Continouous Delivery, hierdurch können automatisiert und sicher Updates ausgebracht werden.
+\footnote{Shahin et al., vgl.~\cite{Shahin2017}~[S.3910 - S. 3921]}

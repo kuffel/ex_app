@@ -1,0 +1,33 @@
+\newpage
+\subsubsection{Vergleich}\label{collaboration_vcs_vergleich}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% \usepackage{graphicx}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{r|c|c|c|c|}
+\cline{2-5}
+\multicolumn{1}{l|}{} & \textbf{GitHub} & \textbf{GitLab} & \textbf{BitBucket} & \textbf{AWS CodeCommit} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Private Repositories}} & ja (unbegrenzt) & ja (unbegrenzt) & ja (unbegrenzt) & ja (unbegrenzt) \\ \hline
+\multicolumn{1}{|r|}{\textbf{Authentifizierungsmethoden}} & \begin{tabular}[c]{@{}c@{}}Email,\\ LDAP (Enterprise)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Email, Google,\\ Github, LDAP,\\ Twitter, Bitbucket,\\ Salesforce\end{tabular} & Email & IAM \\ \hline
+\multicolumn{1}{|r|}{\textbf{Issue Tracker / Ticket System}} & Nur Issues & Komplettes Ticketsystem & \begin{tabular}[c]{@{}c@{}}Nur über\\ Jira Integration\end{tabular} & Nein \\ \hline
+\multicolumn{1}{|r|}{\textbf{Code Editor}} & Ja & Ja & Ja & Ja \\ \hline
+\multicolumn{1}{|r|}{\textbf{Code Review Unterstützung}} & Ja & Ja & Ja & Ja (rudimentär) \\ \hline
+\multicolumn{1}{|r|}{\textbf{Code Review Approvals}} & Ja & Ja (ab Bronze) & Ja (ab Premium) & Nein \\ \hline
+\multicolumn{1}{|r|}{\textbf{CI/CD Integration}} & Ja, GitHub Actions & Ja, GitLab Runner & Ja & Ja, AWS CodeBuild \\ \hline
+\multicolumn{1}{|r|}{\textbf{Self Hosting}} & \begin{tabular}[c]{@{}c@{}}Ja\\ (Preis nur auf Anfrage)\end{tabular} & Ja (kostenlos) & Ja (EOL Feb. 2024) & Nein \\ \hline
+\multicolumn{1}{|r|}{\textbf{Kommerzieller Support}} & \begin{tabular}[c]{@{}c@{}}Ja\\ (ab Enterprise Level)\end{tabular} & Ja (ab Bronze) & Ja (ab Standard) & \begin{tabular}[c]{@{}c@{}}Ja, AWS Support\\ (\$29 oder 3\%\\ der AWS Rechnung)\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Statistiken}} & Ja (Insights) & Ja (Analytics) & Nein (nur Jira) & \begin{tabular}[c]{@{}c@{}}Ja\\ (CloudWatch Setup\\ erforderlich)\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\multirow{4}{*}{\textbf{\begin{tabular}[c]{@{}r@{}}Kosten\\ (pro Monat)\end{tabular}}}} & \begin{tabular}[c]{@{}c@{}}kostenlos\\ 2000 CI Minuten\\ 500 MB Package\\ Storage\end{tabular} & \begin{tabular}[c]{@{}c@{}}kostenlos\\ 400 CI Minuten\\ 10 GB Speicherplatz\end{tabular} & \begin{tabular}[c]{@{}c@{}}kostenlos\\ 50 CI Minuten\\ 1 GB LFS\end{tabular} & \begin{tabular}[c]{@{}c@{}}kostenlos\\ für bis zu 5 Benutzer\\ 50 GB Storage\\ 10.000 Git Anfragen\end{tabular} \\ \cline{2-5}
+\multicolumn{1}{|r|}{} & \begin{tabular}[c]{@{}c@{}}Team (\$4)\\ pro Benutzer\\ 3000 CI Minuten\\ 2 GB Package\\ Storage\end{tabular} & \begin{tabular}[c]{@{}c@{}}Bronze (\$4)\\ 2.000 CI Minuten\\ Scrum Charts\\ Issues sortieren\\ Push Regeln\\ Code Review Approvals\end{tabular} & \begin{tabular}[c]{@{}c@{}}Standard (\$3)\\ 2.500 CI Minuten\\ 5 GB LFS\end{tabular} & \begin{tabular}[c]{@{}c@{}}Nach 5 Benutzern\\ \$1 pro weiterem \\ Benutzer\\ 2.000 Anfragen\\ pro Benutzer\end{tabular} \\ \cline{2-5}
+\multicolumn{1}{|r|}{} & \begin{tabular}[c]{@{}c@{}}Enterprise (\$21)\\ pro Benutzer\\ 50.000 CI Minuten\\ 50 GB Package Storage\end{tabular} & \begin{tabular}[c]{@{}c@{}}Silver (\$19)\\ 10.000 CI Minuten\\ Roadmaps\\ Project Management\\ Audit Events\\ Deploy Boards\\ Priority Support\end{tabular} & \begin{tabular}[c]{@{}c@{}}Premium (\$6)\\ 3.500 CI Minuten\\ 10 GB LFS\end{tabular} & \begin{tabular}[c]{@{}c@{}}\$0,06 pro GB\\ 0,001 pro Anfrage\end{tabular} \\ \cline{2-5}
+\multicolumn{1}{|r|}{} & \begin{tabular}[c]{@{}c@{}}GitHub One\\ Preis nur auf Anfrage\end{tabular} & \begin{tabular}[c]{@{}c@{}}Gold (\$99)\\ 50.000 CI Minuten\\ Compliance Automatisierung\\ Security Scanning\\ License Compliance\end{tabular} &  &  \\ \hline
+\multicolumn{1}{|r|}{\textbf{Rang auf Stackshare}} & 1. (132.000 Stacks) & 2. (30.500 Stacks) & 3. (25.800 Stacks) & 4. (243 Stacks) \\ \hline
+\multicolumn{1}{|r|}{\textbf{Besonderheiten}} & \begin{tabular}[c]{@{}c@{}}GitHub Desktop App\\ GitHub Pages\\ Wikis\\ Vulnerability Scans\end{tabular} & \begin{tabular}[c]{@{}c@{}}Kanban Boards\\ Ticketsystem\\ Vulnerability Scans\end{tabular} & \begin{tabular}[c]{@{}c@{}}Jira Integration\\ Berechtigungen auf\\ Branches\end{tabular} & \begin{tabular}[c]{@{}c@{}}Integration in AWS\\ "Pay as you go"\end{tabular} \\ \hline
+\end{tabular}%
+}
+\caption{Vergleich VCS Tools}
+\label{tab:vcs_tools_vergleich}
+\end{table}

@@ -1,0 +1,34 @@
+\subsubsection{Container vs VM}\label{containers_vs_vm}
+
+Bei der Virtualisierung von Servern wird Hardware emuliert, um mehrere virtuelle Maschinen auf einem physikalischen Server auszuführen.
+Diese Technologie ermöglicht eine bessere Ausnutzung von Hardware Ressourcen und wird in der IT-Industrie oft verwendet.
+\footnote{Potdar et al., vgl.~\cite{Potdar2020}~[S.1419]}
+Container stellen den nächsten Evolutionsschritt im Bereich der Virtualisierung dar.
+Die Nachteile von Virtualisierung haben zu der Entwicklung von Containern geführt.
+\footnote{Potdar et al., vgl.~\cite{Potdar2020}~[S.1419]}
+Auch wenn VMs und Container verschiedene Probleme lösen sollen, so kann man diese folgendermaßen miteinander vergleichen:
+\footnote{Potdar et al., vgl.~\cite{Potdar2020}~[S.1422]} \\
+
+% https://www.tablesgenerator.com/
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|r|c|c|}
+\hline
+\multicolumn{1}{|c|}{} & \textbf{VM} & \textbf{Container} \\ \hline
+\textbf{Isolation der Prozesse} & Auf Hardware Level & Auf Betriebssystem Level \\ \hline
+\textbf{Betriebssystem} & Getrennt & Geteilt \\ \hline
+\textbf{Startzeit} & Lang & Kurz \\ \hline
+\textbf{Ressourcenverbrauch} & Mehr & Weniger \\ \hline
+\textbf{Vorgefertigte Images} & Kaum verfügbar & Docker Registry \\ \hline
+\textbf{Anpassbare Images} & Komplizierte Erstellung & Dockerfile \\ \hline
+\textbf{Größe} & Größer (mit Betriebssystem) & Klein (nur Anwendung) \\ \hline
+\textbf{Mobilität} & \begin{tabular}[c]{@{}c@{}}Einfach von einem Host zum \\ verschiebbar\end{tabular} & \begin{tabular}[c]{@{}c@{}}Container werden gelöscht\\ und neu erstellt.\end{tabular} \\ \hline
+\textbf{Erstellungszeit} & Minuten & Sekunden \\ \hline
+\end{tabular}
+\caption{Container vs. VMs} \footnote{Pahl, vgl.~\cite{Pahl2015}~[S.25]}
+\label{tab:container-vs-vm}
+\end{table}
+
+Tests haben gezeigt, dass Container in den meisten Fällen schneller sind als virtuelle Maschinen.
+Container sind somit effizienter. \footnote{Potdar et al., vgl.~\cite{Potdar2020}~[S.1428]}

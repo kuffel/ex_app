@@ -1,0 +1,55 @@
+\paragraph{Google Cloud Platform}\label{caas_tools_gcp}
+
+Die Google Cloud Platform (GCP) wurde 2008 gestartet und läuft auf derselben Infrastruktur wie alle anderen Google Dienste.
+\footnote{{Warum Google Cloud?, vgl.~\cite{GCP_WHY}}} \\
+
+Google bietet fast 100 verschiedene Dienste an.
+Darunter auch BigQuery, CDNs, und serverlose Dienste wie Cloud Functions.
+\footnote{{Google Cloud products, vgl.~\cite{GCP_PRODUCTS}}} \\
+
+Der Umsatz der Google Cloud hat sich von 2017 mit 4 Milliarden Dollar auf fast 9 Milliarden Dollar im Jahre 2019 mehr als verdoppelt.
+\footnote{{Global Google Cloud revenues from 2017 to 2020, vgl.~\cite{GCP_REVENUE}}} \\
+
+Hinter AWS und Azure ist GCP der drittgrößte Anbieter von Public Cloud Dienstleistungen.
+
+% ###### 3.4.2.3.1. Einführung GCP
+
+Auch GCP bietet eine Vielzahl verschiedener Dienste an.
+Dieser Abschnitt erläutert die wichtigsten Begriffe, die für die Einführung in GCP notwendig sind:
+
+\begin{itemize}
+    \item \textbf{Regionen und Zonen:}
+    Wie bei Amazon und Azure werden auch Regionen und Zonen für die Standorte verwendet.
+    GPC ist zurzeit in 24 Regionen verfügbar, jede Region hat dabei mindestens 3 AZs.
+    \footnote{{Regions and zones, vgl.~\cite{GCP_REGIONS_AND_ZONES}}}
+
+    \item \textbf{Computing:}
+    In diesem Bereich hat GCP mehrere Angebote, von AppEngine (vollkommen serverlos) bis hin zu VmWare Engine (Ausführung von VMs auf von GCP verwalteten VmWare Hosts).
+    Das Pendant zu EC2 ist bei GCP die sogenannter Compute Engine.
+    \footnote{{Compute Engine, vgl.~\cite{GCP_COMPUTE}}}
+    % `(https://cloud.google.com/products/\#section-5)`
+
+    \item \textbf{IAM:}
+    Das GCP-Angebot ist ähnlich zu dem Angebot von AWS.
+    Es lassen sich Rollen und Rechte zuweisen, die dann den Zugriff auf alle Ressourcen in GCP regeln.
+    \footnote{{Cloud Identity and Access Management, vgl.~\cite{GCP_IAM}}}
+
+    \item \textbf{Container Registry:}
+    Ähnlicher Funktionsumfang wie ECR und Azure Docker Registry.
+    Zusätzlich mit der Möglichkeit, Images auf Sicherheitslücken in Linux Paketen zu scannen.
+    \footnote{{Container Registry, vgl.~\cite{GCP_REGISTRY}}}
+
+    \item \textbf{Load Balancing:}
+    GCP hat 3 verschiedene Load Balancer für HTTP(S), TCP und UDP.
+    \footnote{{Cloud Load Balancing, vgl.~\cite{GCP_LB}}}
+
+    \item \textbf{VPC:}
+    Erlaubt, wie die Lösungen von AWS und Azure, isolierte Netzwerke in GCP zu erstellen.
+    \footnote{{Virtual Private Cloud (VPC), vgl.~\cite{GCP_VPC}}}
+
+\end{itemize}
+
+% ###### 3.4.2.3.2. Container as a Service Angebot
+
+Da Google Kubernetes ursprünglich erschaffen hat, kommt bei GCP ausschließlich Kubernetes zum Einsatz.
+Der Dienst heißt Google Kubernetes Engine (GKE) wird vollständig von Google verwaltet und erlaubt die Nutzung von On-Demand, Reserved und Spot Instances.

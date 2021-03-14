@@ -1,0 +1,136 @@
+\newpage
+\subsubsection{Vergleich}\label{iac_tools_vergleich}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{r|c|c|c|c|}
+\cline{2-5}
+\multicolumn{1}{l|}{} & \textbf{Ansible} & \textbf{Chef} & \textbf{Puppet} & \textbf{Terraform} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Art des Tools}} & \begin{tabular}[c]{@{}c@{}}Config \\ Management\end{tabular} & \begin{tabular}[c]{@{}c@{}}Config \\ Management\end{tabular} & \begin{tabular}[c]{@{}c@{}}Config \\ Management\end{tabular} & Provisioning \\ \hline
+\multicolumn{1}{|r|}{\textbf{\begin{tabular}[c]{@{}r@{}}Behandlung von\\ Infrastruktur\end{tabular}}} & Mutable & Mutable & Mutable & Immutable \\ \hline
+\multicolumn{1}{|r|}{\textbf{Architektur}} & Push & Pull/Push & Pull & Push \\ \hline
+\multicolumn{1}{|r|}{\textbf{Paradigma}} & Procedural & \begin{tabular}[c]{@{}c@{}}Declarative\\ Imperative\end{tabular} & Declarative & Declarative \\ \hline
+\multicolumn{1}{|r|}{\textbf{Master / Masterless}} & Masterless & Master & Master & Masterless \\ \hline
+\multicolumn{1}{|r|}{\textbf{Agent / Agentless}} & Agentless & Agent & Agent & Agentless \\ \hline
+\multicolumn{1}{|r|}{\textbf{Docker Unterstützung}} & Ja & Ja & Ja & Ja \\ \hline
+\multicolumn{1}{|r|}{\textbf{Programmiersprache}} & \begin{tabular}[c]{@{}c@{}}YAML/DSL \\ Embbedded Ruby (ERB)\end{tabular} & Ruby & \begin{tabular}[c]{@{}c@{}}YAML/DSL \\ Embbedded Ruby (ERB)\end{tabular} & \begin{tabular}[c]{@{}c@{}}HashiCorp \\ Configuration \\ Language\\ (HCL2)\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Version (Jahr erstes Release)}} & 2.10 (2012) & 16.8.19 (2009) & 7.1.0 (2005) & 0.14.2 (2014) \\ \hline
+\multicolumn{1}{|r|}{\textbf{Mischen von Tools}} & \begin{tabular}[c]{@{}c@{}}Bash \\ in Skripten\end{tabular} & \begin{tabular}[c]{@{}c@{}}Bash\\ in Skripten\end{tabular} & \begin{tabular}[c]{@{}c@{}}Bash\\ in Skripten\end{tabular} & \begin{tabular}[c]{@{}c@{}}Ansible zur\\ Verwaltung\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Beliebtheit auf GitHub}} & \begin{tabular}[c]{@{}c@{}}46.000 Stars\\ 20.000 Forks\\ 14.700 User\\ \textgreater 5.000 Contributors\end{tabular} & \begin{tabular}[c]{@{}c@{}}6.400 Stars\\ 2.500 Forks\\ 683 Contributors\end{tabular} & \begin{tabular}[c]{@{}c@{}}6.000 Stars\\ 2.200 Forks\\ 548 Contributors\end{tabular} & \begin{tabular}[c]{@{}c@{}}25.900 Stars\\ 6.300 Forks\\ 1.530 Contributors\end{tabular} \\ \hline
+\multicolumn{1}{|r|}{\textbf{Tools des gleichen Anbieters}} & \begin{tabular}[c]{@{}c@{}}Tower\\ Galaxy\end{tabular} & \begin{tabular}[c]{@{}c@{}}Compliance\\ App Delivery\end{tabular} & \begin{tabular}[c]{@{}c@{}}Puppet Enterprise\\ Remediate\\ Compy\\ Connect\\ Relay\end{tabular} & \begin{tabular}[c]{@{}c@{}}Vault\\ Packer\\ Vagrant\\ Nomad\\ Consul\end{tabular} \\ \hline
+\end{tabular}%
+}
+\caption{Vergleich IaC Tools}
+\label{tab:iac_tools_vergleich}
+\end{table}
+
+%`(https://blog.gruntwork.io/why-we-use-terraform-and-not-chef-puppet-ansible-saltstack-or-cloudformation-7989dad2865c)`
+%`(https://www.slideshare.net/LiorKamrat/infrastructure-as-code-getting-started-concepts-tools)`
+%`(https://www.cloudcomputing-insider.de/was-ist-infrastructure-as-code-iac-a-917671/)`
+%`(https://medium.com/@anurag4516/when-to-use-terraform-vs-other-iaac-iaas-tools-ansible-chef-puppet-saltstack-b71a5e003481)`
+%
+%- Dokumentation
+%    - Ansible: `(https://docs.ansible.com/ansible/latest/index.html)`
+%    - Chef: `(https://docs.chef.io/chef\_overview/)`
+%    - Puppet: `(https://puppet.com/docs/puppet/7.1/puppet\_index.html)`
+%    - Salt Stack: `(https://docs.saltstack.com/en/latest/)`
+%    - Terraform: `(https://www.terraform.io/intro/index.html)`
+%- Art des Tools (Config Management/Provisioning)
+%    - Ansible: Config Management
+%    - Chef: Config Management
+%    - Puppet: Configuration Management
+%    - Salt Stack: Configuration Management
+%    - Terraform: Provisioning
+%- Behandlung von Infrastruktur (Mutable/Immutable)
+%    - Ansible: Mutable
+%    - Chef: Mutable
+%    - Puppet: Mutable
+%    - Salt Stack: Mutable
+%    - Terraform: Immutable
+%- Architektur (Push/Pull)
+%    - Ansible: Push
+%    - Chef: Pull/Push `(https://docs.chef.io/chef\_overview/\#chef-infra-components)`
+%    - Puppet: Pull
+%    - Salt Stack: Pull/Push
+%    - Terraform: Push
+%- Procedural vs. Decalartive
+%    - Ansible: Procedural
+%    - Chef: Declarative \& Imperative
+%    - Puppet: Declarative
+%    - Salt Stack: Declarative \& Imperative
+%    - Terraform: Declarative
+%- Master vs Masterless
+%    - Ansible: Masterless
+%    - Chef: Master
+%    - Puppet: Master
+%    - Salt Stack: Master
+%    - Terraform: Masterless
+%- Agent vs Agentless
+%    - Ansible: Agentless
+%    - Chef: Agent
+%    - Puppet: Agent
+%    - Salt Stack: Agent
+%    - Terraform: Agentless
+%- Docker Unterstützung
+%    - Ansible: Ja `(https://docs.ansible.com/ansible/latest/collections/community/docker/index.html)`
+%    - Chef: Ja `(https://gist.github.com/maxivak/167e46b3570a834231be7bbeefe9243a)`
+%    - Puppet:
+%    - Salt Stack:
+%    - Terraform:
+%- Programmiersprache
+%    - Ansible: YAML/DSL and Embbedded Ruby (ERB)
+%    - Chef: Ruby
+%    - Puppet: YAML/DSL and Embbedded Ruby (ERB)
+%    - Salt Stack: YAML/DSL
+%    - Terraform: HashiCorp Configuration Language (HCL2)
+%- Reifegrad
+%    - Ansible: 2.10 (Initial Releases 2012)
+%    - Chef: 16.8.19 (Intial Release 2009)
+%    - Puppet: 7.1.0 (Initial Release 2005)
+%    - Salt Stack: 3001.4 (Initial Release 2011)
+%    - Terraform: 0.14.2 (Initial Release 2014)
+%- Mischen von Tools
+%    - Ansible: Ja, in Ansible Skripten kann Bash genutzt werden, verwaltete Maschinen haben keinen Agent, wissen nix von Ansible
+%    - Chef: Ja, Bash, Terraform
+%    - Puppet:
+%    - Salt Stack:
+%    - Terraform:
+%- Beliebtheit auf GitHub (Stars)
+%    - Ansible: 46.000 Stars / 20.000 Forks / Used by 14.700 / Contributors 5000+
+%    - Chef: 6400 Stars / 2500 Forks / 638 Contributors
+%    - Puppet: 6000 Stars / 2200 Forks / 548 Contributors
+%    - Salt Stack: 11.400 Stars / 5000 Forks / 2290 Contributors
+%    - Terraform: 25.900 Stars / 6300 Forks / 1530 Contributors
+%- Community Size
+%    - Ansible:
+%    - Chef:
+%    - Puppet:
+%    - Salt Stack:
+%    - Terraform:
+%- Unterstützungtools des gleichen Anbieters
+%    - Ansible:
+%        - Tower: Zentralisierte Ausführung von Ansible mit Oberfläche `(https://www.ansible.com/products/tower)`
+%        - Galaxy: Sammlung von vorgefertigten Taks und Playbooks `(https://www.ansible.com/community/galaxy)`
+%    - Chef:
+%    - Siehe Produkte
+%    - Puppet:
+%    - Salt Stack:
+%    - Terraform:
+%- Kommerzieller Support
+%    - Ansible: Über RedHat verfügbar
+%    - Chef: Über Chef verfügbar
+%    - Puppet:
+%    - Salt Stack:
+%    - Terraform:
+%- Preise
+%    - Ansible: Kostenlos / Supportpreise nur auf Anfrage `(https://www.ansible.com/products/pricing)`
+%    - Chef: Chef Infra Kostenlos / Supportpreise nur auf Anfrage `(https://www.chef.io/pricing)`
+%    - Puppet:
+%    - Salt Stack:
+%    - Terraform:
+
+
+

@@ -1,0 +1,57 @@
+\paragraph{Azure}\label{caas_tools_azure}
+
+Azure wurde 2010 von Microsoft als Windows Azure gestartet und ist ein IaaS, Paas und SaaS Anbieter.
+Die Dienste können hier auch lokal, hybrid, Edge oder Multicloud genutzt werden.
+Immer mehr Desktop Produkte von Microsoft werden als SaaS Lösungen angeboten.
+Diese sind dann oft günstiger als die lokale Variante.
+\footnote{{Office 365 Plans, vgl.~\cite{AZURE_OFFICE_PLANS}}} \\
+
+Die Stärke von Azure liegt in der Unterstützung von lokalen, hybriden und Edge Cloud Lösungen.
+Da viele Unternehmen Windows Server einsetzen, kann mit Azure eine On-Premise Lösung mit der Cloud als Backup und Kapazitätserweiterung erschaffen werden. \\
+
+Microsofts Umsatz an Cloud Diensten wie Azure und Office 365 hat sich von 2014 bis 2020 verdoppelt.
+\footnote{{Microsoft's revenue from 2012 to 2020 financial years, by segment, vgl.~\cite{AZURE_REVENUE}}} \\
+
+% `(https://www.datamation.com/cloud-computing/aws-vs-azure-vs-google-cloud-comparison.html)`
+% Azure hat auch mehr Zertifizierungen als alle anderen Cloud Anbieter `(https://docs.microsoft.com/de-de/compliance/regulatory/offering-home)`
+
+Azure hat ebenfalls eine Vielzahl an verschiedenen Diensten.
+Dieser Abschnitt erläutert die wichtigsten Begriffe, die für die Einführung in Azure notwendig sind:
+
+\begin{itemize}
+    \item \textbf{Region und Availability Zone:}
+    Azure hat das gleiche Konzept wie AWS, eine Region besteht ebenfalls immer aus mehreren AZs.
+    \footnote{{Regions and Availability Zones in Azure, vgl.~\cite{AZURE_REGIONS_AND_AZS}}}
+
+    \item \textbf{Virtual Machines:}
+    Bis zu 416 vCPUs und 12 TB RAM, die per API oder über die Management-Konsole gestartet werden können.
+    \footnote{{Virtual Machines, vgl.~\cite{AZURE_VIRTUAL_MACHINES}}}
+
+    \item \textbf{Identity and Access Management:}
+    Azure verwendet ein Active Directory mit Single-Sign-On und der Möglichkeit Unternehmenskonten für die Authentifizierung und Autorisierung zu verwenden.
+    Eigene Anwendungen können mittels AD abgesichert werden.
+    \footnote{{Azure Active Directory, vgl.~\cite{AZURE_AD}}}
+
+    \item \textbf{Container Registry:}
+    Von Azure verwaltete Container Registry und Zugriffsregeln lassen sich per AD einstellen.
+    \footnote{{Container Registry, vgl.~\cite{AZURE_CONTAINER_REGISTRY}}}
+
+    \item \textbf{Load Balancer:}
+    Azure bietet hier zwei Produkte: Einerseits das Application Gateway für HTTP(S) Load Balancing und SSL Terminierung,
+    andererseits den Azure Load-Balancer für den reinen TCP/UDP Traffic.
+    \footnote{{Application Gateway, vgl.~\cite{AZURE_APPLICATION_GATEWAY}}}
+    \footnote{{Load Balancer, vgl.~\cite{AZURE_LOAD_BALANCER}}}
+
+    \item \textbf{Virtual Network:}
+    Erlaubt - wie AWS VPCs - isolierte Netwerke in Azure zu erstellen und zu verwalten.
+    \footnote{{Virtual Network, vgl.~\cite{AZURE_VIRTUAL_NETWORK}}}
+
+\end{itemize}
+
+% ###### 3.4.2.2.2. Container as a Service Angebot
+
+Azure bietet einen \textbf{Kubernetes Service (AKS)} an,
+welcher auch in Azure DevOps integriert werden kann, um CI/CD zu erleichtern.
+Wie bei AWS ist es auch möglich On-Demand, Reserved und Spot Instances zu verwenden.
+Azure bietet eine vollständig durch Azure verwaltete Kubernetes API an.
+\footnote{{Azure Kubernetes Service, vgl.~\cite{AZURE_KUBERNETES}}}

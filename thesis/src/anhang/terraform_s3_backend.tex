@@ -1,0 +1,7 @@
+\lstset{language=bash}
+\begin{lstlisting}[frame=htrbl, caption={Terraform S3 Bucket Backend}, label={lst:terraform_s3_backend}]
+aws s3api create-bucket \
+--bucket kuffel-terraform-states \
+--region eu-central-1 \
+--create-bucket-configuration LocationConstraint=eu-central-1
+\end{lstlisting}
