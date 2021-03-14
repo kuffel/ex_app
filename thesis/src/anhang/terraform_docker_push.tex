@@ -1,0 +1,5 @@
+\lstset{language=bash}
+\begin{lstlisting}[frame=htrbl, caption={Image nach ECR pushen}, label={lst:terraform_docker_push}]
+docker tag kuffel/ex_app:latest 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:latest
+docker push 418124467834.dkr.ecr.eu-central-1.amazonaws.com/kuffel/ex_app:latest
+\end{lstlisting}

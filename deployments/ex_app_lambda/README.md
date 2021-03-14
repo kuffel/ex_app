@@ -12,13 +12,6 @@ The following endpoints are provided by this project:
 
 The corresponding scripts are placed in `../scripts` 
 
-
-
-TODO: Why? https://ideas.circleci.com/api-feature-requests/p/expose-github-webhook-events-and-status-message-api
-
-
-
-
 ## Getting started
 
 - Create a `Personal Access Token` using the [Github UI](https://github.com/settings/tokens)

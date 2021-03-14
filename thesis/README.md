@@ -1,9 +1,13 @@
 # Thesis
 
-Folder for various plantuml based diagrams for the thesis.
+Folder with the LaTex source files for the thesis.
 
-## Getting started
+Use scripts/generatePdf.sh to create the PDF.
 
+## Generate diagrams
+
+The diagrams folder contains plantuml files for various diagrams.
+ 
 Install this tools to generate the diagrams:
 
 ```bash

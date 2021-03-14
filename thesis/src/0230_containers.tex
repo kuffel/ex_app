@@ -1,0 +1,62 @@
+\newpage
+\subsection{Container}\label{container}
+
+Bei der Verwendung von Containern sind häufig Docker-Container gemeint.
+Es handelt sich dabei jedoch nicht um die einzige Implementierung von Containern.
+Sie erlauben das Verpacken von Software mit ihren Abhängigkeiten in ein standardisiertes Format zur Weiterverteilung.
+\footnote{What is a Container?, vgl.~\cite{DOCKER_WEBSITE}} \\
+
+Bei der Einführung von Docker im Jahre 2013 wurde die bereits in Linux vorhandene Container Technologie einfacher für eine breite Masse von Entwicklern nutzbar gemacht.
+Durch eingebaute Funktionen im Linux Kernel, wie LXC, Namespaces und Control groups, war es schon vor der Einführung von Docker möglich Container zu verwenden.
+\footnote{Pahl, vgl.~\cite{Pahl2015}~[S.25 - S.26]} \\
+
+Diese Vereinfachung der Nutzung von Containern führte zu einer verstärkten Adoption von Containern zur Veröffentlichung von Applikationen.
+
+Mit \textsl{Containerd} existiert mittlerweile auch eine standardisierte Laufzeitumgebung für Container.
+Docker und Kubernetes verwenden diese Laufzeitumgebung.
+\footnote{Containerd, vgl.~\cite{CONTAINERD_WEBSITE}} \\
+
+Docker ist mit Abstand die populärste Software zur Ausführung von Containern.
+Die folgenden Abschnitte werden sich also vorwiegend auf Docker beziehen.
+\footnote{What are the best Virtual Machine Platforms and Containers Tools?, vgl.~\cite{STACKSHARE_CONTAINERS_VMS}}
+
+
+%    [RESTE]
+%    - Container-based virtualization uses single kernel to run multiple instances on an operating system and virtualization layer runs as an application within the operating system `(Singh, 804)`
+%    - Platform-as-a-service clouds can use containers to manage and orchestrate applications. `(Pahl, 24)`
+%    - Server virtualization is a technological innovation broadly used in IT enterprises `(Potdar, 1419)`
+%    - Although VMs and containers are both virtualization techniques, they solve different problems. `(Pahl, 24)`
+%    - Recent OS advances have improved their multi- tenancy capabilities: LXC, Namespace isolation, Control groups. `(Pahl, 25 - 26)`
+%    - High demand for low overhead virtualization technology, docker is one of them `(Potdar, 1419)`
+%    - solution, containerization: lightweight portable runtime, capability to develop, test, and deploy appli- cations to a large number of servers, capability to interconnect containers `(Pahl, 24)`
+%    - Drawbacks VMs: Large, unstable performance, boot up times, unable to solve difficulties like management, sw updates, and ci/cd `(Potdar, 1419)`
+%    - VM Drawbacks led to containerization, uses the host os, no guest os, os kernels isolated space. `(Potdar, 1420)`
+%    - virtualization technologies have de- veloped out of the need for scheduling processes as manageable container units `(Pahl, 25)`
+%    - combines the application, related dependencies, and system libraries organized to build in the form of a container. `(Potdar, 1420)`
+%    - Essential parts of docker: Docker daemon, REST API, Docker client . `(Potdar, 1420)`
+%    - The Docker client and daemon can run on the same system or a Docker client can ccommunicate through sockets or RESTful API to a remote Docker daemon `(Singh, 806)`
+%    - Images: Two ways to get them (Registry / Dockerfile) `(Potdar, 1421)`
+%    - Docker images are read-only templates and Docker registries hold these images `(Singh, 806)`
+%    - A container is represented by lightweight images; VMs are also based on images but full, monolithic ones `(Pahl, 26)`
+%    - A container is a light weight operating system running inside the host system, running instructions native to the core CPU, eliminating the need for instruction level emulation or just in time compilation `(Raja, 610)`
+%    - Container-based virtualization improves performance and efficiency compared to conventional hypervisor since additional resources needed for each OS is eliminated `(Singh, 805)`
+%    - The containers are lightweight, portable, efficient and can run on physical servers. We can run more containers on a physical servers than virtual machines which results in higher resource utilization `(Singh, 805)`
+%    - Containers are based on layers composed from indi- vidual images built on top of a base image that can be extended `(Pahl, 26)`
+%    - Containers: Running application held in the container `(Potdar, 1421)`
+%    - A container holds packaged, self-contained, ready-to-deploy parts of applications and, if neces- sary, middleware and business logic (in binaries and libraries) to run applications `(Pahl, 25)`
+%    - Containers vs VMs: Docker sometimes referred as lightweight VMs `(Potdar, 1421)`
+%    - Containers are a similar but more light- weight virtualization concept; they’re less resource and time-consuming, thus they’ve been suggested as a solution for more interoperable application pack- aging in the cloud `(Pahl, 24)`
+%    - The repositories play a central role in providing access to possibly tens of thousands of reusable pri- vate and public container images `(Pahl, 26)`
+%    - Network management is based on two methods for assigning ports on a host—network port mappings and container linking. `(Pahl, 27)`
+%    - VMs vs Containers:  `(Potdar, 1422)`
+%    - Isolation Process Level:  Hardware /  Operating System
+%    - Operating System: Seperated / Shared
+%    - Boot up time: Long / Short
+%    - Ressource usage: More / Less
+%    - Prebuilt images: Hard to find / Docker registry
+%    - Customised preconfigured images: Hard to build / Easy to build
+%    - Size: Bigger (contains OS) `(Pahl, 25)` / Smaller
+%    - Mobility: Easy to move to a new host OS / Destroy and recreated
+%    - Creation time: Minutes / Seconds
+%    - It is observed that Docker containers perform better over VM in every test, as the presence of QEMU layer in the virtual machine makes it less efficient than Docker containers `(Potdar, 1428)`
+%    - Containers as a service (CaaS) is a form of container-based virtualization in which container engines, orchestration & underlying compute resources are provided to users as a service. Most of the public cloud providers like Amazon Web Services (AWS), IBM, Google, Rackspace and Joyent have some type of CaaS offering `(Singh, 807)`

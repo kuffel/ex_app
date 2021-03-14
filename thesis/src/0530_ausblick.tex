@@ -1,0 +1,49 @@
+\subsection{Ausblick}\label{ausblick}
+
+Die implementierte CI/CD Pipeline ist in erster Linie eine Basis für weiterführende Möglichkeiten.
+Folgende Themen wurden im Rahmen der Arbeit betrachtet, jedoch nicht weiterverfolgt:
+
+\begin{itemize}
+    \item \textbf{Frontend Testing:}
+    Mit dem UI-Testing Frameworks, wie \href{https://www.selenium.dev/}{Selenium}, lassen sich Abläufe in einem Webbrowser fernsteuern.
+    Um einen Browser in der CI/CD Pipeline ohne Oberfläche zu starten, benötigt man einen WebDriver und einen passenden Browser.
+    Circle CI enthält für gängige Browser Test Frameworks \href{https://circleci.com/docs/2.0/browser-testing/}{Dokumentation und Tutorials}.
+    Durch automatisierte Frontend Test kann ein Review zusätzlich beschleunigt werden,
+    da der Reviewer im besten Fall nicht manuell neue Features ausprobieren muss.
+
+    \item \textbf{IaC Linting:}
+    Im Rahmen der CI/CD Pipeline werden die Terraform Skripte mit dem Kommando \texttt{terraform validate} überprüft.
+    Dabei wird jedoch nur die Syntax geprüft, eine Prüfung der Parameter wird dabei nicht durchgeführt.
+    Ein Fehler in diesen Parametern würde somit erst beim Deployment auffallen.
+    Durch das Preview Deployment werden diese Probleme früh erkannt.
+    Um diese Probleme noch früher zu erkennen, könnte mit der Anwendung \href{https://github.com/terraform-linters/tflint}{tflint} eine Prüfung der Parameter vorgenommen werden.
+
+    \item \textbf{Vollständig Automatisierung:}
+    Mit vollständiger Test-Abdeckung wäre es auch möglich, eine vollständige automatisches CI/CD-Pipeline zu erstellen.
+    Der Merge Request würde regulär durchgeführt werden.
+    Es würde nach Abschluss aller Tests und Prüfungen ein automatischer Merge stattfinden.
+    Ohne die Kontrolle durch einen menschlichen Reviewer müssten dafür eine höhere Test-Abdeckung, sowie die Möglichkeit von automatischen Rollbacks im Fehlerfall geschaffen werden.
+
+    \item \textbf{DevSecOps:}
+    Um die Stufe 5 der DevOps Reifegrade zu erreichen ist eine Einbindung von Sicherheitsteams in die Prozesse erforderlich.
+    Diese Einbindung erfolgt oft unter dem Begriff DevSecOps.
+    Hierfür könnten Prüfungen bereits in die CI/CD Pipeline eingebaut werden.
+    Mit den Tools \href{https://github.com/tfsec/tfsec}{tfsec} und \href{https://kics.io/}{kics} lassen sich Terraform Skripte statisch auf Sicherheitsprobleme hin überprüfen.
+    Für das verwendete Phoenix Framework gibt es mit \href{https://github.com/nccgroup/sobelow}{sobelow} ein weiteres statisches Codeanalyse Tool,
+    welches automatisch Prüfungen auf Sicherheitsprobleme durchführen kann.
+\end{itemize}
+
+% Circle CI Paid Plans mit Docker Layer Caching um Build Zeiten zu senken
+% Eigene Metriken und Telemetrie
+% A/B Testing für Features
+% Automatische Lasttests via z.B. loadimpact.io
+%-Serverless CI/CD mit AWS Lambda
+%-AWS Cloud9 ist ein intressanter Weg (Pair Programming, No Software Install)
+%-AWS CodeGuru
+%-User Feedback
+% IaC hat oft sehr unterschiedliche Ausprägungen
+% Cloud Provider haben alle Kubernetes als Option
+% AWS geht mit ECS einen eigenen Weg
+% AWS soweit vorraus das Azure/Google eigene Guides für ihre Eigene Terminologie vs AWS haben
+% AWS CodeStar Tools für große Unternehmen die alles auf AWS Integrieren möchten gut.
+

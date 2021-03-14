@@ -1,0 +1,43 @@
+\subsection{Vorbereitung Entwicklungsumgebung}\label{implementierung_entwicklungsumgebung}
+
+\subsubsection{Installation}
+
+Um die Beispielanwendung erstellen und ausführen zu können, müssen auf dem PC einige Softwarepakete installiert werden.
+Dieser Abschnitt beschreibt welche Komponenten installiert werden müssen um die nachfolgenden Abschnitte ausführen zu können.
+
+Die Beschreibungen setzen voraus das ein Linux Betriebssystem verwendet wird.
+Auf Debian basierenden Betriebssystemen sollten die folgenden Befehle alle notwendigen Pakete installieren:
+
+\paragraph{Git}
+
+Zur Versionierung wird Git verwendet, dieses muss zunächst installiert und konfiguriert werden:
+
+\lstset{language=bash}
+\begin{lstlisting}[frame=htrbl, caption={Git Installation}, label={lst:git_setup}]
+
+
+asdf plugin add terraform
+asdf install terraform 0.13.5
+asdf global terraform 0.13.5
+\end{lstlisting}
+
+\paragraph{Docker}
+
+Je nach Betriebssystem kann die Installation abweichen, sollte aber generell mit den folgenden Kommandos möglich sein.
+
+
+
+
+\paragraph{Erlang und Elixir}
+
+Zur Installation von Erlang und Elixir kann ASDF verwendet werden. `(https://github.com/asdf-vm/asdf)`
+
+.tool-versions Erklären
+
+\paragraph{AWS CLI}
+
+Die AWS CLI wird im Hintergrund von Terraform verwendet und muss installiert und konfiguriert werden:
+
+\paragraph{Terraform}
+
+Terraform lässt sich ebenfalls über ASDF installieren:

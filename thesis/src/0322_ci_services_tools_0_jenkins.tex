@@ -1,0 +1,21 @@
+\paragraph{Jenkins}\label{ci_services_tools_jenkins}
+
+Im Jahre 2007 erschien Jenkins als Hudson Open-Source Build Server und wurde später umbenannt. \footnote{Hudson Announcement, vgl.~\cite{JENKINS_ANOUNCEMENT}}
+Dieser wurde mit Abstand der beliebteste Build Server.
+Durch zahlreiche Plugins (> 1.500 Stück) lässt er sich für alle Einsatzzwecke anpassen. \footnote{Jenkins Awards, vgl.~\cite{JENKINS_AWARDS}}
+Der Dienst wird i.d.R. als selbst gehosteter Server eingesetzt und hat eine Master/Slave Architektur.
+Der Master kontrolliert die sogenannten Jenkins Agents auf denen die Builds ausgeführt werden.
+Es lassen sich jedoch auch Builds auf dem Master ausführen. \\
+
+Durch die Unterstützung von Docker basierenden Agents lässt sich jede Programmiersprache - für die es ein Docker-Image gibt - verwenden.
+Jenkins Agents lassen sich entweder über SSH oder über einen Java basierten Jenkins Agent verwalten.
+Dadurch ist es möglich Windows, Linux und MacOS zu verwenden. \\
+
+Die Konfiguration kann entweder über die Jenkins Oberfläche oder über Jenkinsfiles erstellt werden.
+Ein Jenkinsfile wird dabei in der Programmiersprache Groovy verfasst. \footnote{Pipeline Syntax, vgl.~\cite{JENKINS_JENKINSFILE}}
+
+Um Passwörter und andere Geheimnisse in die Builds zu injizieren stehen Plugins zur Verfügung.
+Diese sorgen ebenfalls dafür, dass injizierte Geheimnisse nicht in den Log Dateien der Builds sichtbar sind. \\
+
+Da es sich um einen selbst gehosteten Buildsserver handelt, lassen sich die Kosten nicht pauschal bestimmen.
+Die Verwaltung einer Jenkins Infrastruktur erfordert also eine Administration vom Unternehmen selbst.

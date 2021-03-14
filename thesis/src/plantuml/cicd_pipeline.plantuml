@@ -1,0 +1,20 @@
+@startuml
+
+actor "Entwickler"
+database "VCS"
+entity "CI/CD Server"
+entity "Produktivsystem"
+
+"Entwickler" -> "VCS": Abgabe einer Änderung
+"VCS" -> "CI/CD Server": Information über Änderung
+"CI/CD Server" -> "VCS": Änderungen holen
+"CI/CD Server" -> "CI/CD Server": Ausführung der CI/CD Skripte
+"CI/CD Server" -> "CI/CD Server": Ausführung der Tests
+
+alt Tests erfolgreich
+    "CI/CD Server" -> "Produktivsystem": Änderungen installieren
+    "CI/CD Server" -> "Entwickler": Positives Feedback
+else Tests fehlgeschlagen
+    "CI/CD Server" -> "Entwickler": Negatives Feedback
+end
+@enduml
