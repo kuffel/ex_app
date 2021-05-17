@@ -207,7 +207,7 @@ jobs:
           name: remove unused images
           command: |
             cd deployments/scripts
-            ./cleanup_images.sh ${GITHUB_ACCESS_TOKEN}
+            ./cleanup_images.sh ${GITHUB_ACCESS_TOKEN} || true
 
 workflows:
   version: 2
